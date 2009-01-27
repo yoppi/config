@@ -1,0 +1,19 @@
+# .gitconfig
+
+[user]
+  name = yoppi
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[alias]
+  b = branch   
+  ba = branch -a
+  br = branch -r
+  ci = commit
+  co = checkout
+  d = diff
+  st = status
+
+
+# __END__

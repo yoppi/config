@@ -1,0 +1,17 @@
+# .screenrc
+
+defencoding utf-8
+escape ^k^k
+startup_message off
+shell /bin/zsh
+defscrollback 10000
+autodetach on
+vbell off
+bindkey -k kD stuff \177
+#hardstatus alwayslastline "screen | %w | %u %= %y/%m/%d %c"
+#hardstatus alwayslastline "%{= wk} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wb}%y/%m/%d %{=b wb}%c"
+hardstatus alwayslastline "%{= wk} %-w%{=bu dG}%n %t%{-}%+w %= %{=b kY}%y/%m/%d %{=b kY}%c"
+shelltitle "shell"
+
+# by kana - http://github.com/kana/config/tree/master/vim/dot.vimrc
+bind I eval 'title "main"' 'screen -t "work"' 'select "main"'
