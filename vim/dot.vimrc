@@ -53,12 +53,13 @@ function! Set_tabline()
     let curbufnr = bufnrs[tabpagewinnr(i)-1] " get current window buffer 
     let no = (i <=10 ? i-1 : '#')            " tab number is started 0, like screen
     let mod = len(filter(bufnrs, 'getbufvar(v:val, "&mod")')) ? '+' : ' '
-    let title = pathshorten(bufname(curbufnr))
+    let title = fnamemodify(bufname(curbufnr), ':t')
     let title = len(title) ? title : '[No name]'
+    let cur = fnamemodify(bufname(curbufnr), ':p:h') == getcwd() ? 'c' : '*'
 
     let s .= '%' . i . 'T'
     let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= ' ' . no . mod . title . ' '
+    let s .= ' ' . no . mod . title . '[' . cur . ']'
     let s .= '%#TabLineFill#'
   endfor
 
