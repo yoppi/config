@@ -56,7 +56,7 @@ function! Set_tabline()
     let mod = len(filter(bufnrs, 'getbufvar(v:val, "&mod")')) ? '+' : ' '
     let title = fnamemodify(bufname(curbufnr), ':t')
     let title = len(title) ? title : '[No name]'
-    let cur = fnamemodify(bufname(curbufnr), ':p:h') == getcwd() ? 'c' : '*'
+    let cur = fnamemodify(bufname(curbufnr), ':p:h') == getcwd() ? '@' : '*'
 
     let s .= '%' . i . 'T'
     let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
