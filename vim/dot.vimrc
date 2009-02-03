@@ -35,6 +35,7 @@ set formatoptions=tcroqlM
 set hlsearch
 set ignorecase
 set imdisable
+set incsearch
 set laststatus=2
 set ruler
 set showcmd
@@ -59,7 +60,7 @@ function! Set_tabline()
 
     let s .= '%' . i . 'T'
     let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= ' ' . no . mod . title . '[' . cur . ']'
+    let s .= ' ' . no . mod . title . '[' . cur . ']' . ' '
     let s .= '%#TabLineFill#'
   endfor
 
@@ -189,7 +190,7 @@ hi TabLineSel  ctermbg=green ctermfg=white
 "endif
 
 " memorize previous tabpage number "{{{2
-" Tabpage order is belong, 
+" Tabpage Action
 if !exists('g:pre_tabnr')
   let g:pre_tabnr = tabpagenr()
 endif
@@ -199,7 +200,6 @@ endif
 
 autocmd MyAutoCmd TabLeave *
 \ let g:pre_tabnr = g:cur_tabnr
-
 autocmd MyAutoCmd TabEnter *
 \ let g:cur_tabnr = tabpagenr()
 
@@ -255,6 +255,8 @@ command! -bang -bar -complete=file -nargs=? Cp932
 \ edit<bang> ++enc=cp932 <args>
 command! -bang -bar -complete=file -nargs=? Iso2022jp
 \ edit<bang> ++enc=iso-2022-jp <args>
+command! -bang -bar -complete=file -nargs=? Jis  Iso2022jp<bang> <args>
+command! -bang -bar -complete=file -nargs=? Sjis  Cp932<bang> <args>
 
 " check highlighing {{{2
 command! -nargs=0 GetHighlightingGroup
