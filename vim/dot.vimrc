@@ -150,6 +150,21 @@ for i in range(10)
 endfor
 unlet i
 
+" quickfix, by kana "{{{2
+nnoremap qj :<C-u>cnext<Return>
+nnoremap qk :<C-u>cprevious<Return>
+nnoremap qr :<C-u>crewind<Return>
+nnoremap qJ :<C-u>clast<Return>
+nnoremap qK :<C-u>cfirst<Return>
+nnoremap qfj :<C-u>cnfile<Return>
+nnoremap qfk :<C-u>cpfile<Return>
+nnoremap ql :<C-u>clist<Return>
+nnoremap qq :<C-u>cnext<Return>
+nnoremap qo :<C-u>copen<Return>
+nnoremap qc :<C-u>cclose<Return>
+nnoremap qp :<C-u>colder<Return>
+nnoremap qn :<C-u>cnewer<Return>
+nnoremap qg :<C-u>vimgrep 
 
 " Color Syntax "{{{1
 syntax on
