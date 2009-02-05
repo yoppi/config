@@ -31,7 +31,7 @@ set cursorline
 set directory=~/tmp,/tmp
 set expandtab
 set foldmethod=marker
-set formatoptions=tcroqlM
+set formatoptions=tcroqMm
 set hlsearch
 set ignorecase
 set imdisable
