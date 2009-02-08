@@ -105,6 +105,8 @@ noremap : ;
 noremap ; :
 noremap ' `
 noremap ` '
+
+" auto complete parentheses "{{{2
 ""inoremap { {}<LEFT>
 ""inoremap [ []<LEFT>
 ""inoremap ( ()<LEFT>
@@ -159,7 +161,7 @@ nnoremap qK :<C-u>cfirst<Return>
 nnoremap qfj :<C-u>cnfile<Return>
 nnoremap qfk :<C-u>cpfile<Return>
 nnoremap ql :<C-u>clist<Return>
-nnoremap qq :<C-u>cnext<Return>
+nnoremap qq :<C-u>cc<Return>
 nnoremap qo :<C-u>copen<Return>
 nnoremap qc :<C-u>cclose<Return>
 nnoremap qp :<C-u>colder<Return>

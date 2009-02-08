@@ -1,6 +1,7 @@
 scriptencoding utf-8
 " hatena.vim
 " Author:       motemen <motemen@gmail.com>
+" Modified by:  yoppi http://d.hatena.ne.jp/yoppiblog/
 " Version:      20070830
 
 " Installation "{{{1
@@ -130,6 +131,7 @@ function! hatena#edit(...) "{{{2
   let content = s:load_content(base_url, user, year, month, day, cookie_file)
 
   " セッション(編集バッファ)を作成
+  let fenc_save = &fileencoding
   let tmpfile = tempname()
   execute g:hatena_edit_command tmpfile
   set filetype=hatena
@@ -153,14 +155,24 @@ function! hatena#edit(...) "{{{2
   let b:diary_title   = content['diary_title']
   let b:day_title     = content['day_title']
   let b:timestamp     = content['timestamp']
-  let b:prev_titlestring = &titlestring
+  let b:titlestring_save = &titlestring
 
-  "autocmd BufWritePost <buffer> call s:update() | set readonly |let &titlestring = b:prev_titlestring | bdelete
-  autocmd BufWritePost <buffer> call s:update() | let &titlestring = b:prev_titlestring | bdelete
-  autocmd WinLeave <buffer> let &titlestring = b:prev_titlestring
-  autocmd WinEnter <buffer> let &titlestring = b:diary_title . ' ' . b:year . '-' . b:month . '-' . b:day . ' [' . b:hatena_login_info[1] . ']'
-  let &titlestring = b:diary_title . ' ' . b:year . '-' . b:month . '-' . b:day . ' [' . user . ']'
+  "autocmd BufWritePost <buffer> 
+  "\   call s:update()
+  "\ | set readonly
+  "\ | let &titlestring = b:prev_titlestring
+  "\ | bdelete
+  autocmd BufWritePost <buffer> 
+  \   call s:update() 
+  \ | let &titlestring = b:prev_titlestring 
+  \ | bdelete
+  autocmd WinLeave <buffer>  let &titlestring = b:titlestring_save
+  autocmd WinEnter <buffer> 
+  \ let &titlestring = b:diary_title . ' ' . b:year . '-' . b:month . '-' 
+  \                    . b:day . ' [' . b:hatena_login_info[1] . ']'
 
+  let &titlestring = b:diary_title . ' ' . b:year . '-' . b:month . '-' 
+                     \ . b:day . ' [' . user . ']'
   let nopaste = !&paste
   set paste
   execute 'normal i' . content['body']
@@ -168,6 +180,7 @@ function! hatena#edit(...) "{{{2
     set nopaste
   endif
   set nomodified
+  let &fileencoding = fenc_save
 endfunction
 
 function! hatena#enum_users(...) "{{{2
@@ -201,11 +214,15 @@ function! s:login() "{{{2
 
   " クッキーがある場合はクッキーでログインを試みる
   if filereadable(cookie_file)
-    let reply_header = system(s:curl_cmd . ' ' . base_url . user . '/edit -b "' . cookie_file . '" -D - -o ' . tmpfile)
+    let reply_header = system(s:curl_cmd . ' ' . base_url . user 
+                              \ . '/edit -b "' . cookie_file . '" -D - -o ' 
+                              \ . tmpfile)
     if reply_header =~? 'Location: https:'
       " httpsなグループへ
       let base_url = substitute(base_url, '^http', 'https', '')
-      let reply_header = system(s:curl_cmd . ' ' . base_url . user . '/edit -b "' . cookie_file . '" -D - -o ' . tmpfile)
+      let reply_header = system(s:curl_cmd . ' ' . base_url . user 
+                                \ . '/edit -b "' . cookie_file . '" -D - -o ' 
+                                \ . tmpfile)
     endif
     if reply_header !~? 'Location:'
       echo 'ログインしてます'
@@ -217,14 +234,14 @@ function! s:login() "{{{2
 
   " パスワードでログイン
   let password = inputsecret('Password: ')
-
   if !len(password)
     echo 'キャンセルしました'
     return []
   endif
 
-  let content = system(s:curl_cmd . ' "' . s:hatena_login_url . '" "-d name=' . user . ' -d password=' . password . ' -d mode=enter" -c ' . cookie_file )
-echo 'debug...' . content
+  let content = system(s:curl_cmd . ' "' . s:hatena_login_url . '" "-d name=' 
+                       \ . user . ' -d password=' . password 
+                       \ . ' -d mode=enter" -c ' . cookie_file )
   call delete(tmpfile)
 
   if content !~ '<div [^>]*class="error-message"'
@@ -238,7 +255,8 @@ endfunction
 
 function! s:get_user() "{{{2
   if !strlen(g:hatena_user)
-    let hatena_user = input('はてなユーザID(user/group:user): ', '', 'customlist,hatena#enum_users')
+    let hatena_user = input('はてなユーザID(user/group:user): ', 
+                            \ '', 'customlist,hatena#enum_users')
   else
     let hatena_user = g:hatena_user
   endif
@@ -292,7 +310,9 @@ function! s:load_content(base_url,user,year,month,day,cookie_file) "{{{2
 "   diary_title, day_title, timestamp, rkm, body, fenc
 " }
   " 編集ページを取得
-  let content = system(s:curl_cmd . ' "' . a:base_url . a:user . '/edit?date=' . a:year .a:month . a:day . '" -b "' . a:cookie_file . '"')
+  let content = system(s:curl_cmd . ' "' . a:base_url . a:user
+                       \ . '/edit?date=' . a:year . a:month . a:day . '" -b "'
+                       \ . a:cookie_file . '"')
   if a:base_url =~ 'g.hatena'
     let content = iconv(content, 'utf-8', &enc)
     let fenc = 'utf-8'
@@ -339,7 +359,8 @@ endfunction
 
 function! s:update(...) "{{{2
   " 日時を取得
-  if !exists('b:hatena_login_info') || !exists('b:year') || !exists('b:month') || !exists('b:day') || !exists('b:day_title') || !exists('b:rkm')
+  if !exists('b:hatena_login_info') || !exists('b:year') || !exists('b:month') 
+     \ || !exists('b:day') || !exists('b:day_title') || !exists('b:rkm')
     echoerr ':HatanaEdit してから :HatenaUpdate して下さい'
     return
   endif
@@ -367,12 +388,11 @@ function! s:update(...) "{{{2
   let body_file = expand('%')
   let diary = {'timestamp':b:timestamp, 'rkm':b:rkm, 'year':b:year, 'month':b:month, 'day':b:day, 'day_title':b:day_title}
 
-  let result = s:post(base_url,user,cookie_file,diary,body_file)
-
+  let result = s:post(base_url, user, cookie_file, diary, body_file)
   echo '更新しました'
 endfunction
 
-function! s:post(base_url,user,cookie_file,diary,body_file) "{{{2
+function! s:post(base_url, user, cookie_file, diary, body_file) "{{{2
   if a:body_file == ""
     let body_file = tempname()
     execute 'new ' . body_file
@@ -385,19 +405,24 @@ function! s:post(base_url,user,cookie_file,diary,body_file) "{{{2
   endif
   " まずは全消去
   let post_data = ' -F mode=enter'
-                  \ . ' -F year=' . a:diary.year . ' -F month=' . a:diary.month . ' -F day=' . a:diary.day
+                  \ . ' -F year=' . a:diary.year 
+                  \ . ' -F month=' . a:diary.month . ' -F day=' . a:diary.day
                   \ . ' -F rkm=' . a:diary.rkm
                   \ . ' -F body= -F title='
-  call system(s:curl_cmd . ' ' . a:base_url . a:user . '/edit -b "' . a:cookie_file . '"' . post_data)
+  call system(s:curl_cmd . ' ' . a:base_url . a:user . '/edit -b "' 
+              \. a:cookie_file . '"' . post_data)
 
   " ポスト
   let post_data = ' -F mode=enter'
-                  \ . ' -F timestamp=' . a:diary['timestamp'] . ' -F rkm=' . a:diary['rkm']
-                  \ . ' -F year=' . a:diary['year'] . ' -F month=' . a:diary['month'] . ' -F day=' . a:diary['day']
+                  \ . ' -F timestamp=' . a:diary['timestamp'] 
+                  \ . ' -F rkm=' . a:diary['rkm']
+                  \ . ' -F year=' . a:diary['year'] . ' -F month=' . a:diary['month'] 
+                  \ . ' -F day=' . a:diary['day']
                   \ . ' -F date=' . a:diary['year'].a:diary['month'].a:diary['day']
                   \ . ' -F "body=<' . body_file . '"'
                   \ . ' -F image= -F title=' . a:diary['day_title']
-  return system(s:curl_cmd . ' ' . a:base_url . a:user . '/edit -b "' . a:cookie_file . '"' . post_data . ' -D -')
+  return system(s:curl_cmd . ' ' . a:base_url . a:user . '/edit -b "' 
+                \. a:cookie_file . '"' . post_data . ' -D -')
 endfunction
 
 
