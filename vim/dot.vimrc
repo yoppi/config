@@ -18,6 +18,19 @@ autocmd Filetype tex       set softtabstop=2 shiftwidth=2
 
 let mapleader = " "
 
+MyAutoCmd Filetype javascript
+  let s:metadata << METAEND
+// ==UserScript== 
+// @name
+// @namespace
+// @description 
+// @include
+// @exclude
+// ==/UserScript==
+  METAEND
+  inoremap <Leader>h s:header <C-r>=echo s:metadata<Return>
+END
+
 " Changelog timeformat "{{{2
 let g:changelog_timeformat="%Y-%m-%d"
 
