@@ -1,6 +1,7 @@
 # .screenrc
 
 defencoding utf-8
+encoding utf-8 utf-8
 escape ^k^k
 startup_message off
 shell /bin/zsh
