@@ -43,6 +43,7 @@ set showtabline=2
 set smartindent
 "set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L
+set ttimeoutlen=50
 set vb t_vb=
 set wildmenu
 
