@@ -178,8 +178,8 @@ hi Comment     ctermfg=blue
 hi Pmenu       cterm=underline ctermbg=black
 hi PmenuSel    ctermbg=blue
 hi Visual      ctermfg=gray
-hi TabLineSel  ctermbg=green ctermfg=white
-"hi TabLineFill ctermbg=black ctermfg=black
+hi TabLineSel  ctermbg=gray ctermfg=black
+hi TabLineFill cterm=underline ctermbg=black ctermfg=white
 "hi PreProc ctermfg=white ctermbg=blue
 "hi cInclude ctermfg=white ctermbg=blue
 "hi Special term=reverse term=bold  ctermfg=white ctermbg=1 guifg=SlateBlue
