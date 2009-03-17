@@ -6,7 +6,9 @@ augroup MyAutoCmd
 augroup END
 
 set encoding=utf-8
+let mapleader = " "
 
+" Filetype "{{{2
 filetype plugin indent on
 autocmd Filetype c,cpp     set softtabstop=4 shiftwidth=4 tabstop=8
 autocmd Filetype ruby      set softtabstop=2 shiftwidth=2 
@@ -16,7 +18,6 @@ autocmd FileType scheme    set softtabstop=2 shiftwidth=2 tabstop=2
 autocmd Filetype changelog set softtabstop=4 shiftwidth=4 tabstop=4
 autocmd Filetype tex       set softtabstop=2 shiftwidth=2
 
-let mapleader = " "
 
 " Changelog timeformat "{{{2
 let g:changelog_timeformat="%Y-%m-%d"
@@ -37,6 +38,7 @@ set ignorecase
 set imdisable
 set incsearch
 set laststatus=2
+set modeline
 set ruler
 set showcmd
 set showtabline=2
@@ -66,11 +68,9 @@ function! Set_tabline()
   endfor
 
   let s .= '%#TabLineFill#%T'
-  if tabpagenr('$') > 1
-    let s .= '%=%#TabLine#'
-    let s .= '|'
-    let s .= '%999X'
-  endif
+  let s .= '%=%#TabLine#%999X'
+  "let branch_name = s:get_branch_name(getcwd())
+  "let s .= '[' . (branch_name != '' ? branch_name : '?') . ']'
   return s
 endfunction
 
