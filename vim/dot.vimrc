@@ -39,6 +39,7 @@ set imdisable
 set incsearch
 set laststatus=2
 set modeline
+set modelines=5
 set ruler
 set showcmd
 set showtabline=2
