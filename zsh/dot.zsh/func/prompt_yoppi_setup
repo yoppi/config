@@ -117,7 +117,7 @@ prompt_yoppi_setup() {
     *)
       c_user = $'\e[32m' # green
   esac
-  PROMPT= "c_user%n$pc[reset]@$pc[host]%m$pc[reset] "
+  PROMPT= "$c_user%n$pc[reset]@$pc[host]%m$pc[reset] "
   PROMPT=
   if [ $verbose ]; then
     PROMPT+="$pc[host]%m$pc[reset] "
