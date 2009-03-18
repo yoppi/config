@@ -56,7 +56,7 @@ SUB_ZSHFILES_TABLE = Hash[*zipped.flatten]
 MASTER_SUB_ZSHDIRS = FileList["#{MASTER_ZSHDIR}/**/*"].
   select {|f| f unless File.file? f }
 HOME_SUB_ZSHDIRS = MASTER_SUB_ZSHDIRS.
-  map {|d| d.gsub(/#{MASTER_ZSHDIR/, "#{HOME_ZSHDIR}") }
+  map {|d| d.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") }
 
 # Tasks. #{{{1
 TASKS = [:update_dot_files, :update_vimrc, :update_vim_files, :update_zshfiles,
@@ -109,7 +109,7 @@ end
 HOME_SUB_ZSHDIRS.each {|dir|
   directory dir
 }
-task "udpate_zshsubfiles" do #{{{2
+task "update_zshsubfiles" do #{{{2
   SUB_ZSHFILES_TABLE.each {|home, master|
     target = home.gsub(/\/#{File.basename(home)}/, '')
     file home => [master, target] do
