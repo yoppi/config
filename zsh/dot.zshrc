@@ -82,6 +82,7 @@ setopt complete_aliases     # aliased ls needs if file/dir completions work
 #
 #prompt_setup
 #unset -f prompt_setup
+
 # use zsh-git prompt
 setopt promptsubst
 
@@ -90,7 +91,7 @@ autoload -U promptinit
 promptinit
 
 # Use the wunjo prompt theme
-prompt wunjo
+prompt yoppi
 
 
 
