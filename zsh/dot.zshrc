@@ -54,35 +54,43 @@ setopt complete_aliases     # aliased ls needs if file/dir completions work
 
 
 ## Prompt #{{{1
-function prompt_setup() {
-  local c_reset=$'\e[0m'
-  local c_cyan=$'\e[36m'
-  local c_green=$'\e[32m'
-  local c_red=$'\e[31m'
-  local c_yellow=$'\e[33m'
+#function prompt_setup() {
+#  local c_reset=$'\e[0m'
+#  local c_cyan=$'\e[36m'
+#  local c_green=$'\e[32m'
+#  local c_red=$'\e[31m'
+#  local c_yellow=$'\e[33m'
+#
+#  local c_host="$c_green"
+#  local c_user
+#  case "$USER" in
+#    root)
+#      c_user="$c_red"
+#      ;;
+#    *)
+#      c_user="$c_green"
+#      ;;
+#  esac
+#  
+#  local t_host="$c_user%n$c_reset$c_host@%m$c_reset"
+#  local t_cwd="$c_cyan%~$c_reset"
+#  #local t_main="%m%(!.#.>) "
+#  local t_main="/ _ /X %(!.#.<) "
+#  PS1="$t_host $t_cwd
+#$t_main"
+#}
+#
+#prompt_setup
+#unset -f prompt_setup
+# use zsh-git prompt
+setopt promptsubst
 
-  local c_host="$c_green"
-  local c_user
-  case "$USER" in
-    root)
-      c_user="$c_red"
-      ;;
-    *)
-      c_user="$c_green"
-      ;;
-  esac
-  
-  local t_host="$c_user%n$c_reset$c_host@%m$c_reset"
-  local t_cwd="$c_cyan%~$c_reset"
-  #local t_main="%m%(!.#.>) "
-  local t_main="/ _ /X %(!.#.<) "
-  PS1="$t_host $t_cwd
-$t_main"
-}
+# Load the prompt theme system
+autoload -U promptinit
+promptinit
 
-prompt_setup
-unset -f prompt_setup
-
+# Use the wunjo prompt theme
+prompt wunjo
 
 
 
