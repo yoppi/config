@@ -139,7 +139,7 @@ nnoremap <silent> <C-t>o :<C-u>tabonly<Return>
 nnoremap <silent> <C-t>j :<C-u>tabnext<Return>
 nnoremap <silent><C-t>k :<C-u>tabprevious<Return>
 nnoremap <silent><C-t>p
-\ :<C-u>execute 'tabnext' g:pre_tabnr<Return>
+\ :<C-u>execute 'tabnext ' . g:pre_tabnr<Return>
 nnoremap <silent><C-t>K :<C-u>tabfirst<Return>
 nnoremap <silent><C-t>J :<C-u>tablast<Return>
 nnoremap <silent><C-t>l
@@ -211,7 +211,21 @@ hi TabLineFill cterm=underline ctermbg=black ctermfg=white
 "endif
 
 " memorize previous tabpage number "{{{2
-" Tabpage Action
+" Enter the new tabpage, action is defined follow:
+"     WinLeave
+"     TabLeave
+"     TabEnter
+"     WinEnter
+"     BufLeave
+"     BufEnter
+" when switching to another tab page, the action order is:
+"     BufLeave
+"     WinLeave
+"     TabLeave
+"     TabEnter
+"     WinEnter
+"     BufEnter
+" If you want to get more infomation, see ':help tabpage'
 if !exists('g:pre_tabnr')
   let g:pre_tabnr = tabpagenr()
 endif
@@ -245,7 +259,7 @@ autocmd MyAutoCmd TabEnter *
 \ | endif
 \ | execute 'cd ' . fnameescape(t:cwd)
 
-" suspend automatic cd with screen, by kana - http://github.com/kana/config/tree/master/vim/dot.vimrc "{{{2
+" suspend automatic cd with screen, by kana "{{{2
 command! -bar -nargs=0 SuspendWithAutomaticCD
 \ call s:PseudoSuspendWithAutomaticCD()
 
@@ -267,7 +281,7 @@ function! s:PseudoSuspendWithAutomaticCD()
   endif
 endfunction
 
-" edit encoding commadns, by kana - http://github.com/kana/config/tree/master/vim/dot.vimrc "{{{2
+" edit encoding commadns, by kana "{{{2
 command! -bang -bar -complete=file -nargs=? Utf8
 \ edit<bang> ++enc=utf-8 <args>
 command! -bang -bar -complete=file -nargs=? Eucjp
