@@ -1,8 +1,13 @@
 # .screenrc
 
+escape ^k^k
+
+term xterm-color
+defbce on
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
 defencoding utf-8
 encoding utf-8 utf-8
-escape ^k^k
 startup_message off
 shell /bin/zsh
 defscrollback 10000
@@ -11,7 +16,8 @@ vbell off
 bindkey -k kD stuff \177
 #hardstatus alwayslastline "screen | %w | %u %= %y/%m/%d %c"
 #hardstatus alwayslastline "%{= wk} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wb}%y/%m/%d %{=b wb}%c"
-hardstatus alwayslastline "%{= wk} %-w%{=bu dG}%n %t%{-}%+w %= %{=b kY}%y/%m/%d %{=b kY}%c"
+hardstatus alwayslastline 
+hardstatus string "%{= wk} %-w%{=bu dG}%n %t%{-}%+w %= %{=b kG}%y/%m/%d %{=b kG}%c"
 shelltitle "shell"
 bind p other
 bind j next
@@ -21,3 +27,5 @@ bind k prev
 # by kana - http://github.com/kana/config/tree/master
 bind I eval 'title "main"' 'screen -t "work"' 'select "main"'
 
+# __END__
+# vim: filetype=screen
