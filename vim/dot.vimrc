@@ -51,12 +51,12 @@ set vb t_vb=
 set wildmenu
 
 " Tabline, by kana {{{2
-function! Set_tabline()
+function! s:set_tabline()
   let s = ''
   for i in range(1, tabpagenr('$'))
-    let bufnrs = tabpagebuflist(i)           " return currenttabpage buffer list
-    let curbufnr = bufnrs[tabpagewinnr(i)-1] " get current window buffer 
-    let no = (i <=10 ? i-1 : '#')            " tab number is started 0, like screen
+    let bufnrs = tabpagebuflist(i)
+    let curbufnr = bufnrs[tabpagewinnr(i)-1]
+    let no = (i <=10 ? i-1 : '#') " tab number is started 0, like screen
     let mod = len(filter(bufnrs, 'getbufvar(v:val, "&mod")')) ? '+' : ' '
     let title = fnamemodify(bufname(curbufnr), ':t')
     let title = len(title) ? title : '[No name]'
@@ -71,15 +71,15 @@ function! Set_tabline()
   let s .= '%#TabLineFill#%T'
   let s .= '%=%#TabLine#%999X'
   "let branch_name = s:get_branch_name(getcwd())
-  "let s .= '[' . (branch_name != '' ? branch_name : '?') . ']'
+  "let s .= '[' . (branch_name != '' ? branch_name : '') . ']'
   return s
 endfunction
 
-function! s:SID_PREFIX()
+function! s:SID()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_')
 endfunction
 
-let &tabline = '%!' . 'Set_tabline()'
+let &tabline = '%!' . s:SID() . 'set_tabline()'
 
 
 
@@ -181,16 +181,6 @@ hi PmenuSel    ctermbg=blue
 hi Visual      ctermfg=gray
 hi TabLineSel  ctermbg=gray ctermfg=black
 hi TabLineFill cterm=underline ctermbg=black ctermfg=white
-"hi PreProc ctermfg=white ctermbg=blue
-"hi cInclude ctermfg=white ctermbg=blue
-"hi Special term=reverse term=bold  ctermfg=white ctermbg=1 guifg=SlateBlue
-"hi cSpecialCharacter term=reverse term=bold  ctermfg=white ctermbg=1 guifg=SlateBlue
-"hi Statement
-"hi changelogFuncs term=bold cterm=bold ctermfg=cyan
-"if has('multi_byte_ime')
-"  hi Cursor guifg=bg guibg=Green gui=NONE
-"  hi CursorIM guifg=NONE guibg=Purple gui=NONE
-"endif
 
 
 
