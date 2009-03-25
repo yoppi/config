@@ -21,7 +21,8 @@ scriptencoding utf-8
 " > :let g:hatena_user = '[グループ名:]ユーザ名'
 " としてユーザ名を設定し、
 " > :HatenaEdit [[[YYYY]MM]DD]
-" で編集バッファが開きます。日記を書いたら :w で送信します。
+" で編集バッファが開きます。日記を書いたら :HatenaPostで送信すします．
+" (:wはバッファの保存よくタイプするので)
 
 
 " User Command "{{{1
@@ -31,6 +32,11 @@ scriptencoding utf-8
 "   :HatenaEdit [[[YYYY]MM]DD]
 " 日付の形式は YYYYMMDD, YYYY/MM/DD, YYYY-MM-DD
 command! -nargs=? HatenaEdit  call hatena#edit(<args>)
+
+" 編集したはてなの日記をpostする
+" Usage:
+"   :HatenaPost
+command! -nargs=? HatenaPost  call hatena#post(<args>)
 
 " :HatenaEdit で開いたバッファの内容をはてなに送信し、日記を更新する
 " Usage:
@@ -93,7 +99,8 @@ if !g:hatena_hold_cookie
 endif
 
 " :HatenaEdit で編集バッファを開くコマンド
-let g:hatena_edit_command = 'edit!'
+"let g:hatena_edit_command = 'edit!'
+let g:hatena_edit_command = 'tabnew'
 
 " Script local "{{{2
 let s:FALSE = 0
@@ -117,28 +124,17 @@ function! hatena#edit(...) "{{{2
   else
     let hatena_login_info = b:hatena_login_info
   endif
-
   let [base_url, user, cookie_file] = hatena_login_info
 
   " 編集する日付を取得
-  let date = a:0 > 0 ? a:1 : input('Date: ', strftime('%Y%m%d'))
-  let _ = s:valid_date_p(date)
-  if len(_) == 0
-    return
-  endif
-  let [year, month, day] = _[0:2]
+  let [year, month, day] = s:date_info(a:000)
 
   let content = s:load_content(base_url, user, year, month, day, cookie_file)
 
   " セッション(編集バッファ)を作成
-  let fenc_save = &fileencoding
-  let tmpfile = tempname()
-  execute g:hatena_edit_command tmpfile
-  set filetype=hatena
-  setlocal noswapfile
-  let &fileencoding = content['fenc']
-  let b:rkm = content['rkm']
+  call s:set_buffer(content)
 
+  let b:rkm = content['rkm']
   if !strlen(b:rkm)
     echoerr 'ログインできませんでした'
     if exists('s:user')
@@ -159,28 +155,28 @@ function! hatena#edit(...) "{{{2
 
   "autocmd BufWritePost <buffer> 
   "\   call s:update()
-  "\ | set readonly
-  "\ | let &titlestring = b:prev_titlestring
+  "\ | let &titlestring = b:titlestring_save
   "\ | bdelete
-  autocmd BufWritePost <buffer> 
-  \   call s:update() 
-  \ | let &titlestring = b:prev_titlestring 
-  \ | bdelete
-  autocmd WinLeave <buffer>  let &titlestring = b:titlestring_save
-  autocmd WinEnter <buffer> 
-  \ let &titlestring = b:diary_title . ' ' . b:year . '-' . b:month . '-' 
-  \                    . b:day . ' [' . b:hatena_login_info[1] . ']'
+  "autocmd WinLeave <buffer>  let &titlestring = b:titlestring_save
+  "autocmd WinEnter <buffer> 
+  "\ let &titlestring = b:diary_title . ' ' . b:year . '-' . b:month . '-' 
+  "\                    . b:day . ' [' . b:hatena_login_info[1] . ']'
 
-  let &titlestring = b:diary_title . ' ' . b:year . '-' . b:month . '-' 
-                     \ . b:day . ' [' . user . ']'
-  let nopaste = !&paste
-  set paste
-  execute 'normal i' . content['body']
-  if nopaste
-    set nopaste
-  endif
-  set nomodified
-  let &fileencoding = fenc_save
+  "let &titlestring = b:diary_title . ' ' . b:year . '-' . b:month . '-' 
+  "                   \ . b:day . ' [' . user . ']'
+  "let nopaste = !&paste
+  "set paste
+  "execute 'normal i' . content['body']
+  "if nopaste
+  "  set nopaste
+  "endif
+  "set nomodified
+  "let &fileencoding = fenc_save
+endfunction
+
+function! hatena#post() "{{{2
+" 編集したはてなダイアリーをpostする
+  call s:update()
 endfunction
 
 function! hatena#enum_users(...) "{{{2
@@ -199,7 +195,6 @@ function! s:login() "{{{2
 "
 "   ログインに成功: [ベースURL, ユーザID, クッキーファイル] を返す。
 "   ログインに失敗: 空リストを返す。
-"TODO: この関数をグローバルにするセキュリティリスクについて考察
   let hatena_user = s:get_user()
   let [base_url, user] = s:get_base_url_user(hatena_user)
 
@@ -221,7 +216,7 @@ function! s:login() "{{{2
       " httpsなグループへ
       let base_url = substitute(base_url, '^http', 'https', '')
       let reply_header = system(s:curl_cmd . ' ' . base_url . user 
-                                \ . '/edit -b "' . cookie_file . '" -D - -o ' 
+                                \ . '/edit -b "' . cookie_file . '" -D - -o '
                                 \ . tmpfile)
     endif
     if reply_header !~? 'Location:'
@@ -261,7 +256,6 @@ function! s:get_user() "{{{2
     let hatena_user = g:hatena_user
   endif
   return hatena_user
-  "return HatenaLogin(hatena_user)
 endfunction
 
 function! s:get_base_url_user(hatena_user) "{{{2
@@ -276,6 +270,17 @@ function! s:get_base_url_user(hatena_user) "{{{2
   endif
 
   return [base_url, user]
+endfunction
+
+function! s:date_info(date) "{{{2
+" 引数をチェックして正しい日付か確かめる
+" 正しい場合，[year, month, day]のリストを返す
+  let date = a:0 > 0 ? a:1 : input('Date: ', strftime('%Y%m%d'))
+  let date_info = s:valid_date_p(date)
+  if !len(date_info)
+    return
+  endif
+  return date_info
 endfunction
 
 function! s:valid_date_p(date) "{{{2
@@ -304,15 +309,15 @@ function! s:valid_date_p(date) "{{{2
   return [year, month, day]
 endfunction
 
-function! s:load_content(base_url,user,year,month,day,cookie_file) "{{{2
+function! s:load_content(base_url, user, year, month, day, cookie_file) "{{{2
 " 指定先から一日分のエントリを取得
 " return: dictionary {
 "   diary_title, day_title, timestamp, rkm, body, fenc
 " }
   " 編集ページを取得
   let content = system(s:curl_cmd . ' "' . a:base_url . a:user
-                       \ . '/edit?date=' . a:year . a:month . a:day . '" -b "'
-                       \ . a:cookie_file . '"')
+                       \ . '/edit?date=' . a:year . a:month . a:day 
+                       \ . '" -b "'  . a:cookie_file . '"')
   if a:base_url =~ 'g.hatena'
     let content = iconv(content, 'utf-8', &enc)
     let fenc = 'utf-8'
@@ -320,7 +325,7 @@ function! s:load_content(base_url,user,year,month,day,cookie_file) "{{{2
     let content = iconv(content, 'euc-jp', &enc)
     let fenc = 'euc-jp'
   endif
-  let result=s:parse_content(content)
+  let result = s:parse_content(content)
   let result['fenc'] = fenc
   let result['year'] = a:year
   let result['month'] = a:month
@@ -357,6 +362,15 @@ function! s:html_unescape(string) "{{{2
   return string
 endfunction
 
+function! s:set_buffer(content) "{{{2
+" はてなバッファを設定する
+  let tmpfile = tempname()
+  execute g:hatena_edit_command tmpfile
+  set filetype=hatena
+  setlocal noswapfile
+  setlocal fileencoding="a:content['fenc']"
+endfunction
+
 function! s:update(...) "{{{2
   " 日時を取得
   if !exists('b:hatena_login_info') || !exists('b:year') || !exists('b:month') 
@@ -386,7 +400,8 @@ function! s:update(...) "{{{2
   endif
 
   let body_file = expand('%')
-  let diary = {'timestamp':b:timestamp, 'rkm':b:rkm, 'year':b:year, 'month':b:month, 'day':b:day, 'day_title':b:day_title}
+  let diary = {'timestamp':b:timestamp, 'rkm':b:rkm, 'year':b:year, 
+               \ 'month':b:month, 'day':b:day, 'day_title':b:day_title}
 
   let result = s:post(base_url, user, cookie_file, diary, body_file)
   echo '更新しました'
@@ -406,7 +421,8 @@ function! s:post(base_url, user, cookie_file, diary, body_file) "{{{2
   " まずは全消去
   let post_data = ' -F mode=enter'
                   \ . ' -F year=' . a:diary.year 
-                  \ . ' -F month=' . a:diary.month . ' -F day=' . a:diary.day
+                  \ . ' -F month=' . a:diary.month 
+                  \ . ' -F day=' . a:diary.day
                   \ . ' -F rkm=' . a:diary.rkm
                   \ . ' -F body= -F title='
   call system(s:curl_cmd . ' ' . a:base_url . a:user . '/edit -b "' 
@@ -416,7 +432,8 @@ function! s:post(base_url, user, cookie_file, diary, body_file) "{{{2
   let post_data = ' -F mode=enter'
                   \ . ' -F timestamp=' . a:diary['timestamp'] 
                   \ . ' -F rkm=' . a:diary['rkm']
-                  \ . ' -F year=' . a:diary['year'] . ' -F month=' . a:diary['month'] 
+                  \ . ' -F year=' . a:diary['year'] 
+                  \ . ' -F month=' . a:diary['month'] 
                   \ . ' -F day=' . a:diary['day']
                   \ . ' -F date=' . a:diary['year'].a:diary['month'].a:diary['day']
                   \ . ' -F "body=<' . body_file . '"'
@@ -608,4 +625,4 @@ function! s:find_next_entry() "{{{2
 endfunction
 
 " __END__ "{{{1
-" vim: foldmethod=marker
+" vim: foldmethod=marker tw=78
