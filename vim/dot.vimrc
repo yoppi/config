@@ -172,6 +172,12 @@ nnoremap qp :<C-u>colder<Return>
 nnoremap qn :<C-u>cnewer<Return>
 nnoremap qg :<C-u>vimgrep 
 
+" smartword setting "{{{2
+map w <Plug>(smartword-w)
+map b <Plug>(smartword-b)
+map e <Plug>(smartword-e)
+map ge <Plug>(smartword-ge)
+
 " Color Syntax "{{{1
 syntax on
 set background=dark
