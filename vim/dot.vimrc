@@ -22,6 +22,12 @@ autocmd Filetype tex       set softtabstop=2 shiftwidth=2
 " Changelog timeformat "{{{2
 let g:changelog_timeformat="%Y-%m-%d"
 
+" Neocomplcache setting "{{{2
+"let g:NeoComplCache_EnableAtStartup = 1
+"let g:NeoComplCache_MaxList = 50
+"let g:NeoComplCache_EnableInfo = 1
+"let g:NeoComplCache_EnableMFU = 1
+
 " Options {{{2
 "set number
 set ambiwidth=double
