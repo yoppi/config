@@ -89,6 +89,8 @@ let &tabline = '%!' . s:SID() . 'set_tabline()'
 inoremap <C-b> <LEFT>
 inoremap <C-f> <RIGHT>
 inoremap ,df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
+inoremap <C-w> <C-g>u<C-w>
+inoremap <C-u> <C-g>u<C-u>
 cnoremap <C-b> <LEFT>
 cnoremap <C-f> <RIGHT>
 nnoremap <Leader>w :<C-u>write<Return>
