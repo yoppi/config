@@ -1,19 +1,20 @@
 ## 
 # Update some configuration files(.zshrc, .irbrc, .gitrc, and .vimrc, so on).
 # NOTE: rake(Ruby Make) is required.
+#
 
 # Task definitions #{{{1
 HOME = `echo $HOME`.chomp
 CONFIG = "#{HOME}/config"
 
-# for some dot files. #{{{2
+# for some dot files #{{{2
 MASTER_DOT_FILES = FileList["#{CONFIG}/dot.*"]
 HOME_DOT_FILES = MASTER_DOT_FILES.
-  map {|dotfile| "#{HOME}/#{File.basename(dotfile).gsub(/^dot/, '')}"}
+  map {|dotfile| "#{HOME}/#{File.basename(dotfile).gsub(/^dot/, '')}" }
 zipped = HOME_DOT_FILES.zip(MASTER_DOT_FILES)
 DOT_FILES_TABLE = Hash[*zipped.flatten]
 
-# for Vim files. #{{{2
+# for Vim files #{{{2
 MASTER_VIMHOME = "#{CONFIG}/vim"
 MASTER_VIMRC = ["#{MASTER_VIMHOME}/dot.vimrc"]
 HOME_VIMRC = ["#{HOME}/.vimrc"]
@@ -24,16 +25,16 @@ MASTER_VIMDIR = "#{MASTER_VIMHOME}/dot.vim"
 HOME_VIMDIR = "#{HOME}/.vim"
 
 MASTER_ALL_VIM_FILES = FileList["#{MASTER_VIMDIR}/**/*"].
-  select {|f| f if File.file? f }# Vim package allfiles
+  select {|f| File.file? f } # Vim package allfiles
 HOME_ALL_VIM_FILES = MASTER_ALL_VIM_FILES.
-  map {|file| file.gsub(/#{MASTER_VIMDIR}/, "#{HOME_VIMDIR}") }
+  map {|file| file.gsub(/#{MASTER_VIMDIR}/, HOME_VIMDIR) }
 zipped = HOME_ALL_VIM_FILES.zip(MASTER_ALL_VIM_FILES)
 VIMFILES_TABLE = Hash[*zipped.flatten]
 
 MASTER_ALL_VIM_DIRS = FileList["#{MASTER_VIMDIR}/**/*"].
-  select {|f| f unless File.file? f }
+  select {|f| File.directory? f }
 HOME_ALL_VIM_DIRS = MASTER_ALL_VIM_DIRS.
-  map {|d| d.gsub(/#{MASTER_VIMDIR}/, "#{HOME_VIMDIR}")}
+  map {|d| d.gsub(/#{MASTER_VIMDIR}/, HOME_VIMDIR) }
 
 # for zsh files. #{{{2
 ZSHFILES = %w[.zshrc .zshenv]
@@ -58,11 +59,11 @@ MASTER_SUB_ZSHDIRS = FileList["#{MASTER_ZSHDIR}/**/*"].
 HOME_SUB_ZSHDIRS = MASTER_SUB_ZSHDIRS.
   map {|d| d.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") }
 
-# Tasks. #{{{1
-TASKS = [:update_dot_files, :update_vimrc, :update_vim_files, :update_zshfiles,
-         :update_zshsubfiles] +
-        HOME_DOT_FILES + HOME_VIMRC + HOME_ALL_VIM_FILES +
-        HOME_ZSHFILES + HOME_SUB_ZSHFILES
+# Tasks #{{{1
+TASKS = [:update_dot_files, :update_vimrc, :update_vim_files, 
+  :update_zshfiles, :update_zshsubfiles] +
+  HOME_DOT_FILES + HOME_VIMRC + HOME_ALL_VIM_FILES +
+  HOME_ZSHFILES  + HOME_SUB_ZSHFILES
 
 task :default => TASKS
 
@@ -117,6 +118,7 @@ task "update_zshsubfiles" do #{{{2
     end
   }
 end
+
 
 # __END__ #{{{1
 # vim: foldmethod=marker
