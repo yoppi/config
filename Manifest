@@ -11,6 +11,8 @@ vim/dot.vim/autoload
 vim/dot.vim/autoload/smartword.vim
 vim/dot.vim/colors
 vim/dot.vim/doc
+vim/dot.vim/doc/fuzzyfinder.jax
+vim/dot.vim/doc/fuzzyfinder.txt
 vim/dot.vim/doc/smartword.txt
 vim/dot.vim/ftplugin
 vim/dot.vim/plugin
