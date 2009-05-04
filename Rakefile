@@ -72,7 +72,7 @@ ALL_DIRS = HOME_VIM_DIRS + HOME_ZSH_DIRS
 
 # Tasks #{{{1
 TASKS = [:update_dot_files, :update_vimrc, :update_vim_files, 
-  :update_zshrc, :update_zsh_files] +
+  :update_zshrc, :update_zsh_files, :update_manifest] +
   HOME_DOT_FILES + 
   HOME_VIMRC + HOME_VIM_FILES +
   HOME_ZSHRC + HOME_ZSH_FILES
@@ -126,6 +126,20 @@ task "update_zsh_files" do
       cp master, target
     end
   }
+end
+
+
+desc "Update manifest" #{{{2
+task "update_manifest" do
+  currents = Dir.glob("#{CONFIG}/**/*").
+    map {|f| f.gsub(%r|#{CONFIG}/|, "") }.sort
+  manifest = File.readlines(MANIFEST).map {|l| l.chomp }
+  diff = currents - manifest
+
+  if diff.size > 0
+    puts "update Manifest"
+    File.open(MANIFEST, 'w') {|io| io.puts currents }
+  end
 end
 
 # Make target directory tasks. #{{{2

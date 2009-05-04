@@ -1,8 +1,9 @@
+Manifest
+Rakefile
 dot.gitconfig
 dot.inputrc
 dot.irbrc
 dot.screenrc
-Rakefile
 vim
 vim/dot.gvimrc
 vim/dot.vim
