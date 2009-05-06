@@ -9,6 +9,7 @@ set encoding=utf-8
 
 let mapleader = ","
 map <Space> [Space]
+noremap [Space] <nop>
 
 " Filetype "{{{2
 filetype plugin indent on
