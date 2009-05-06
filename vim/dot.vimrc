@@ -100,7 +100,7 @@ nnoremap [Space]q :<C-u>quit<Return>
 nnoremap <silent> [Space]fb :<C-u>FuzzyFinderBuffer<Return>
 nnoremap <silent> [Space]ff :<C-u>FuzzyFinderFile<Return>
 nnoremap <silent> [Space]fd :<C-u>FuzzyFinderDir<Return>
-nnoremap <silent> [Space]fr :<C-u>FuzzyFinderRemoveCache<Return>
+nnoremap <silent> [Space]fr :<C-u>FuzzyFinderRenewCache<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>TabpageCD<Return>
 nnoremap  j gj
