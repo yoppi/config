@@ -6,7 +6,9 @@ augroup MyAutoCmd
 augroup END
 
 set encoding=utf-8
-let mapleader = " "
+
+let mapleader = ","
+map <Space> [Space]
 
 " Filetype "{{{2
 filetype plugin indent on
@@ -88,19 +90,19 @@ let &tabline = '%!' . s:SID() . 'set_tabline()'
 "inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 inoremap <C-b> <LEFT>
 inoremap <C-f> <RIGHT>
-inoremap ,df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
+inoremap [Space]df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 cnoremap <C-b> <LEFT>
 cnoremap <C-f> <RIGHT>
-nnoremap <Leader>w :<C-u>write<Return>
-nnoremap <Leader>q :<C-u>quit<Return>
-nnoremap <silent> <Leader>fb :<C-u>FuzzyFinderBuffer<Return>
-nnoremap <silent> <Leader>ff :<C-u>FuzzyFinderFile<Return>
-nnoremap <silent> <Leader>fd :<C-u>FuzzyFinderDir<Return>
-nnoremap <silent> <Leader>fr :<C-u>FuzzyFinderRemoveCache<Return>
-nnoremap <Leader>ss :<C-u>source $MYVIMRC<Return>
-nnoremap <Leader>cd :<C-u>TabpageCD<Return>
+nnoremap [Space]w :<C-u>write<Return>
+nnoremap [Space]q :<C-u>quit<Return>
+nnoremap <silent> [Space]fb :<C-u>FuzzyFinderBuffer<Return>
+nnoremap <silent> [Space]ff :<C-u>FuzzyFinderFile<Return>
+nnoremap <silent> [Space]fd :<C-u>FuzzyFinderDir<Return>
+nnoremap <silent> [Space]fr :<C-u>FuzzyFinderRemoveCache<Return>
+nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
+nnoremap [Space]cd :<C-u>TabpageCD<Return>
 nnoremap  j gj
 nnoremap  k gk
 noremap <silent> <C-z>  :<C-u>SuspendWithAutomaticCD<Return>
