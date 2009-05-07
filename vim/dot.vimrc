@@ -8,6 +8,7 @@ augroup END
 set encoding=utf-8
 
 let mapleader = ","
+
 map <Space> [Space]
 noremap [Space] <nop>
 
@@ -182,6 +183,10 @@ map w <Plug>(smartword-w)
 map b <Plug>(smartword-b)
 map e <Plug>(smartword-e)
 map ge <Plug>(smartword-ge)
+noremap ,w w
+noremap ,b b
+noremap ,e e
+noremap ,ge ge
 
 " Color Syntax "{{{1
 syntax on
