@@ -92,7 +92,7 @@ let &tabline = '%!' . s:SID() . 'set_tabline()'
 "inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 inoremap <C-b> <LEFT>
 inoremap <C-f> <RIGHT>
-inoremap [Space]df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
+inoremap <Leader>df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 cnoremap <C-b> <LEFT>
