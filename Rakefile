@@ -43,7 +43,6 @@ VIM_FILES_RULE = lambda {|x| x.gsub(%r|(#{CONFIG}/)?vim/dot|, "#{HOME}/")}
 
 
 # for zsh files #{{{2
-#ZSHFILES = %w[.zshrc .zshenv]
 ZSHRC = %w[.zshrc .zshenv]
 MASTER_ZSHHOME = "#{CONFIG}/zsh"
 MASTER_ZSHRC = ZSHRC.map {|f| "#{MASTER_ZSHHOME}/dot" + f }
