@@ -245,7 +245,6 @@ autocmd MyAutoCmd TabEnter *
 \ let g:cur_tabnr = tabpagenr()
 
 " quickrun.vim: definition of quicklaunch commands "{{{2
-let g:mapleader=" "
 let g:quicklaunch_commands = [
   \ 'rake',
   \ 'ls -a',
