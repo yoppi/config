@@ -302,6 +302,7 @@ command! -bang -bar -complete=file -nargs=? Sjis  Cp932<bang> <args>
 command! -nargs=0 GetHighlightingGroup
 \ echo 'hi<' . synIDattr(synID(line('.'),col('.'),1),'name') . '> trans<' . synIDattr(synID(line('.'),col('.'),0),'name') . '> lo<' . synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name') . '>'
 
+" Epilogue {{{1
 set secure
 
 " __END__ "{{{1

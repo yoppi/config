@@ -5,7 +5,8 @@
 export LANG=ja_JP.UTF-8
 
 # Keybind configuration
-#   * -e: emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e goes to end of it)
+#   * -e: emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e
+#   goes to end of it)
 #   * -v: vi like keybind. modal key editing.
 #bindkey -e
 bindkey -v
@@ -54,35 +55,6 @@ setopt complete_aliases     # aliased ls needs if file/dir completions work
 
 
 ## Prompt #{{{1
-#function prompt_setup() {
-#  local c_reset=$'\e[0m'
-#  local c_cyan=$'\e[36m'
-#  local c_green=$'\e[32m'
-#  local c_red=$'\e[31m'
-#  local c_yellow=$'\e[33m'
-#
-#  local c_host="$c_green"
-#  local c_user
-#  case "$USER" in
-#    root)
-#      c_user="$c_red"
-#      ;;
-#    *)
-#      c_user="$c_green"
-#      ;;
-#  esac
-#  
-#  local t_host="$c_user%n$c_reset$c_host@%m$c_reset"
-#  local t_cwd="$c_cyan%~$c_reset"
-#  #local t_main="%m%(!.#.>) "
-#  local t_main="/ _ /X %(!.#.<) "
-#  PS1="$t_host $t_cwd
-#$t_main"
-#}
-#
-#prompt_setup
-#unset -f prompt_setup
-
 # use zsh-git prompt
 setopt promptsubst
 
@@ -136,8 +108,6 @@ bindkey "\\en" history-beginning-search-forward-end
 
 
 
-
-
 ## Coloring #{{{1
 unset LSCOLORS
 case "${TERM}" in
@@ -158,7 +128,6 @@ cons25)
   ;;
 esac
 
-## set terminal title including current directory
 case "${TERM}" in
 kterm*|xterm*|screen)
   precmd() {
@@ -178,24 +147,23 @@ esac
 ## PATH #{{{1
 case "${OSTYPE}" in
   darwin*)
-  if [ -d "/opt/local/bin/" ]; then
+  # for MacPorts
+  if [ -d "/opt/local/bin" ]; then
     export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
     export MANPATH=/opt/local/man:$MANPATH
   fi
-  if [ -d "${HOME}/bin/" ]; then
-    export PATH=${HOME}/bin:$PATH
+  if [ -d "$HOME/local/" ]; then
+    for app in "$HOME/local/"
+    export PATH=$HOME/bin:$PATH
   fi
-  ## for NS2
-  #export PATH=/Users/yoshida/bin/ns2/bin:/Users/yoshida/bin/ns2/tcl8.4.18/unix:/Users/yoshida/bin/ns2/tk8.4.18/unix:/Users/yoshida/bin/ns2/otcl:$PATH
-  #export LD_LIBRARY_PATH=/Users/yoshida/bin/ns2/otcl-1.13:/Users/yoshida/bin/ns2/lib:$LD_LIBRARY_PATH
-  #export TCL_LIBRARY=/Users/yoshida/bin/ns2/tcl8.4.18/library:$TCL_LIBRARY
   ;;
   linux*)
+  # HOME/local/, /usr/local/apps/のアプリケーション毎のbinを$PATHに追加したい
   if [ -d "${HOME}/bin/screen/" ]; then
-    export PATH=${HOME}/bin/screen/bin:$PATH
+    export PATH=$HOME/bin/screen/bin:$PATH
   fi
   if [ -d "${HOME}/bin/vim/" ]; then
-    export PATH=${HOME}/bin/vim/bin:$PATH
+    export PATH=$HOME/bin/vim/bin:$PATH
   fi
   if [ -d "/usr/local/apps/ruby1.8.7/" ]; then
     export PATH=/usr/local/apps/ruby1.8.7/bin:$PATH
@@ -220,12 +188,8 @@ case "${OSTYPE}" in
   if [ -d "/usr/local/apps/mecab/" ]; then
     export PATH=/usr/local/apps/mecab/bin:$PATH
   fi
-  export http_proxy=http://cache.is.oit.ac.jp:8080
   ;;
 esac
-
-## for NuSMV
-#export NuSMV_LIBRARY_PATH=/Users/yoshida/bin/nusmv/share
 
 ## set SVN_EDITOR
 export SVN_EDITOR=vim
@@ -233,106 +197,17 @@ export SVN_EDITOR=vim
 
 
 
-
 ## Bindkey #{{{1
-#bindkey '^?'    backward-delete-char
-#bindkey '^H'    backward-delete-char
-#bindkey '^[[3~' backward-delete-char
 bindkey '' backward-delete-char
 bindkey '' backward-delete-char
 bindkey '[3~' backward-delete-char
 
 
 
-## Screen #{{{1
-#if [ "$TERM" = "screen" ]; then
-#  #"chpwd () { echo -n "_`dirs`\\" }
-#  preexec() {
-#    emulate -L zsh
-#      local -a cmd; cmd=(${(z)2})
-#      case $cmd[1] in
-#        fg)
-#          if (( $#cmd == 1 )); then
-#            cmd=(builtin jobs -l %+)
-#          else
-#            cmd=(builtin jobs -l $cmd[2])
-#          fi
-#          ;;
-#        %*) 
-#          cmd=(builtin jobs -l $cmd[1])
-#          ;;
-#        cd)
-#          if (( $#cmd == 2)); then
-#            cmd[1]=$cmd[2]
-#          fi
-#          ;&
-#        *)
-#          echo -n "k$cmd[1]:t\\"
-#          return
-#          ;;
-#      esac
-#      local -A jt; jt=(${(kv)jobtexts})
-#      $cmd >>(read num rest
-#      cmd=(${(z)${(e):-\$jt$num}})
-#      echo -n "k$cmd[1]:t\\") 2> /dev/null
-#  }
-#  #chpwd
-#fi
 
-#autoload colors
-#colors
-#case ${UID} in
-#0)
-#    PROMPT="%B%{${fg[green]}%}%/#%{${reset_color}%}%b "
-#    PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
-#    SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
-#    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-#        PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
-#    ;;
-#*)
-#    PROMPT="%{${fg[cyan]}%}%/%{${reset_color}%}
-#%{${fg[green]}%}[%m@${TERM}]%{${reset_color}%}%% "
-#    PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
-#    SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-#    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-#        PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
-#    RPROMPT="%{${fg[yellow]}%}[%*]%{${reset_color}%}"
-#    ;;
-#esac
-
-#case "${OSTYPE}" in
-#darwin*)
-#    alias updateports="sudo port selfupdate; sudo port outdated"
-#    alias portupgrade="sudo port upgrade installed"
-#    ;;
-#freebsd*)
-#    case ${UID} in
-#    0)
-#        updateports() 
-#        {
-#            if [ -f /usr/ports/.portsnap.INDEX ]
-#            then
-#                portsnap fetch update
-#            else
-#                portsnap fetch extract update
-#            fi
-#            (cd /usr/ports/; make index)
-#
-#            portversion -v -l \<
-#        }
-#        alias appsupgrade='pkgdb -F && BATCH=YES NO_CHECKSUM=YES portupgrade -a'
-#        ;;
-#    esac
-#    ;;
-#esac
-
-## Prediction configuration
-#
-#autoload predict-on
-#predict-off
 
 
 ## Utils {{{1
 
 ## __END__ #{{{1
-# vim: filetype=zsh foldmethod=marker
+# vim: filetype=zsh foldmethod=marker textwidth=78
