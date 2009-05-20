@@ -19,6 +19,9 @@ SAVEHIST=10000
 # zsh editor
 autoload zed
 
+# set subversion editor
+export SVN_EDITOR=vim
+
 # load user .zshrc configuration file
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
 
@@ -62,7 +65,7 @@ setopt promptsubst
 autoload -U promptinit
 promptinit
 
-# Use the wunjo prompt theme
+# Use the yoppi prompt theme
 prompt yoppi
 
 
@@ -108,8 +111,12 @@ bindkey "\\en" history-beginning-search-forward-end
 
 
 
+
+
 ## Coloring #{{{1
 zstyle ':completion:*' list-colors ''
+
+
 
 
 
@@ -121,47 +128,25 @@ case "${OSTYPE}" in
     export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
     export MANPATH=/opt/local/man:$MANPATH
   fi
-  if [ -d "$HOME/local/" ]; then
-    for app in "$HOME/local/"
-    export PATH=$HOME/bin:$PATH
-  fi
-  ;;
-  linux*)
-  # HOME/local/, /usr/local/apps/のアプリケーション毎のbinを$PATHに追加したい
-  if [ -d "${HOME}/bin/screen/" ]; then
-    export PATH=$HOME/bin/screen/bin:$PATH
-  fi
-  if [ -d "${HOME}/bin/vim/" ]; then
-    export PATH=$HOME/bin/vim/bin:$PATH
-  fi
-  if [ -d "/usr/local/apps/ruby1.8.7/" ]; then
-    export PATH=/usr/local/apps/ruby1.8.7/bin:$PATH
-  fi
-  if [ -d "/usr/local/apps/rubygems1.3.1/" ]; then
-    export PATH=/usr/local/apps/rubygems1.3.1/bin:$PATH
-    if [ -d "/usr/local/apps/gemrepos/" ]; then
-      export PATH=/usr/local/apps/gemrepos/bin:$PATH
-      export GEM_HOME=/usr/local/apps/gemrepos
-      export RUBYLIB=/usr/local/apps/rubygems1.3.1/lib:$RUBYLIB
-    fi
-  fi
-  if [ -d "/usr/local/apps/jdk1.6.0_11/" ]; then
-    export PATH=/usr/local/apps/jdk1.6.0_11/bin:$PATH
-  fi
-  if [ -d "/usr/local/apps/git1.6/" ]; then
-    export PATH=/usr/local/apps/git1.6/bin:$PATH
-  fi
-  if [ -d "/usr/local/apps/vim72/" ]; then
-    export PATH=/usr/local/apps/vim72/bin:$PATH
-  fi
-  if [ -d "/usr/local/apps/mecab/" ]; then
-    export PATH=/usr/local/apps/mecab/bin:$PATH
-  fi
   ;;
 esac
 
-## set SVN_EDITOR
-export SVN_EDITOR=vim
+if [ -d $HOME/local ]; then
+  for bin in $HOME/local/**/bin; do
+    if [ -d $bin ]; then
+      export PATH=$bin:$PATH
+    fi
+  done
+fi
+
+if [ -d /usr/local/apps ]; then
+  for bin in /usr/local/apps/**/bin; do
+    if [ -d $bin ]; then
+      export PATH=$bin:$PATH
+    fi
+  done
+fi
+
 
 
 
@@ -170,7 +155,6 @@ export SVN_EDITOR=vim
 bindkey '' backward-delete-char
 bindkey '' backward-delete-char
 bindkey '[3~' backward-delete-char
-
 
 
 
