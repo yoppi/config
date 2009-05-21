@@ -4,6 +4,13 @@
 # Environment variable configuration 
 export LANG=ja_JP.UTF-8
 
+# for fakeclip.vim
+case $OSTYPE in
+  darwin*)
+    export __CF_USER_TEXT_ENCODING=0x1F5:0x08000100:0
+  ;;
+esac
+
 # Keybind configuration
 #   * -e: emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e
 #   goes to end of it)
