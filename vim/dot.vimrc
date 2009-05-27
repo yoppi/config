@@ -89,7 +89,14 @@ let &tabline = '%!' . s:SID() . 'set_tabline()'
 
 
 " Keymaping "{{{1
-"inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+" My working Debian cannot recognize <C-h> as BackSpace in insert mode on
+" screen.
+let ostype = system("echo $OSTYPE")
+if ostype =~ "linux"
+  imap <C-h> <BS>
+endif
+unlet ostype
+
 inoremap <C-b> <LEFT>
 inoremap <C-f> <RIGHT>
 inoremap <Leader>df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
