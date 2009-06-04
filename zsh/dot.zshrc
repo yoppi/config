@@ -138,16 +138,16 @@ case "${OSTYPE}" in
   ;;
 esac
 
-if [ -d $HOME/local ]; then
-  for bin in $HOME/local/**/bin; do
+if [ -d $HOME/local/bin ]; then
+  for bin in $HOME/local/bin; do
     if [ -d $bin ]; then
       export PATH=$bin:$PATH
     fi
   done
 fi
 
-if [ -d /usr/local/apps ]; then
-  for bin in /usr/local/apps/**/bin; do
+if [ -d /usr/local/bin ]; then
+  for bin in /usr/local/bin; do
     if [ -d $bin ]; then
       export PATH=$bin:$PATH
     fi
