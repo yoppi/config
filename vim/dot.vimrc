@@ -15,7 +15,7 @@ noremap [Space] <nop>
 " Filetype "{{{2
 filetype plugin indent on
 autocmd Filetype c,cpp     set softtabstop=4 shiftwidth=4 tabstop=8
-autocmd Filetype ruby      set softtabstop=2 shiftwidth=2 
+autocmd Filetype ruby      set softtabstop=2 shiftwidth=2
 autocmd Filetype python    set softtabstop=2 shiftwidth=2
 autocmd Filetype perl      set softtabstop=2 shiftwidth=2
 autocmd FileType scheme    set softtabstop=2 shiftwidth=2 tabstop=2
@@ -183,7 +183,7 @@ nnoremap qo :<C-u>copen<Return>
 nnoremap qc :<C-u>cclose<Return>
 nnoremap qp :<C-u>colder<Return>
 nnoremap qn :<C-u>cnewer<Return>
-nnoremap qg :<C-u>vimgrep 
+nnoremap qg :<C-u>vimgrep
 
 " smartword setting "{{{2
 map w <Plug>(smartword-w)
@@ -217,9 +217,9 @@ hi TabLineFill cterm=underline ctermbg=black ctermfg=white
 "
 "if &term =~ "screen"
 "  autocmd VimLeave * call SetScreenTabName('** free **')
-"  autocmd BufEnter * 
-"  \   if bufname ("") !~ "^\[A-Za-z0-9\]*://" 
-"  \ |   call SetScreenTabName("%") 
+"  autocmd BufEnter *
+"  \   if bufname ("") !~ "^\[A-Za-z0-9\]*://"
+"  \ |   call SetScreenTabName("%")
 "  \ | endif
 "endif
 
@@ -304,6 +304,10 @@ command! -bang -bar -complete=file -nargs=? Iso2022jp
 \ edit<bang> ++enc=iso-2022-jp <args>
 command! -bang -bar -complete=file -nargs=? Jis  Iso2022jp<bang> <args>
 command! -bang -bar -complete=file -nargs=? Sjis  Cp932<bang> <args>
+
+" remove the spaces end of lines "{{{2
+command! -bang -bar -complete=file -nargs=0 DeleteSpaceEachLine
+\ execute ':%s/\s\+$//'
 
 " check highlighing {{{2
 command! -nargs=0 GetHighlightingGroup
