@@ -305,6 +305,11 @@ command! -bang -bar -complete=file -nargs=? Iso2022jp
 command! -bang -bar -complete=file -nargs=? Jis  Iso2022jp<bang> <args>
 command! -bang -bar -complete=file -nargs=? Sjis  Cp932<bang> <args>
 
+" Rename current file, by ujihisa
+command! -nargs=1 -complete=file Rename
+\   file <args>
+\ | call delete(expand('#'))
+
 " remove the spaces end of lines "{{{2
 command! -bang -bar -complete=file -nargs=0 DeleteSpaceEachLine
 \ execute ':%s/\s\+$//'
