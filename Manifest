@@ -16,6 +16,7 @@ vim/dot.vim/doc/fakeclip.txt
 vim/dot.vim/doc/fuzzyfinder.jax
 vim/dot.vim/doc/fuzzyfinder.txt
 vim/dot.vim/doc/smartword.txt
+vim/dot.vim/doc/surround.txt
 vim/dot.vim/ftplugin
 vim/dot.vim/plugin
 vim/dot.vim/plugin/autocomplpop.vim
@@ -27,6 +28,7 @@ vim/dot.vim/plugin/haskell.vim
 vim/dot.vim/plugin/hatena.vim
 vim/dot.vim/plugin/quickrun.vim
 vim/dot.vim/plugin/smartword.vim
+vim/dot.vim/plugin/surround.vim
 vim/dot.vim/syntax
 vim/dot.vim/syntax/git-diff.vim
 vim/dot.vim/syntax/git-log.vim
