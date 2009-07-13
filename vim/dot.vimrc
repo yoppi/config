@@ -121,6 +121,9 @@ noremap ; :
 noremap ' `
 noremap ` '
 
+" visual-search
+vnoremap * y/<C-R>"<Return>
+
 " auto complete parentheses "{{{2
 ""inoremap { {}<LEFT>
 ""inoremap [ []<LEFT>
