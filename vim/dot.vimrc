@@ -154,8 +154,7 @@ nnoremap <silent> <C-t>c :<C-u>tabclose<Return>
 nnoremap <silent> <C-t>o :<C-u>tabonly<Return>
 nnoremap <silent> <C-t>j :<C-u>tabnext<Return>
 nnoremap <silent><C-t>k :<C-u>tabprevious<Return>
-nnoremap <silent><C-t>p
-\ :<C-u>execute 'tabnext ' . g:pre_tabnr<Return>
+nnoremap <silent><C-t>p :<C-u>TabPreWork<Return>
 nnoremap <silent><C-t>K :<C-u>tabfirst<Return>
 nnoremap <silent><C-t>J :<C-u>tablast<Return>
 nnoremap <silent><C-t>l
@@ -226,7 +225,18 @@ hi TabLineFill cterm=underline ctermbg=black ctermfg=white
 "  \ | endif
 "endif
 
-" memorize previous tabpage number "{{{2
+" move to previous working tabpage "{{{2
+command! -bar -nargs=0 TabPreWork call s:tabprework()
+function! s:tabprework()
+  " Wrapper for my own built-in command :tabprework.
+  if exists(':tabprework') == 2
+    execute 'tabprework'
+  else
+    execute 'tabnext ' . g:pre_tabnr
+  endif
+endfunction
+
+" memorize previous tabpage number
 " Enter the new tabpage, action is defined follow:
 "     WinLeave
 "     TabLeave
