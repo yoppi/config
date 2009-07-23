@@ -32,9 +32,10 @@ end
 ##
 # Prompt
 IRB.conf[:PROMPT][:MY_PROMPT] = {
-  :PROMPT_I => "#{RUBY_VERSION}:%03n:%i> ",
-  :PROMPT_S => "#{RUBY_VERSION}:%03n:%i%l ",
-  :PROMPT_C => "#{RUBY_VERSION}:%03n:%i* ",
+  :PROMPT_I => "(#{RUBY_VERSION}):%03n:%i> ",
+  :PROMPT_N => "(#{RUBY_VERSION}):%03n:%i> ",
+  :PROMPT_S => "(#{RUBY_VERSION}):%03n:%i%l ",
+  :PROMPT_C => "(#{RUBY_VERSION}):%03n:%i* ",
   :RETURN => "=> %s\n"
 }
 IRB.conf[:PROMPT_MODE] = :MY_PROMPT
