@@ -154,7 +154,14 @@ if [ -d /usr/local/bin ]; then
   done
 fi
 
-
+# for haskell application
+if [ -d $HOME/.cabal/bin ]; then
+  for bin in $HOME/.cabal/bin; do
+    if [ -d $bin ]; then
+      export PATH=$bin:$PATH
+    fi
+  done
+fi
 
 
 
