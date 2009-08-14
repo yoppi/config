@@ -2,12 +2,13 @@
 
 [user]
   name = yoppi
+  email = y.hirokazu@gmail.com
 [color]
   diff = auto
   status = auto
   branch = auto
 [alias]
-  b = branch   
+  b = branch
   ba = branch -a
   br = branch -r
   ci = commit
