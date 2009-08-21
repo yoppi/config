@@ -225,6 +225,9 @@ hi TabLineFill cterm=underline ctermbg=black ctermfg=white
 "  \ | endif
 "endif
 
+" setting autocomplpop.vim "{{{2
+let g:AutoComplPop_BehaviorKeywordLength = 3
+
 " move to previous working tabpage "{{{2
 command! -bar -nargs=0 TabPreWork call s:tabprework()
 function! s:tabprework()
