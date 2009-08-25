@@ -4,6 +4,7 @@
 # Load library
 require 'rubygems'
 require 'irb/completion'
+require 'pp'
 
 ##
 # Encoding
