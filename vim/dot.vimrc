@@ -32,7 +32,7 @@ set ambiwidth=double
 set autoindent
 set backspace=indent,eol,start
 set backupdir=~/tmp,/tmp
-set cursorline
+"set cursorline
 set directory=~/tmp,/tmp
 set expandtab
 set foldmethod=marker
@@ -99,11 +99,15 @@ unlet ostype
 
 inoremap <C-b> <LEFT>
 inoremap <C-f> <RIGHT>
-inoremap <Leader>df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
+inoremap <expr> <Leader>df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
+inoremap <expr> <Leader>dd  <C-r>=strftime('%Y-%m-%d')<Return>
+inoremap <expr> <Leader>dt  <C-r>=strftime('%H:%M:%S')<Return>
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
+
 cnoremap <C-b> <LEFT>
 cnoremap <C-f> <RIGHT>
+
 nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
 nnoremap <silent> [Space]fb :<C-u>FuzzyFinderBuffer<Return>
@@ -112,8 +116,11 @@ nnoremap <silent> [Space]fd :<C-u>FuzzyFinderDir<Return>
 nnoremap <silent> [Space]fr :<C-u>FuzzyFinderRenewCache<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>TabpageCD<Return>
-nnoremap  j gj
-nnoremap  k gk
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
 noremap <silent> <C-z>  :<C-u>SuspendWithAutomaticCD<Return>
 noremap <C-h> :<C-u>help<Space>
 noremap : ;
@@ -200,15 +207,18 @@ noremap ,ge ge
 " Color Syntax "{{{1
 syntax on
 set background=dark
-hi Comment     ctermfg=blue
-hi Pmenu       cterm=underline ctermbg=black
-hi PmenuSel    ctermbg=blue
-hi Visual      ctermfg=gray
-hi TabLineSel  ctermbg=gray ctermfg=black
-hi TabLineFill cterm=underline ctermbg=black ctermfg=white
+autocmd ColorScheme *
+\  hi Comment     ctermfg=blue
+\  hi Pmenu       cterm=underline ctermbg=black
+\  hi PmenuSel    ctermbg=blue
+\  hi Visual      ctermfg=lightgray
+\  hi TabLineSel  ctermbg=gray ctermfg=black
+\  hi TabLineFill cterm=underline ctermbg=black ctermfg=white
+doautocmd ColorScheme * _
 
-
-
+" highlighing cursorline on current window "{{{2
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
 
 " Others "{{{1
 " set screen title "{{{2
