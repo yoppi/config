@@ -204,21 +204,23 @@ noremap ,b b
 noremap ,e e
 noremap ,ge ge
 
+
+" select last modified text "{{{2
+nnoremap gc  `[v`]
+vnoremap gc  :<C-u>normal gc<Enter>
+onoremap gc  :<C-u>normal gc<Enter>
+
 " Color Syntax "{{{1
 syntax on
 set background=dark
-autocmd ColorScheme *
-\  hi Comment     ctermfg=blue
-\  hi Pmenu       cterm=underline ctermbg=black
-\  hi PmenuSel    ctermbg=blue
-\  hi Visual      ctermfg=lightgray
-\  hi TabLineSel  ctermbg=gray ctermfg=black
-\  hi TabLineFill cterm=underline ctermbg=black ctermfg=white
-doautocmd ColorScheme * _
+autocmd MyAutoCmd ColorScheme * hi Comment     ctermfg=blue | hi Pmenu cterm=underline ctermbg=black | hi PmenuSel    ctermbg=blue | hi Visual      ctermfg=lightgray | hi TabLineSel  ctermbg=gray ctermfg=black | hi TabLineFill cterm=underline ctermbg=black ctermfg=white
+doautocmd MyAutoCmd ColorScheme * _
+
 
 " highlighing cursorline on current window "{{{2
 autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
+
 
 " Others "{{{1
 " set screen title "{{{2
