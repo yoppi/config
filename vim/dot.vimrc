@@ -99,9 +99,9 @@ unlet ostype
 
 inoremap <C-b> <LEFT>
 inoremap <C-f> <RIGHT>
-inoremap <expr> <Leader>df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
-inoremap <expr> <Leader>dd  <C-r>=strftime('%Y-%m-%d')<Return>
-inoremap <expr> <Leader>dt  <C-r>=strftime('%H:%M:%S')<Return>
+inoremap <expr> <Leader>df  strftime("%Y-%m-%d %H:%M:%S")
+inoremap <expr> <Leader>dd  strftime("%Y-%m-%d")
+inoremap <expr> <Leader>dt  strftime("%H:%M:%S")
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 
@@ -213,7 +213,13 @@ onoremap gc  :<C-u>normal gc<Enter>
 " Color Syntax "{{{1
 syntax on
 set background=dark
-autocmd MyAutoCmd ColorScheme * hi Comment     ctermfg=blue | hi Pmenu cterm=underline ctermbg=black | hi PmenuSel    ctermbg=blue | hi Visual      ctermfg=lightgray | hi TabLineSel  ctermbg=gray ctermfg=black | hi TabLineFill cterm=underline ctermbg=black ctermfg=white
+autocmd MyAutoCmd ColorScheme * 
+\   hi Comment     ctermfg=blue 
+\ | hi Pmenu       cterm=underline ctermbg=black 
+\ | hi PmenuSel    ctermbg=blue 
+\ | hi Visual      ctermfg=lightgray 
+\ | hi TabLineSel  ctermbg=gray ctermfg=black 
+\ | hi TabLineFill cterm=underline ctermbg=black ctermfg=white
 doautocmd MyAutoCmd ColorScheme * _
 
 
