@@ -104,6 +104,7 @@ inoremap <expr> <Leader>dd  strftime("%Y-%m-%d")
 inoremap <expr> <Leader>dt  strftime("%H:%M:%S")
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
+inoremap <C-l> <ESC>
 
 cnoremap <C-b> <LEFT>
 cnoremap <C-f> <RIGHT>
