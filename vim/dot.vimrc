@@ -353,6 +353,18 @@ command! -bang -bar -complete=file -nargs=0 DeleteSpaceEachLine
 command! -nargs=0 GetHighlightingGroup
 \ echo 'hi<' . synIDattr(synID(line('.'),col('.'),1),'name') . '> trans<' . synIDattr(synID(line('.'),col('.'),0),'name') . '> lo<' . synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name') . '>'
 
+" auto buffer update {{{2
+function! s:AutoUpdate()
+  if expand('%') =~ s:savebuf_regex && !&readonly && &buftype == ''
+    silent update
+  endif
+endfunction
+
+autocmd MyAutoCmd CursorHold * call s:AutoUpdate()
+set updatetime=500
+if !exists('s:savebuf')
+  let s:savebuf_regex = '.\+'
+endif
 " Epilogue {{{1
 set secure
 
