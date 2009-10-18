@@ -111,10 +111,10 @@ cnoremap <C-f> <RIGHT>
 
 nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
-nnoremap <silent> [Space]fb :<C-u>FuzzyFinderBuffer<Return>
-nnoremap <silent> [Space]ff :<C-u>FuzzyFinderFile<Return>
-nnoremap <silent> [Space]fd :<C-u>FuzzyFinderDir<Return>
-nnoremap <silent> [Space]fr :<C-u>FuzzyFinderRenewCache<Return>
+nnoremap <silent> [Space]fb :<C-u>FufBuffer<Return>
+nnoremap <silent> [Space]ff :<C-u>FufFile<Return>
+nnoremap <silent> [Space]fd :<C-u>FufDir<Return>
+nnoremap <silent> [Space]fr :<C-u>FufRenewCache<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>TabpageCD<Return>
 nnoremap j gj
@@ -244,8 +244,8 @@ autocmd WinLeave * setlocal nocursorline
 "  \ | endif
 "endif
 
-" setting autocomplpop.vim "{{{2
-let g:AutoComplPop_BehaviorKeywordLength = 3
+" setting acp.vim "{{{2
+let g:acp_behaviorKeywordLength = 3
 
 " move to previous working tabpage "{{{2
 command! -bar -nargs=0 TabPreWork call s:tabprework()
