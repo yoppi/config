@@ -102,18 +102,21 @@ inoremap <C-f> <RIGHT>
 inoremap <Leader>df  <C-r>=strftime('%Y-%m-%d %H:%M:%S')<Return>
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
+
 cnoremap <C-b> <LEFT>
 cnoremap <C-f> <RIGHT>
+
 nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
-nnoremap <silent> [Space]fb :<C-u>FuzzyFinderBuffer<Return>
-nnoremap <silent> [Space]ff :<C-u>FuzzyFinderFile<Return>
-nnoremap <silent> [Space]fd :<C-u>FuzzyFinderDir<Return>
-nnoremap <silent> [Space]fr :<C-u>FuzzyFinderRenewCache<Return>
+nnoremap <silent> [Space]fb :<C-u>FufBuffer<Return>
+nnoremap <silent> [Space]ff :<C-u>FufFile<Return>
+nnoremap <silent> [Space]fd :<C-u>FufDir<Return>
+nnoremap <silent> [Space]fr :<C-u>FufRenewCache<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>TabpageCD<Return>
 nnoremap  j gj
 nnoremap  k gk
+
 noremap <silent> <C-z>  :<C-u>SuspendWithAutomaticCD<Return>
 noremap <C-h> :<C-u>help<Space>
 noremap : ;
