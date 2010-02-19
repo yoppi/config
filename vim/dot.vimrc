@@ -22,6 +22,11 @@ autocmd FileType scheme    set softtabstop=2 shiftwidth=2 tabstop=2
 autocmd Filetype changelog set softtabstop=4 shiftwidth=4 tabstop=4
 autocmd Filetype tex       set softtabstop=2 shiftwidth=2
 
+" vim-users.jp; Hack#96 - to enable omni complete on any language
+autocmd Filetype *
+\   if &omnifunc == ""
+\ |   setlocal omnifunc=syntaxcomplete#Complete
+\ | endif
 
 " Changelog timeformat "{{{2
 let g:changelog_timeformat="%Y-%m-%d"
@@ -37,9 +42,28 @@ set directory=~/tmp,/tmp
 set expandtab
 set foldmethod=marker
 set formatoptions=tcroqMm
+if exists('+fuoptions')
+  set fuoptions=maxvert,maxhorz
+endif
+if exists('+guicursor')
+  set guicursor=a:blinkwait5000-blinkon2500-blinkwait1250
+endif
+if exists('+guifont')
+  set guifont=Bitstream\ Vera\ Sans\ Mono:h14
+endif
+if exists('+guifontwide')
+  set guifontwide=HiraMaruPro-W4:h14
+endif
+if exists('+guioptions')
+  "set guioptions=cMg
+  set guioptions=cg
+endif
 set hlsearch
 set ignorecase
 set imdisable
+if has('gui_macvim')
+  set iminsert=0
+end
 set incsearch
 set laststatus=2
 set modeline
@@ -51,7 +75,11 @@ set smartindent
 "set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L
 set ttimeoutlen=50
+if exists('+transparency')
+  set transparency=10
+endif
 set vb t_vb=
+set virtualedit+=block
 set wildmenu
 
 " Tabline, by kana {{{2
@@ -108,6 +136,7 @@ inoremap <C-l> <ESC>
 
 cnoremap <C-b> <LEFT>
 cnoremap <C-f> <RIGHT>
+cnoremap <C-l> <C-c>
 
 nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
@@ -117,10 +146,17 @@ nnoremap <silent> [Space]fd :<C-u>FufDir<Return>
 nnoremap <silent> [Space]fr :<C-u>FufRenewCache<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>TabpageCD<Return>
+" display lines down /up ward
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
+" close/open a fold
+nnoremap [Space]h zc
+nnoremap [Space]l zo
+" stop the highliting
+nnoremap [Space]/ :<C-u>nohlsearch<Return>
+
 
 noremap <silent> <C-z>  :<C-u>SuspendWithAutomaticCD<Return>
 noremap <C-h> :<C-u>help<Space>
@@ -131,6 +167,8 @@ noremap ` '
 
 " visual-search
 vnoremap * y/<C-R>"<Return>
+vnoremap <C-l> <ESC>
+
 
 " auto complete parentheses "{{{2
 ""inoremap { {}<LEFT>
@@ -171,6 +209,7 @@ nnoremap <silent><C-t>h
 \ :<C-u>execute 'tabmove' max([tabpagenr()-v:count1-1, 0])<Return>
 nnoremap <silent><C-t>L :<C-u>tabmove<Return>
 nnoremap <silent><C-t>H :<C-u>tabmove 0<Return>
+nnoremap <silent> <C-w><C-t> :<C-u>MoveWinTab<Return>
 
 for i in range(10)
   execute 'nnoremap <silent>' ('<C-t>'.(i))  ((i+1).'gt')
@@ -179,6 +218,7 @@ unlet i
 
 " quickfix, by kana "{{{2
 nnoremap q <Nop>
+nnoremap Q q
 
 nnoremap qj :<C-u>cnext<Return>
 nnoremap qk :<C-u>cprevious<Return>
@@ -214,13 +254,14 @@ onoremap gc  :<C-u>normal gc<Enter>
 " Color Syntax "{{{1
 syntax on
 set background=dark
-autocmd MyAutoCmd ColorScheme * 
-\   hi Comment     ctermfg=blue 
-\ | hi Pmenu       cterm=underline ctermbg=black 
-\ | hi PmenuSel    ctermbg=blue 
-\ | hi Visual      ctermfg=lightgray 
-\ | hi TabLineSel  ctermbg=gray ctermfg=black 
+autocmd MyAutoCmd ColorScheme *
+\   hi Comment     ctermfg=blue
+\ | hi Pmenu       cterm=underline ctermbg=black guibg=black
+\ | hi PmenuSel    ctermbg=blue  guibg=blue
+\ | hi Visual      ctermfg=lightgray
+\ | hi TabLineSel  ctermbg=gray ctermfg=black
 \ | hi TabLineFill cterm=underline ctermbg=black ctermfg=white
+\ | hi Normal      guibg=grey5
 doautocmd MyAutoCmd ColorScheme * _
 
 
@@ -311,11 +352,18 @@ command! -bar -nargs=0 SuspendWithAutomaticCD
 \ call s:PseudoSuspendWithAutomaticCD()
 
 if !exists('s:gnu_screen_available_p')
-  let s:gnu_screen_available_p = len($WINDOW) != 0
+  if has('gui_running')
+    let s:gnu_screen_available_p = executable('screen')
+    "let s:gnu_screen_available_p = s:check_process('screen')
+  else
+    let s:gnu_screen_available_p = len($WINDOW) != 0
+  endif
 endif
 
 function! s:PseudoSuspendWithAutomaticCD()
   if s:gnu_screen_available_p
+    call s:activate_terminal()
+
     silent execute '!screen -X eval'
     \              '''select work'''
     \              '''stuff "  cd \"'.getcwd().'\"  \015"'''
@@ -326,6 +374,27 @@ function! s:PseudoSuspendWithAutomaticCD()
   if !s:gnu_screen_available_p
     suspend
   endif
+endfunction
+
+function! s:activate_terminal()
+  if !has('gui_running')
+    return
+  endif
+
+  if has('macunix')
+    silent !open -a Terminal
+  else
+    " Not supported
+  endif
+endfunction
+
+function! s:check_process(name)
+  " TODO: to implement plooving result of `ps ax`
+  "       I tried to using 'redir => {var}...'. But this aproach is failed.
+  "       {var} had '!ps ax | grep a:name'...
+  "redir => result
+  "  !ps ax | grep a:name
+  "redir END
 endfunction
 
 " edit encoding commadns, by kana "{{{2
@@ -365,6 +434,57 @@ set updatetime=500
 if !exists('s:savebuf')
   let s:savebuf_regex = '.\+'
 endif
+
+" move the current window into specified tab. Thanks kana. {{{2
+command! -bar -nargs=0 MoveWinTab call
+\ s:move_window_into_tabpage(s:ask_tabpage_number())
+function! s:move_window_into_tabpage(target_tabpagenr)
+  " Move the current window into a:target_tabpagenr.
+  " If a:target_tabpagenr is 0, move into new tabpage.
+  if a:target_tabpagenr < 0  " ignore invalid number.
+    return
+  endif
+  let original_tabnr = tabpagenr()
+  let target_bufnr = bufnr('')
+  let window_view = winsaveview()
+
+  if a:target_tabpagenr == 0
+    tabnew
+    tabmove  " Move new tabpage at the last.
+    execute target_bufnr 'buffer'
+    let target_tabpagenr = tabpagenr()
+  else
+    execute a:target_tabpagenr 'tabnext'
+    let target_tabpagenr = a:target_tabpagenr
+      " FIXME: be customizable?
+    execute 'topleft' target_bufnr 'sbuffer'
+  endif
+  call winrestview(window_view)
+
+  execute original_tabnr 'tabnext'
+  if 1 < winnr('$')
+    close
+  else
+    enew
+  endif
+
+  execute target_tabpagenr 'tabnext'
+endfunction
+
+function! s:ask_tabpage_number()
+  echon 'Which tabpage to move this window into?  '
+
+  let c = nr2char(getchar())
+  if c =~# '[0-9]'
+    " Convert 0-origin number (typed by user) into 1-origin number (used by
+    " Vim's internal functions).  See also 'tabline'.
+    return 1 + char2nr(c) - char2nr('0')
+  elseif c =~# "[\<C-c>\<Esc>]"
+    return -1
+  else
+    return 0
+  endif
+endfunction
 " Epilogue {{{1
 set secure
 
