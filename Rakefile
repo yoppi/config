@@ -19,8 +19,8 @@ DOT_FILES_RULE = lambda {|x| x.gsub(%r|(#{CONFIG}/)?dot|, "#{HOME}/") }
 
 # for Vim files #{{{2
 MASTER_VIMHOME = "#{CONFIG}/vim"
-MASTER_VIMRC = ["#{MASTER_VIMHOME}/dot.vimrc"]
-HOME_VIMRC = ["#{HOME}/.vimrc"]
+MASTER_VIMRC = ["#{MASTER_VIMHOME}/dot.vimrc", "#{MASTER_VIMHOME}/dot.gvimrc"]
+HOME_VIMRC = ["#{HOME}/.vimrc", "#{HOME}/.gvimrc"]
 zipped = MASTER_VIMRC.zip HOME_VIMRC
 VIMRC_TABLE = Hash[*zipped.flatten]
 
