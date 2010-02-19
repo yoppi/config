@@ -15,6 +15,7 @@
   co = checkout
   d = diff
   st = status
-
+[github]
+  user = yoppi
 
 # __END__
