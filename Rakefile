@@ -6,7 +6,6 @@
 # Task definitions #{{{1
 HOME = ENV['HOME']
 CONFIG = "#{HOME}/config"
-MANIFEST = "#{CONFIG}/Manifest"
 
 
 # for some dot files #{{{2
@@ -71,7 +70,7 @@ ALL_DIRS = HOME_VIM_DIRS + HOME_ZSH_DIRS
 
 # Tasks #{{{1
 TASKS = [:update_dot_files, :update_vimrc, :update_vim_files, 
-  :update_zshrc, :update_zsh_files, :update_manifest] +
+  :update_zshrc, :update_zsh_files] +
   HOME_DOT_FILES + 
   HOME_VIMRC + HOME_VIM_FILES +
   HOME_ZSHRC + HOME_ZSH_FILES
@@ -128,18 +127,6 @@ task "update_zsh_files" do
 end
 
 
-desc "Update manifest" #{{{2
-task "update_manifest" do
-  currents = Dir.glob("#{CONFIG}/**/*").
-    map {|f| f.gsub(%r|#{CONFIG}/|, "") }.sort
-  manifest = File.readlines(MANIFEST).map {|l| l.chomp }
-  diff = currents - manifest
-
-  if diff.size > 0
-    puts "update Manifest"
-    File.open(MANIFEST, 'w') {|io| io.puts currents }
-  end
-end
 
 # Make target directory tasks. #{{{2
 # if need to update Vim files, on the fly make target directories. 
@@ -147,31 +134,6 @@ ALL_DIRS.each {|dir|
   directory dir
 }
 
-desc "Cleanup" #{{{2
-task "clean" do
-  manifest = File.readlines(MANIFEST).map {|f| f.chomp }
-  # diff
-  # to head files before directories
-  diff = manifest.select {|f| !File.exists? f }.sort {|a, b| b <=> a }
-  
-  # clean and update manifest
-  if diff.size > 0
-    diff.each {|d|
-      ALL_RULES.each {|rule|
-        target = rule.call(d)
-        if File.exists? target
-          if File.file? target then rm target
-          elsif File.directory? then rmdir target
-          else next
-          end 
-        end
-      }
-    }
-
-    new = manifest - diff
-    File.open(MANIFEST, 'w') {|io| io.puts new }
-  end
-end
 
 # __END__ #{{{1
 # vim: foldmethod=marker
