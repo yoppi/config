@@ -22,6 +22,10 @@ shelltitle "shell"
 bind p other
 bind j next
 bind k prev
+bind u eval "encoding UTF-8"
+bind e eval "encoding eucJP"
+bind s eval "encoding SJIS"
+bind j eval "encoding jis"
 #bind ' ' select 0
 
 # by kana - http://github.com/kana/config/tree/master
