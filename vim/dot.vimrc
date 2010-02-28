@@ -286,7 +286,11 @@ autocmd WinLeave * setlocal nocursorline
 "endif
 
 " setting acp.vim "{{{2
+let g:acp_enableAtStartup = 0
 let g:acp_behaviorKeywordLength = 3
+
+" setting neocom "{{{2
+let g:NeoComplCache_EnableAtStartup = 1
 
 " move to previous working tabpage "{{{2
 command! -bar -nargs=0 TabPreWork call s:tabprework()
