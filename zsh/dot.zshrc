@@ -86,7 +86,7 @@ case "${OSTYPE}" in
     alias preview="open -a Preview"
     alias safari="open -a Safari"
     alias cot="open -a CotEditor"
-    alias gvim="open -a MacVim"
+    alias gvim="/Applications/MacVim.app/Contents/MacOS/Vim -g"
     ;;
   linux*)
     alias ls="ls --color"
