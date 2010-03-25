@@ -376,13 +376,13 @@ let g:quicklaunch_commands = [
 
 
 " to keep current directory for each tab page, by kana - " http://github.com/kana/config/tree/master/vim/dot.vimrc {{{2
-command! -nargs=0 TabpageCD
-\   let t:cwd = fnamemodify(expand('%'), ':p:h')
-\ | execute 'cd ' . fnameescape(t:cwd)
+command! -nargs=? TabpageCD
+\   execute 'cd ' . fnameescape(<q-args>)
+\ | let t:cwd = getcwd()
 
 autocmd MyAutoCmd TabEnter *
 \   if !exists('t:cwd')
-\ |   let t:cwd = fnamemodify(expand('%'), ':p:h')
+\ |   let t:cwd = getcwd()
 \ | endif
 \ | execute 'cd ' . fnameescape(t:cwd)
 
