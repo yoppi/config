@@ -137,8 +137,8 @@ function! s:set_tabline()
 
   let s .= '%#TabLineFill#%T'
   let s .= '%=%#TabLine#%999X'
-  "let branch_name = s:get_branch_name(getcwd())
-  "let s .= '[' . (branch_name != '' ? branch_name : '') . ']'
+  let branch_name = s:git_branch_name(getcwd())
+  let s .= '[' . (branch_name != '' ? branch_name : '') . ']'
   return s
 endfunction
 
@@ -523,6 +523,54 @@ function! s:ask_tabpage_number()
   else
     return 0
   endif
+endfunction
+
+" Git branch name "{{{2
+let s:_git_branch_name_cache = {} " dir_path = [branch_name, key_file_mtime]
+
+function! s:git_branch_name(dir)
+  let cache_entry = get(s:_git_branch_name_cache, a:dir, 0)
+  if cache_entry is 0
+  \ || cache_entry[1] < getftime(s:_git_branch_name_keyfile(a:dir))
+    unlet cache_entry
+    let cache_entry = s:_git_branch_name(a:dir)
+    let s:_git_branch_name_cache[a:dir] = cache_entry
+  endif
+
+  return cache_entry[0]
+endfunction
+
+function! s:_git_branch_name_keyfile(dir)
+  return a:dir . '/.git/HEAD'
+endfunction
+
+function! s:_git_branch_name(dir)
+  let head_file = s:_git_branch_name_keyfile(a:dir)
+  let branch_name = ''
+
+  if filereadable(head_file)
+    let ref_info = s:first_line(head_file)
+    if ref_info =~ '^\x\{40}$'
+      let remote_refs_dir = a:dir . '/.git/refs/remotes/'
+      let remote_branches = split(glob(remote_refs_dir . '**'), "\n")
+      call filter(remote_branches, 's:first_line(v:val) ==# ref_info')
+      if 1 <= len(remote_branches)
+        let branch_name = 'remote: ' . remote_branches[0][len(remote_refs_dir):]
+      endif
+    else
+      let branch_name = matchlist(ref_info, '^ref: refs/heads/\(\S\+\)$')[1]
+      if branch_name == ''
+        let branch_name = ref_info
+      endif
+    endif
+  endif
+
+  return [branch_name, getftime(head_file)]
+endfunction
+
+function! s:first_line(file)
+  let lines = readfile(a:file, '', 1)
+  return 1 <= len(lines) ? lines[0] : ''
 endfunction
 " Epilogue {{{1
 set secure
