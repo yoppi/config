@@ -5,6 +5,7 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
+" auto encoding discrimination "{{{2
 set encoding=utf-8
 if has('iconv')
   let s:enc_euc = 'euc-jp'
