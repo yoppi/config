@@ -105,7 +105,9 @@ alias where="command -v"
 alias j="jobs -l"
 alias v="vim"
 
-
+# for secure!
+alias cp="cp -i"
+alias mv="mv -i"
 
 ## Search #{{{1
 # historical backward/forward search with linehead string binded to ^P/^N
