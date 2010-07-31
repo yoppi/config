@@ -1,0 +1,32 @@
+" My Vimperator Settings
+
+" Opening
+set visualbell
+highlight Bell display:none
+
+let mapleader = ","
+
+map <Space> [Space]
+noremap [Space] <Nop>
+
+
+" Options
+set wildoptions=auto
+set complete=sl
+
+
+" Key mappings
+noremap <C-h> :<C-u>help<Space>
+noremap : ;
+noremap ; :
+noremap j 3j
+noremap k 3k
+noremap <Leader>ss :<C-u>source ~/.vimperatorrc<Return>
+
+cnoremap <C-n> <TAB>
+cnoremap <C-p> <S-TAB>
+
+" Google Service
+
+
+" vim: filetype=vim
