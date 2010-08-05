@@ -131,23 +131,6 @@ zstyle ':completion:*' list-colors ''
 
 
 ## PATH #{{{1
-case "${OSTYPE}" in
-  darwin*)
-  # for MacPorts
-  if [ -d "/opt/local/bin" ]; then
-    export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
-    export MANPATH=/opt/local/man:$MANPATH
-  fi
-  ;;
-esac
-
-if [ -d $HOME/local/bin ]; then
-  for bin in $HOME/local/bin; do
-    if [ -d $bin ]; then
-      export PATH=$bin:$PATH
-    fi
-  done
-fi
 
 if [ -d /usr/local/bin ]; then
   for bin in /usr/local/bin; do
@@ -160,6 +143,24 @@ fi
 # for haskell application
 if [ -d $HOME/.cabal/bin ]; then
   for bin in $HOME/.cabal/bin; do
+    if [ -d $bin ]; then
+      export PATH=$bin:$PATH
+    fi
+  done
+fi
+
+case "${OSTYPE}" in
+  darwin*)
+  # for MacPorts
+  if [ -d "/opt/local/bin" ]; then
+    export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
+    export MANPATH=/opt/local/man:$MANPATH
+  fi
+  ;;
+esac
+
+if [ -d $HOME/local/bin ]; then
+  for bin in $HOME/local/bin; do
     if [ -d $bin ]; then
       export PATH=$bin:$PATH
     fi
