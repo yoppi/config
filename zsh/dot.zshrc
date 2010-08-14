@@ -105,6 +105,22 @@ alias where="command -v"
 alias j="jobs -l"
 alias v="vim"
 
+# for git
+alias g="g"
+alias ga="git add"
+alias gb="git branch"
+alias gc="git commit"
+alias gd="git diff"
+alias ge="git config -e"
+alias gf="git fetch"
+alias gg="git grep"
+alias gl="git log"
+alias gsw="git show"
+alias gvn="git svn"
+alias gsh="git stash"
+alias gshp="git stash pop"
+alias gst="git status"
+
 # for secure!
 alias cp="cp -i"
 alias mv="mv -i"
