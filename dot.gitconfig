@@ -7,6 +7,7 @@
   diff = auto
   status = auto
   branch = auto
+  quotepath = false
 [alias]
   b = branch
   ba = branch -a
