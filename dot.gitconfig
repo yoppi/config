@@ -1,5 +1,6 @@
 # .gitconfig
-
+[core]
+  quotepath = false
 [user]
   name = yoppi
   email = y.hirokazu@gmail.com
@@ -7,7 +8,6 @@
   diff = auto
   status = auto
   branch = auto
-  quotepath = false
 [alias]
   b = branch
   ba = branch -a
