@@ -1,0 +1,21 @@
+"
+" Setting for vrapper on Eclipse
+"
+
+set ignorecase
+
+" to replace : with ;
+noremap : ;
+noremap ; :
+
+nnoremap <SPACE>w :write<RETURN>
+nnoremap <SPACE>q :quite<RETURN>
+
+" <ESC> and <C-[> is very far
+inoremap <C-L> <ESC>
+"cnoremap <C-L> <ESC>
+vnoremap <C-L> <ESC>
+
+" to code completion
+"inoremap <C-P>
+
