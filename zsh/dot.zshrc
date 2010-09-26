@@ -32,6 +32,13 @@ export SVN_EDITOR=vim
 # load user .zshrc configuration file
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
 
+# load each project configuration file
+if [ -d $HOME/.zsh/proj ]; then
+  for envfile in $HOME/.zsh/proj/*; do
+    source $envfile
+  done
+fi
+
 # Completion configuration
 fpath=(~/.zsh/functions/Completion ${fpath})
 autoload -U compinit
