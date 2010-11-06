@@ -15,8 +15,8 @@ esac
 #   * -e: emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e
 #   goes to end of it)
 #   * -v: vi like keybind. modal key editing.
-#bindkey -e
-bindkey -v
+bindkey -e
+#bindkey -v
 
 # Command history configuration
 HISTFILE=~/.zsh_history
