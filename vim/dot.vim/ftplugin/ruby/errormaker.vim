@@ -5,6 +5,8 @@ if exists("g:did_ruby_errormaker")
 endif
 let g:did_ruby_errormaker = 1
 
-compiler ruby
+" syntax check only
+"compiler ruby
+setlocal makeprg=ruby\ -cw\ $*
 setlocal errorformat=%f:%l:%m
 autocmd BufWritePost *.rb silent make %
