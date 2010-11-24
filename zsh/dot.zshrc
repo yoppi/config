@@ -98,6 +98,8 @@ case "${OSTYPE}" in
   linux*)
     alias ls="ls --color"
     ;;
+  cygwin*)
+    alias ls="ls --color"
 esac
 
 alias la="ls -a"
