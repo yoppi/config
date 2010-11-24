@@ -84,10 +84,18 @@ if exists('+guicursor')
   set guicursor=a:blinkwait5000-blinkon2500-blinkwait1250
 endif
 if exists('+guifont')
-  set guifont=Bitstream\ Vera\ Sans\ Mono:h14
+  if has('gui_macvim')
+    set guifont=Bitstream\ Vera\ Sans\ Mono:h14
+  elseif has('gui_running')
+    set guifont=Bitstream\ Vera\ Sans\ Mono:h11
+  endif
 endif
 if exists('+guifontwide')
-  set guifontwide=HiraMaruPro-W4:h14
+  if has('gui_macvim')
+    set guifontwide=HiraMaruPro-W4:h14
+  elseif has('win32') || has('win64')
+    set guifontwide=MS_Gothic:h11
+  endif
 endif
 if exists('+guioptions')
   "set guioptions=cMg
