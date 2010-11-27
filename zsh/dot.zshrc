@@ -96,10 +96,10 @@ case "${OSTYPE}" in
     alias gvim="/Applications/MacVim.app/Contents/MacOS/Vim -g"
     ;;
   linux*)
-    alias ls="ls --color"
+    alias ls="ls --color --file-type"
     ;;
   cygwin*)
-    alias ls="ls --color"
+    alias ls="ls --color --file-type"
 esac
 
 alias la="ls -a"
