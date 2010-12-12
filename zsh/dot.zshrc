@@ -225,6 +225,7 @@ case "${OSTYPE}" in
     ;;
   cygwin*)
     alias ls="ls --color --file-type"
+    alias open="cygstart"
 esac
 
 alias la="ls -a"
