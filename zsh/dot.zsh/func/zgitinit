@@ -25,14 +25,14 @@ zgit_precmd_hook() {
 zgit_info_update() {
 	zgit_info=()
 
-    # to get '.git' dir name
-	local gitdir=$(git rev-parse --git-dir 2>/dev/null)
+	local gitdir="$(git rev-parse --git-dir 2>/dev/null)"
 	if [ $? -ne 0 ] || [ -z "$gitdir" ]; then
 		return
 	fi
 
 	zgit_info[dir]=$gitdir
 	zgit_info[bare]=$(git rev-parse --is-bare-repository)
+	zgit_info[inwork]=$(git rev-parse --is-inside-work-tree)
 }
 
 zgit_isgit() {
@@ -43,9 +43,18 @@ zgit_isgit() {
 	fi
 }
 
+zgit_inworktree() {
+	zgit_isgit || return
+	if [ "$zgit_info[inwork]" = "true" ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
 zgit_isbare() {
 	zgit_isgit || return
-	if [ "$zg----it_info[bare]" = "true" ]; then
+	if [ "$zgit_info[bare]" = "true" ]; then
 		return 0
 	else
 		return 1
@@ -213,7 +222,11 @@ zgit_rebaseinfo() {
 	zgit_info[dotest]=$dotest
 
 	zgit_info[rb_onto]=$(cat "$dotest/onto")
-	zgit_info[rb_upstream]=$(cat "$dotest/upstream")
+	if [ -f "$dotest/upstream" ]; then
+		zgit_info[rb_upstream]=$(cat "$dotest/upstream")
+	else
+		zgit_info[rb_upstream]=
+	fi
 	if [ -f "$dotest/orig-head" ]; then
 		zgit_info[rb_head]=$(cat "$dotest/orig-head")
 	elif [ -f "$dotest/head" ]; then
@@ -224,17 +237,10 @@ zgit_rebaseinfo() {
 	return 0
 }
 
-zgitinit() {
-	typeset -ga chpwd_functions
-	typeset -ga preexec_functions
-	typeset -ga precmd_functions
-	chpwd_functions+='zgit_chpwd_hook'
-	preexec_functions+='zgit_preexec_hook'
-	precmd_functions+='zgit_precmd_hook'
-}
+add-zsh-hook chpwd zgit_chpwd_hook
+add-zsh-hook preexec zgit_preexec_hook
+add-zsh-hook precmd zgit_precmd_hook
 
-zgitinit
 zgit_info_update
 
-# __END__
-# vim: feletype=zsh
+# vim:set ft=zsh:
