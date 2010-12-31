@@ -71,6 +71,7 @@ let g:changelog_timeformat="%Y-%m-%d"
 set ambiwidth=double
 set autoindent
 set backspace=indent,eol,start
+set backupcopy=yes
 set backupdir=~/tmp,/tmp
 "set cursorline
 set directory=~/tmp,/tmp
