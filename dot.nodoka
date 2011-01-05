@@ -1,0 +1,80 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Nodoka - dotjp.nodoka
+# Copyright (C) 1999-2005, TAGA Nayuta <nayuta@users.sourceforge.net>
+#
+# Modify by applet on 2010-03-29
+
+# まずキーボード定義を読み込む。
+if ( USE104 )
+  include "104.nodoka"			# 104 キーボード設定
+  if ( USE109on104 )
+    include "109on104.nodoka"		# 104 キーボードを 109 キーボード風に
+  endif
+else
+  include "109.nodoka"			# 109 キーボード設定
+  if ( USE104on109 )
+    include "104on109.nodoka"		# 109 キーボードを 104 キーボード風に
+  endif
+endif
+
+if ( USEdefault )
+  include	"default2.nodoka"	# Emacs ライクなさまざまな設定
+endif
+
+
+# Global keymap 設定
+keymap Global
+
+
+# 以下は、便宜上、設定するもの
+key C-A-D = &DescribeBindings 		# 現在のキーマップのログ出力
+key F1 = &SendPostMessage("PostTray",,"のどか", 0x0205, 0, 0)	# のどかのメニューを開く
+
+
+# シフト+F2: 日本語キーボード、英語キーボード 切り替えトグル
+if ( USE109 )
+  if ( USE104on109 )
+    key S-F2 => &IconColor(0) &HelpMessage("Reloaded", "日本語 109 キーボード") &LoadSetting("日本語 109 キーボード")
+  else
+    key S-F2 => &IconColor(2) &HelpMessage("Reloaded", "日本語 109 キーボード (104 風)") &LoadSetting("日本語 109 キーボード (104 風)")
+  endif
+endif
+if ( USE104 )
+  if ( USE109on104 )
+    key S-F2 => &IconColor(0) &HelpMessage("Reloaded", "英語 104 キーボード") &LoadSetting("英語 104 キーボード")
+  else
+    key S-F2 => &IconColor(2) &HelpMessage("Reloaded", "英語 104 キーボード (109 風)") &LoadSetting("英語 104 キーボード (109 風)")
+  endif
+endif
+
+
+# 以下に、ご自身の設定を御書き下さい。
+
+# CapsLock is must Die!
+mod control += CapsLock
+key *CapsLock = *LeftControl
+
+# Key repeat
+def option KeyboardDelay = enable 100 15
+
+# Ctrl-h is BackSpace key
+key C-H = BackSpace
+keymap MyEmacsMove : Global
+  key C-B = Left
+  key C-F = Right
+  key C-N = Down
+  key C-P = Up
+
+# most Use application with
+window Chrome /chrome.exe/ : MyEmacsMove
+window LimeChat2 /LimeChat2.exe/ : MyEmacsMove
+window Eclipse /javaw.exe/ : MyEmacsMove
+window Explorer /Explorer.EXE/ : MyEmacsMove
+window Launchy /Launchy.exe/ : MyEmacsMove
+
+# but mintty, gvim has default
+window Gvim /gvim.exe:Vim/ : Global
+  key C-H = C-H
+window Mintty /imtty.exe:mintty/ : Global
+  key C-H = C-H
+
