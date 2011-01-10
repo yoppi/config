@@ -47,6 +47,10 @@ let mapleader = ","
 map <Space> [Space]
 noremap [Space] <nop>
 
+" Load Vim plugins from pathogen "{{{2
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 " Filetype "{{{2
 filetype plugin indent on
 autocmd Filetype c,cpp     set softtabstop=4 shiftwidth=4 tabstop=8
@@ -334,7 +338,10 @@ let g:acp_enableAtStartup = 0
 let g:acp_behaviorKeywordLength = 3
 
 " setting neocom "{{{2
-let g:NeoComplCache_EnableAtStartup = 1
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_min_syntax_length = 3
 
 " move to previous working tabpage "{{{2
 command! -bar -nargs=0 TabPreWork call s:tabprework()
