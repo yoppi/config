@@ -57,5 +57,15 @@ class Object
   end
 end
 
+##
+# Utils
+def levenshtein_distance(s, t)
+  t.chars.with_index.inject(0..s.size) do |r, (a, z)|
+    z += 1
+    [z] + s.chars.zip(r.each_cons(2)).map do |b, (x, y)|
+      z = [y + 1, z + 1, x + (a == b ? 0 : 1)].min
+    end
+  end.last
+end
 # __END__
 # vim: filetype=ruby
