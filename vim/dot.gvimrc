@@ -14,7 +14,7 @@ else
 endif
 
 " Color "{{{1
-if has('gui_running')
+if (has('win32') || has('win64')) && has('gui_running')
   set transparency=220
   colorscheme koehler
   hi Pmenu       gui=underline guibg=black
@@ -22,7 +22,7 @@ if has('gui_running')
   hi Normal guibg=grey5
 endif
 
-if has('win32') || has('win64')
+if has('unix') || has('win32') || has('win64')
   set vb t_vb=
   set noimdisable
 endif

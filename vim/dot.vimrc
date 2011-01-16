@@ -87,8 +87,10 @@ endif
 if exists('+guifont')
   if has('gui_macvim')
     set guifont=Bitstream\ Vera\ Sans\ Mono:h14
-  elseif has('gui_running')
+  elseif (has('win32') || has('win64')) && has('gui_running')
     set guifont=Bitstream\ Vera\ Sans\ Mono:h11
+  elseif has('unix') && has('gui_running')
+    set guifont=DejaVu\ Sans\ Mono\ Book:h11
   endif
 endif
 if exists('+guifontwide')
@@ -99,8 +101,12 @@ if exists('+guifontwide')
   endif
 endif
 if exists('+guioptions')
+  if has('gui_macvim') || has('win32') || has('win64')
   "set guioptions=cMg
-  set guioptions=cg
+    set guioptions=cg
+  elseif has('unix')
+    set guioptions=cgi
+  endif
 endif
 set hlsearch
 set ignorecase
