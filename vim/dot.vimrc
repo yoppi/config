@@ -340,9 +340,6 @@ autocmd WinLeave * setlocal nocursorline
 "  \ | endif
 "endif
 
-" setting acp.vim "{{{2
-let g:acp_enableAtStartup = 0
-let g:acp_behaviorKeywordLength = 3
 
 " setting neocom "{{{2
 let g:neocomplcache_enable_at_startup = 1
