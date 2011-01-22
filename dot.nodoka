@@ -71,6 +71,7 @@ window LimeChat2 /LimeChat2.exe/ : MyEmacsMove
 window Eclipse /javaw.exe/ : MyEmacsMove
 window Explorer /Explorer.EXE/ : MyEmacsMove
 window Launchy /Launchy.exe/ : MyEmacsMove
+window PowerPoint /POWERPNT.EXE/ : MyEmacsMove
 
 # but mintty, gvim has default
 window Gvim /gvim.exe:Vim/ : Global
