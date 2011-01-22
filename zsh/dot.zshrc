@@ -239,6 +239,7 @@ alias su="su -l"
 alias where="command -v"
 alias j="jobs -l"
 alias v="vim"
+alias r="rails"
 
 # for git
 alias g="git"
