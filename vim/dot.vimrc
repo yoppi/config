@@ -192,6 +192,7 @@ nnoremap <silent> [Space]fb :<C-u>FufBuffer<Return>
 nnoremap <silent> [Space]ff :<C-u>FufFile<Return>
 nnoremap <silent> [Space]fd :<C-u>FufDir<Return>
 nnoremap <silent> [Space]fr :<C-u>FufRenewCache<Return>
+nnoremap <silent> [Space]fi :<C-u>FufBookmarkDir<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>TabpageCD<Return>
 " display lines down /up ward
@@ -342,6 +343,18 @@ let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_min_syntax_length = 3
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+" setting rsense "{{{2
+let g:rsenseHome = "/home/h_yoshida/apps/rsense/rsense-0.3"
+" 特にWindowsのgVim環境で使用すると遅すぎて使い物にならないのでUnix環境のみ有
+" 効にしている
+if has('unix') && !has('win32unix')
+  let g:rsenseUseOmniFunc = 1
+endif
 
 " move to previous working tabpage "{{{2
 command! -bar -nargs=0 TabPreWork call s:tabprework()
