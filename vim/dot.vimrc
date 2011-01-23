@@ -67,9 +67,6 @@ autocmd Filetype *
 \ |   setlocal omnifunc=syntaxcomplete#Complete
 \ | endif
 
-" Changelog timeformat "{{{2
-let g:changelog_timeformat="%Y-%m-%d"
-
 " Options {{{2
 "set number
 set ambiwidth=double
@@ -325,6 +322,39 @@ autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 
 
+
+
+" Vim Plugin Settings "{{{1
+" neocomplcache.vim "{{{2
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_min_syntax_length = 3
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+" rsense.vim "{{{2
+let g:rsenseHome = $HOME . "/apps/rsense/rsense-0.3"
+" 特にWindowsのgVim環境で使用すると遅すぎて使い物にならないのでUnix環境のみ有
+" 効にしている
+if has('unix') && !has('win32unix')
+  let g:rsenseUseOmniFunc = 1
+endif
+
+" quickrun.vim: definition of quicklaunch commands "{{{2
+let g:quicklaunch_commands = [
+  \ 'rake',
+  \ 'ls -a',
+  \ 'ls -l',
+  \ 'wc -l ~/.vimrc'
+  \]
+
+" changelog.vim timeformat "{{{2
+let g:changelog_timeformat="%Y-%m-%d"
+
+
 " Others "{{{1
 " set screen title "{{{2
 "function! SetScreenTabName(name)
@@ -340,24 +370,6 @@ autocmd WinLeave * setlocal nocursorline
 "  \ | endif
 "endif
 
-
-" setting neocom "{{{2
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_min_syntax_length = 3
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-" setting rsense "{{{2
-let g:rsenseHome = $HOME . "/apps/rsense/rsense-0.3"
-" 特にWindowsのgVim環境で使用すると遅すぎて使い物にならないのでUnix環境のみ有
-" 効にしている
-if has('unix') && !has('win32unix')
-  let g:rsenseUseOmniFunc = 1
-endif
 
 " move to previous working tabpage "{{{2
 command! -bar -nargs=0 TabPreWork call s:tabprework()
@@ -397,15 +409,6 @@ autocmd MyAutoCmd TabLeave *
 \ let g:pre_tabnr = g:cur_tabnr
 autocmd MyAutoCmd TabEnter *
 \ let g:cur_tabnr = tabpagenr()
-
-" quickrun.vim: definition of quicklaunch commands "{{{2
-let g:quicklaunch_commands = [
-  \ 'rake',
-  \ 'ls -a',
-  \ 'ls -l',
-  \ 'wc -l ~/.vimrc'
-  \]
-
 
 " to keep current directory for each tab page, by kana - " http://github.com/kana/config/tree/master/vim/dot.vimrc {{{2
 command! -nargs=? TabpageCD
