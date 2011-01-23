@@ -352,7 +352,7 @@ endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 " setting rsense "{{{2
-let g:rsenseHome = "/home/h_yoshida/apps/rsense/rsense-0.3"
+let g:rsenseHome = $HOME . "/apps/rsense/rsense-0.3"
 " 特にWindowsのgVim環境で使用すると遅すぎて使い物にならないのでUnix環境のみ有
 " 効にしている
 if has('unix') && !has('win32unix')
