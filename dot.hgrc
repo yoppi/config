@@ -1,0 +1,21 @@
+[extensions]
+color =
+fetch =
+graphlog =
+mq =
+rebase =
+record =
+transplant =
+info = ~/.hgext/info.py
+shelve = ~/.hgext/hgshelve.py
+
+[diff]
+git = 1
+
+[alias]
+l = log
+gl = glog
+st = status .
+pr = pull --rebase
+b = branch
+bs = branches
