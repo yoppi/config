@@ -87,7 +87,7 @@ autoload -Uz colors
 colors
 autoload -Uz vcs_info
 
-zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' enable git svn hg
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
 zstyle ':vcs_info:*' actionfromats '(%s-[%b|%a])'
 zstyle ':vcs_info:svn:*' branchformat '%b:%r'
