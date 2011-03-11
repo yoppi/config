@@ -14,8 +14,12 @@ else
 endif
 
 " Color "{{{1
-if (has('win32') || has('win64')) && has('gui_running')
-  set transparency=220
+if has('gui_running') || has('gui_macvim')
+  if has('win32') || has('win64')
+    set transparency=220
+  elseif has('gui_macvim')
+    set transparency=10
+  endif
   colorscheme koehler
   hi Pmenu       gui=underline guibg=black
   hi PmenuSel    guibg=blue
