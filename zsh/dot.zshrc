@@ -258,6 +258,9 @@ alias gsh="git stash"
 alias gshp="git stash pop"
 alias gst="git status"
 
+# for Mercurial
+alias h="hg"
+
 # for secure!
 alias cp="cp -i"
 alias mv="mv -i"
