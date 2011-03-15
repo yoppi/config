@@ -23,7 +23,6 @@ if has('iconv')
     let &fileencodings = &fileencodings . ',' . 'ucs-2le'
     let &fileencodings = &fileencodings . ',' . 'ucs-2'
   endif
-  let &fileencodings = &fileencodings . ',' . s:enc_jis
 
   if &fileencodings ==# 'utf-8'
     let &fileencodings = &fileencodings . ',' . s:enc_euc
@@ -35,6 +34,7 @@ if has('iconv')
   else
     let &fileencodings = &fileencodings . ',' . 'utf-8'
     let &fileencodings = &fileencodings . ',' . s:enc_euc
+    let &fileencodings = &fileencodings . ',' . s:enc_jis
   endif
   let &fileencodings = &fileencodings . ',' . &encoding
 
