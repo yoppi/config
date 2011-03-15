@@ -414,7 +414,7 @@ autocmd MyAutoCmd TabEnter *
 \ let g:cur_tabnr = tabpagenr()
 
 " to keep current directory for each tab page, by kana - " http://github.com/kana/config/tree/master/vim/dot.vimrc {{{2
-command! -nargs=? TabpageCD
+command! -nargs=? -complete=file TabpageCD
 \   execute 'cd ' . fnameescape(<q-args>)
 \ | let t:cwd = getcwd()
 
