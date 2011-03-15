@@ -77,6 +77,7 @@ set backupdir=~/tmp,/tmp
 "set cursorline
 set directory=~/tmp,/tmp
 set expandtab
+set fileformat=unix
 set foldmethod=marker
 set formatoptions=tcroqMm
 if exists('+fuoptions')
