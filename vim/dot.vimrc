@@ -342,6 +342,8 @@ let g:rsenseHome = $HOME . "/apps/rsense/rsense-0.3"
 " 効にしている
 if has('unix') && !has('win32unix')
   let g:rsenseUseOmniFunc = 1
+else
+  let g:loaded_rsense = 1
 endif
 
 " quickrun.vim: definition of quicklaunch commands "{{{2
