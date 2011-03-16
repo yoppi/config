@@ -312,6 +312,10 @@ case "${OSTYPE}" in
     export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
     export MANPATH=/opt/local/man:$MANPATH
   fi
+  # for coreutils
+  if [ -d "/opt/local/libexec/gnubin" ]; then
+    export PATH=/opt/local/libexec/gnubin:$PATH
+  fi
   ;;
 esac
 
