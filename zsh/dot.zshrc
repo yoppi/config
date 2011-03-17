@@ -315,6 +315,7 @@ case "${OSTYPE}" in
   # for coreutils
   if [ -d "/opt/local/libexec/gnubin" ]; then
     export PATH=/opt/local/libexec/gnubin:$PATH
+    alias ls="ls --color --file-type"
   fi
   ;;
 esac
