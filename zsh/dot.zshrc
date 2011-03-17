@@ -258,6 +258,9 @@ alias gsh="git stash"
 alias gshp="git stash pop"
 alias gst="git status"
 
+# for bazaar
+alias b="bzr"
+
 # for Mercurial
 alias h="hg"
 

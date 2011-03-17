@@ -23,7 +23,6 @@ if has('iconv')
     let &fileencodings = &fileencodings . ',' . 'ucs-2le'
     let &fileencodings = &fileencodings . ',' . 'ucs-2'
   endif
-  let &fileencodings = &fileencodings . ',' . s:enc_jis
 
   if &fileencodings ==# 'utf-8'
     let &fileencodings = &fileencodings . ',' . s:enc_euc
@@ -35,6 +34,7 @@ if has('iconv')
   else
     let &fileencodings = &fileencodings . ',' . 'utf-8'
     let &fileencodings = &fileencodings . ',' . s:enc_euc
+    let &fileencodings = &fileencodings . ',' . s:enc_jis
   endif
   let &fileencodings = &fileencodings . ',' . &encoding
 
@@ -77,6 +77,7 @@ set backupdir=~/tmp,/tmp
 "set cursorline
 set directory=~/tmp,/tmp
 set expandtab
+set fileformat=unix
 set foldmethod=marker
 set formatoptions=tcroqMm
 if exists('+fuoptions')
@@ -341,6 +342,8 @@ let g:rsenseHome = $HOME . "/apps/rsense/rsense-0.3"
 " 効にしている
 if has('unix') && !has('win32unix')
   let g:rsenseUseOmniFunc = 1
+else
+  let g:loaded_rsense = 1
 endif
 
 " quickrun.vim: definition of quicklaunch commands "{{{2
@@ -411,7 +414,7 @@ autocmd MyAutoCmd TabEnter *
 \ let g:cur_tabnr = tabpagenr()
 
 " to keep current directory for each tab page, by kana - " http://github.com/kana/config/tree/master/vim/dot.vimrc {{{2
-command! -nargs=? TabpageCD
+command! -nargs=? -complete=file TabpageCD
 \   execute 'cd ' . fnameescape(<q-args>)
 \ | let t:cwd = getcwd()
 
