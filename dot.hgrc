@@ -3,6 +3,7 @@ color =
 fetch =
 graphlog =
 mq =
+pager =
 rebase =
 record =
 transplant =
@@ -11,6 +12,11 @@ shelve = ~/.hgext/hgshelve.py
 
 [diff]
 git = 1
+
+[pager]
+pager = LESS='FSRX' less
+quiet = True
+attend = diff, d, log, l, glog, gl
 
 [alias]
 l = log
