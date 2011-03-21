@@ -142,6 +142,9 @@ function! s:SetErrorMarkers()
         execute ":sign place " . l:key . " line=" . l:d.lnum . " name=" .
                     \ l:name . " buffer=" . l:d.bufnr
     endfor
+    if !has('gui_running')
+        redraw!
+    endif
 endfunction
 
 function! s:ErrorMessageBalloons()
