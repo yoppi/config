@@ -319,11 +319,6 @@ autocmd MyAutoCmd ColorScheme *
 doautocmd MyAutoCmd ColorScheme * _
 
 
-" highlighing cursorline on current window "{{{2
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-
-
 
 
 " Vim Plugin Settings "{{{1
