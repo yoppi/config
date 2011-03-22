@@ -130,6 +130,7 @@ set ttimeoutlen=50
 if exists('+transparency')
   set transparency=10
 endif
+set t_Co=256
 set vb t_vb=
 set virtualedit+=block
 set wildmenu

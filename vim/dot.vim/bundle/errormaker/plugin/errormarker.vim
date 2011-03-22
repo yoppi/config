@@ -143,7 +143,7 @@ function! s:SetErrorMarkers()
                     \ l:name . " buffer=" . l:d.bufnr
     endfor
     if !has('gui_running')
-      redraw!
+        redraw!
     endif
 endfunction
 
