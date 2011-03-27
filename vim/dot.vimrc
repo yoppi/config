@@ -193,11 +193,6 @@ cnoremap <C-l> <C-c>
 
 nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
-nnoremap <silent> [Space]fb :<C-u>FufBuffer<Return>
-nnoremap <silent> [Space]ff :<C-u>FufFile<Return>
-nnoremap <silent> [Space]fd :<C-u>FufDir<Return>
-nnoremap <silent> [Space]fr :<C-u>FufRenewCache<Return>
-nnoremap <silent> [Space]fi :<C-u>FufBookmarkDir<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>TabpageCD<Return>
 " display lines down /up ward
