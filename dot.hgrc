@@ -17,7 +17,7 @@ git = 1
 [pager]
 pager = LESS='FSRX' less
 quiet = True
-attend = diff, d, log, l, glog, gl
+attend = diff, d, log, l, glog, gl, qdiff
 
 [alias]
 l = log
