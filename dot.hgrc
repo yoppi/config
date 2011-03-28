@@ -31,3 +31,4 @@ qr = qrefresh
 qf = qfinish
 sh = shelve
 ush = unshelve
+rec = record
