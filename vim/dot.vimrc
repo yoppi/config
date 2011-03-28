@@ -193,11 +193,6 @@ cnoremap <C-l> <C-c>
 
 nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
-nnoremap <silent> [Space]fb :<C-u>FufBuffer<Return>
-nnoremap <silent> [Space]ff :<C-u>FufFile<Return>
-nnoremap <silent> [Space]fd :<C-u>FufDir<Return>
-nnoremap <silent> [Space]fr :<C-u>FufRenewCache<Return>
-nnoremap <silent> [Space]fi :<C-u>FufBookmarkDir<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>TabpageCD<Return>
 " display lines down /up ward
@@ -319,9 +314,24 @@ autocmd MyAutoCmd ColorScheme *
 doautocmd MyAutoCmd ColorScheme * _
 
 
-
-
 " Vim Plugin Settings "{{{1
+" unite.vim "{{{2
+let g:unite_update_time = 100
+let g:unite_source_file_mru_limit = 200
+let g:unite_source_file_mru_filename_format = ''
+let g:unite_source_file_rec_ignore_pattern = '.svn/*'
+nnoremap <silent> [Space]ff :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<Return>
+nnoremap <silent> [Space]fb :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<Return>
+nnoremap <silent> [Space]fr :<C-u>Unite file_rec<Return>
+nnoremap <silent> [Space]fm :<C-u>Unite file_mru<Return>
+nnoremap <silent> [Space]fk :<C-u>Unite bookmark<Return>
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings() "{{{3
+  nmap <buffer> <C-c> <Plug>(unite_exit)
+endfunction
+
+
 " neocomplcache.vim "{{{2
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
