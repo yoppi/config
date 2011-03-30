@@ -11,7 +11,6 @@ noremap [Space] <Nop>
 
 
 " Options
-set wildoptions=auto
 set complete=sl
 
 
