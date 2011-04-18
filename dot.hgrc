@@ -17,15 +17,16 @@ git = 1
 [pager]
 pager = LESS='FSRX' less
 quiet = True
-attend = diff, d, log, l, glog, gl, qdiff
+attend = diff, d, log, l, lc, glog, gl, qdiff, bs
 
 [alias]
 l = log
+lc = log -b .
 gl = glog
 st = status .
 pr = pull --rebase
 b = branch
-bs = branches
+bs = branches -a
 qi = qimport
 qr = qrefresh
 qf = qfinish
