@@ -312,7 +312,9 @@ autocmd MyAutoCmd ColorScheme *
 \ | hi TabLineFill cterm=underline ctermbg=black ctermfg=white
 \ | hi Normal      guibg=grey5
 doautocmd MyAutoCmd ColorScheme * _
-
+if has('gui')
+  colorscheme koehler
+endif
 
 " Vim Plugin Settings "{{{1
 " unite.vim "{{{2
