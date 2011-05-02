@@ -337,6 +337,14 @@ bindkey '[3~' backward-delete-char
 
 
 ## Utils {{{1
+# up to home in git repository
+function gu() {
+  local cdup=`git rev-parse --show-cdup`
+  if [ -z "$cdup" ]; then
+    cdup="."
+  fi
+  cd $cdup
+}
 
 ## __END__ #{{{1
 # vim: filetype=zsh foldmethod=marker textwidth=78
