@@ -339,9 +339,18 @@ bindkey '[3~' backward-delete-char
 ## Utils {{{1
 # up to home in git repository
 function gu() {
-  local cdup=`git rev-parse --show-cdup`
-  if [ -z "$cdup" ]; then
-    cdup="."
+  local cdpath="./`git rev-parse --show-cdup`"
+  if [ $# = 1 ]; then
+    cdpath+=$1
+  fi
+  cd $cdpath
+}
+
+# move to home in mercurial repository
+function hu() {
+  local cdup=`hg showconfig bundle.mainreporoot`
+  if [ $# = 1 ]; then
+    cdup+="/$1"
   fi
   cd $cdup
 }
