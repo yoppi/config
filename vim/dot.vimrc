@@ -346,15 +346,6 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 imap <expr><C-o> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-o>"
 smap <expr><C-o> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-o>"
 
-" rsense.vim "{{{2
-let g:rsenseHome = $HOME . "/apps/rsense/rsense-0.3"
-" 特にWindowsのgVim環境で使用すると遅すぎて使い物にならないのでUnix環境のみ有
-" 効にしている
-if has('unix') && !has('win32unix')
-  let g:rsenseUseOmniFunc = 1
-else
-  let g:loaded_rsense = 1
-endif
 
 " quickrun.vim: definition of quicklaunch commands "{{{2
 let g:quicklaunch_commands = [
