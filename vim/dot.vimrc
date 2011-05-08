@@ -92,7 +92,7 @@ if exists('+guifont')
   elseif (has('win32') || has('win64')) && has('gui_running')
     set guifont=Bitstream\ Vera\ Sans\ Mono:h11
   elseif has('unix') && has('gui_running')
-    set guifont=DejaVu\ Sans\ Mono\ 11
+    set guifont=DejaVu\ Sans\ Mono\ 12
   endif
 endif
 if exists('+guifontwide')
