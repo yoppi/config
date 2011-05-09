@@ -337,6 +337,23 @@ bindkey '[3~' backward-delete-char
 
 
 ## Utils {{{1
+# up to home in git repository
+function gu() {
+  local cdup="./`git rev-parse --show-cdup`"
+  if [ $# = 1 ]; then
+    cdup+=$1
+  fi
+  cd $cdup
+}
+
+# move to home in mercurial repository
+function hu() {
+  local cdup=`hg showconfig bundle.mainreporoot`
+  if [ $# = 1 ]; then
+    cdup+="/$1"
+  fi
+  cd $cdup
+}
 
 ## __END__ #{{{1
 # vim: filetype=zsh foldmethod=marker textwidth=78

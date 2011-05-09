@@ -92,7 +92,7 @@ if exists('+guifont')
   elseif (has('win32') || has('win64')) && has('gui_running')
     set guifont=Bitstream\ Vera\ Sans\ Mono:h11
   elseif has('unix') && has('gui_running')
-    set guifont=DejaVu\ Sans\ Mono\ 11
+    set guifont=DejaVu\ Sans\ Mono\ 12
   endif
 endif
 if exists('+guifontwide')
@@ -312,7 +312,9 @@ autocmd MyAutoCmd ColorScheme *
 \ | hi TabLineFill cterm=underline ctermbg=black ctermfg=white
 \ | hi Normal      guibg=grey5
 doautocmd MyAutoCmd ColorScheme * _
-
+if has('gui')
+  colorscheme koehler
+endif
 
 " Vim Plugin Settings "{{{1
 " unite.vim "{{{2
@@ -320,7 +322,7 @@ let g:unite_update_time = 100
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_file_mru_filename_format = ''
 let g:unite_source_file_rec_ignore_pattern = '.svn/*'
-nnoremap <silent> [Space]ff :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<Return>
+nnoremap <silent> [Space]ff :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark<Return>
 nnoremap <silent> [Space]fb :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<Return>
 nnoremap <silent> [Space]fr :<C-u>Unite file_rec<Return>
 nnoremap <silent> [Space]fm :<C-u>Unite file_mru<Return>
@@ -341,16 +343,9 @@ if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+imap <expr><C-o> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-o>"
+smap <expr><C-o> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-o>"
 
-" rsense.vim "{{{2
-let g:rsenseHome = $HOME . "/apps/rsense/rsense-0.3"
-" 特にWindowsのgVim環境で使用すると遅すぎて使い物にならないのでUnix環境のみ有
-" 効にしている
-if has('unix') && !has('win32unix')
-  let g:rsenseUseOmniFunc = 1
-else
-  let g:loaded_rsense = 1
-endif
 
 " quickrun.vim: definition of quicklaunch commands "{{{2
 let g:quicklaunch_commands = [
