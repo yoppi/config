@@ -301,7 +301,7 @@ vnoremap gc  :<C-u>normal gc<Enter>
 onoremap gc  :<C-u>normal gc<Enter>
 
 " Color Syntax "{{{1
-syntax on
+syntax enable
 set background=dark
 autocmd MyAutoCmd ColorScheme *
 \   hi Comment     ctermfg=blue
