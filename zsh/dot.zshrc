@@ -317,6 +317,13 @@ case "${OSTYPE}" in
   fi
 esac
 
+if [ -d $HOME/.npm ]; then
+  for bin in $HOME/.npm/*/*/package/bin
+  do
+    export PATH=$bin:$PATH
+  done
+fi
+
 if [ -d $HOME/local/bin ]; then
   for bin in $HOME/local/bin; do
     if [ -d $bin ]; then
