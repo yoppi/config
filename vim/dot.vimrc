@@ -53,13 +53,13 @@ call pathogen#helptags()
 
 " Filetype "{{{2
 filetype plugin indent on
-autocmd Filetype c,cpp     set softtabstop=4 shiftwidth=4 tabstop=8
-autocmd Filetype ruby      set softtabstop=2 shiftwidth=2
-autocmd Filetype python    set softtabstop=2 shiftwidth=2
-autocmd Filetype perl      set softtabstop=2 shiftwidth=2
-autocmd FileType scheme    set softtabstop=2 shiftwidth=2 tabstop=2
-autocmd Filetype changelog set softtabstop=4 shiftwidth=4 tabstop=4
-autocmd Filetype tex       set softtabstop=2 shiftwidth=2
+autocmd Filetype c,cpp     setlocal softtabstop=4 shiftwidth=4 tabstop=8
+autocmd Filetype ruby      setlocal softtabstop=2 shiftwidth=2
+autocmd Filetype python    setlocal softtabstop=2 shiftwidth=2
+autocmd Filetype perl      setlocal softtabstop=2 shiftwidth=2
+autocmd FileType scheme    setlocal softtabstop=2 shiftwidth=2 tabstop=2
+autocmd Filetype changelog setlocal softtabstop=4 shiftwidth=4 tabstop=4
+autocmd Filetype tex       setlocal softtabstop=2 shiftwidth=2
 
 " vim-users.jp; Hack#96 - to enable omni complete on any language
 autocmd Filetype *
@@ -302,7 +302,7 @@ vnoremap gc  :<C-u>normal gc<Enter>
 onoremap gc  :<C-u>normal gc<Enter>
 
 " Color Syntax "{{{1
-syntax on
+syntax enable
 set background=dark
 autocmd MyAutoCmd ColorScheme *
 \   hi Comment     ctermfg=blue
