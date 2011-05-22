@@ -78,6 +78,7 @@ set backupdir=~/tmp,/tmp
 set directory=~/tmp,/tmp
 set expandtab
 set fileformat=unix
+set fileformats=unix,dos
 set foldmethod=marker
 set formatoptions=tcroqMm
 if exists('+fuoptions')
