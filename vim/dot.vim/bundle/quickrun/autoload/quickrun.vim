@@ -1,5 +1,5 @@
 " Run commands quickly.
-" Version: 0.4.3
+" Version: 0.4.7
 " Author : thinca <thinca+vim@gmail.com>
 " License: Creative Commons Attribution 2.1 Japan License
 "          <http://creativecommons.org/licenses/by/2.1/jp/deed.en>
@@ -23,7 +23,7 @@ let g:quickrun#default_config = {
 \   'runmode': 'simple',
 \   'cmdopt': '',
 \   'args': '',
-\   'output_encode': '&fenc:&enc',
+\   'output_encode': '&fileencoding',
 \   'tempfile'  : '{tempname()}',
 \   'exec': '%c %o %s %a',
 \   'split': '{winwidth(0) * 2 < winheight(0) * 5 ? "" : "vertical"}',
@@ -37,30 +37,61 @@ let g:quickrun#default_config = {
 \   'exec': '%c %o -f %s %a',
 \ },
 \ 'bash': {},
-\ 'c':
-\   s:is_win && executable('cl') ? {
-\     'command': 'cl',
-\     'exec': ['%c %o %s /nologo /Fo%s:p:r.obj /Fe%s:p:r.exe > nul',
-\               '%s:p:r.exe %a', 'del %s:p:r.exe %s:p:r.obj'],
-\     'tempfile': '{tempname()}.c',
-\   } :
-\   executable('gcc') ? {
-\     'command': 'gcc',
-\     'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a', 'rm -f %s:p:r'],
-\     'tempfile': '{tempname()}.c',
-\   } : {},
-\ 'cpp':
-\   s:is_win && executable('cl') ? {
-\     'command': 'cl',
-\     'exec': ['%c %o %s /nologo /Fo%s:p:r.obj /Fe%s:p:r.exe > nul',
-\               '%s:p:r.exe %a', 'del %s:p:r.exe %s:p:r.obj'],
-\     'tempfile': '{tempname()}.cpp',
-\   } :
-\   executable('g++') ? {
-\     'command': 'g++',
-\     'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a', 'rm -f %s:p:r'],
-\     'tempfile': '{tempname()}.cpp',
-\   } : {},
+\ 'c': {
+\   'type':
+\     s:is_win && executable('cl') ? 'c/vc'  :
+\     executable('gcc')            ? 'c/gcc' :
+\     executable('clang')          ? 'c/clang' : '',
+\ },
+\ 'c/C': {
+\   'command': 'C',
+\   'exec': '%c %o -m %s',
+\ },
+\ 'c/clang': {
+\   'command': 'clang',
+\   'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a', 'rm -f %s:p:r'],
+\   'tempfile': '{tempname()}.c',
+\ },
+\ 'c/gcc': {
+\   'command': 'gcc',
+\   'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a', 'rm -f %s:p:r'],
+\   'tempfile': '{tempname()}.c',
+\ },
+\ 'c/vc': {
+\   'command': 'cl',
+\   'exec': ['%c %o %s /nologo /Fo%s:p:r.obj /Fe%s:p:r.exe > nul',
+\             '%s:p:r.exe %a', 'del %s:p:r.exe %s:p:r.obj'],
+\   'tempfile': '{tempname()}.c',
+\ },
+\ 'coffee': {
+\   'exec': ['%c %o %s', 'cat %s:p:r.js'],
+\   'cmdopt': '-cb',
+\ },
+\ 'cpp': {
+\   'type':
+\     s:is_win && executable('cl') ? 'cpp/vc'  :
+\     executable('g++')            ? 'cpp/g++' : '',
+\ },
+\ 'cpp/C': {
+\   'command': 'C',
+\   'exec': '%c %o -p %s',
+\ },
+\ 'cpp/g++': {
+\   'command': 'g++',
+\   'exec': ['%c %o %s -o %s:p:r', '%s:p:r %a', 'rm -f %s:p:r'],
+\   'tempfile': '{tempname()}.cpp',
+\ },
+\ 'cpp/vc': {
+\   'command': 'cl',
+\   'exec': ['%c %o %s /nologo /Fo%s:p:r.obj /Fe%s:p:r.exe > nul',
+\             '%s:p:r.exe %a', 'del %s:p:r.exe %s:p:r.obj'],
+\   'tempfile': '{tempname()}.cpp',
+\ },
+\ 'dosbatch': {
+\   'command': '',
+\   'exec': 'call %s %a',
+\   'tempfile': '{tempname()}.bat',
+\ },
 \ 'erlang': {
 \   'command': 'escript',
 \ },
@@ -68,19 +99,36 @@ let g:quickrun#default_config = {
 \   'command': 'erb',
 \   'exec': '%c %o -T - %s %a',
 \ },
-\ 'go':
-\   $GOARCH ==# '386' ? {
-\     'exec':
-\       s:is_win ?
-\         ['8g %o %s', '8l -o %s:p:r.exe %s:p:r.8', '%s:p:r.exe %a', 'del /F %s:p:r.exe'] :
-\         ['8g %o %s', '8l -o %s:p:r %s:p:r.8', '%s:p:r %a', 'rm -f %s:p:r']
-\   } :
-\   $GOARCH ==# 'amd64' ? {
-\     'exec': ['6g %o %s', '6l -o %s:p:r %s:p:r.6', '%s:p:r %a', 'rm -f %s:p:r'],
-\   } :
-\   $GOARCH ==# 'arm' ? {
-\     'exec': ['5g %o %s', '5l -o %s:p:r %s:p:r.5', '%s:p:r %a', 'rm -f %s:p:r'],
-\   } : {},
+\ 'go': {
+\   'type':
+\     $GOARCH ==# '386'   ? (s:is_win ? 'go/386/win' : 'go/386'):
+\     $GOARCH ==# 'amd64' ? 'go/amd64':
+\     $GOARCH ==# 'arm'   ? 'go/arm': '',
+\ },
+\ 'go/386': {
+\   'exec': ['8g %o -o %s:p:r.8 %s', '8l -o %s:p:r %s:p:r.8',
+\            '%s:p:r %a', 'rm -f %s:p:r'],
+\   'tempfile': '{tempname()}.go',
+\   'output_encode': 'utf-8',
+\ },
+\ 'go/386/win': {
+\   'exec': ['8g %o -o %s:p:r.8 %s', '8l -o %s:p:r.exe %s:p:r.8',
+\            '%s:p:r.exe %a', 'del /F %s:p:r.exe'],
+\   'tempfile': '{tempname()}.go',
+\   'output_encode': 'utf-8',
+\ },
+\ 'go/amd64': {
+\   'exec': ['6g %o -o %s:p:r.6 %s', '6l -o %s:p:r %s:p:r.6',
+\            '%s:p:r %a', 'rm -f %s:p:r'],
+\   'tempfile': '{tempname()}.go',
+\   'output_encode': 'utf-8',
+\ },
+\ 'go/arm': {
+\   'exec': ['5g %o -o %s:p:r.5 %s', '5l -o %s:p:r %s:p:r.5',
+\            '%s:p:r %a', 'rm -f %s:p:r'],
+\   'tempfile': '{tempname()}.go',
+\   'output_encode': 'utf-8',
+\ },
 \ 'groovy': {
 \   'cmdopt': '-c {&fenc==""?&enc:&fenc}'
 \ },
@@ -89,26 +137,66 @@ let g:quickrun#default_config = {
 \   'tempfile': '{tempname()}.hs',
 \   'eval_template': 'main = print $ %s',
 \ },
+\ 'io': {},
 \ 'java': {
 \   'exec': ['javac %o %s', '%c %s:t:r %a', ':call delete("%S:t:r.class")'],
-\   'output_encode': '&tenc:&enc',
+\   'output_encode': '&termencoding',
 \ },
 \ 'javascript': {
-\   'command': executable('js') ? 'js':
-\              executable('jrunscript') ? 'jrunscript':
-\              executable('cscript') ? 'cscript': '',
+\   'type': executable('js') ? 'javascript/spidermonkey':
+\           executable('d8') ? 'javascript/v8':
+\           executable('node') ? 'javascript/nodejs':
+\           executable('jrunscript') ? 'javascript/rhino':
+\           executable('cscript') ? 'javascript/cscript': '',
+\ },
+\ 'javascript/cscript': {
+\   'command': 'cscript',
+\   'cmdopt': '//Nologo',
 \   'tempfile': '{tempname()}.js',
+\ },
+\ 'javascript/rhino': {
+\   'command': 'jrunscript',
+\   'tempfile': '{tempname()}.js',
+\ },
+\ 'javascript/spidermonkey': {
+\   'command': 'js',
+\   'tempfile': '{tempname()}.js',
+\ },
+\ 'javascript/v8': {
+\   'command': 'd8',
+\   'tempfile': '{tempname()}.js',
+\ },
+\ 'javascript/nodejs': {
+\   'command': 'node',
+\   'tempfile': '{tempname()}.js',
+\ },
+\ 'lisp': {
+\   'command': 'clisp',
 \ },
 \ 'llvm': {
 \   'command': 'llvm-as %s -o=- | lli - %a',
 \ },
 \ 'lua': {},
-\ 'dosbatch': {
-\   'command': '',
-\   'exec': 'call %s %a',
-\   'tempfile': '{tempname()}.bat',
+\ 'markdown': {
+\   'type': executable('Markdown.pl') ? 'markdown/Markdown.pl':
+\           executable('kramdown') ? 'markdown/kramdown':
+\           executable('bluecloth') ? 'markdown/bluecloth':
+\           executable('pandoc') ? 'markdown/pandoc': '',
 \ },
-\ 'io': {},
+\ 'markdown/Markdown.pl': {
+\   'command': 'Markdown.pl',
+\ },
+\ 'markdown/bluecloth': {
+\   'command': 'bluecloth',
+\   'cmdopt': '-f',
+\ },
+\ 'markdown/kramdown': {
+\   'command': 'kramdown',
+\ },
+\ 'markdown/pandoc': {
+\   'command': 'pandoc',
+\   'cmdopt': '--from=markdown --to=html',
+\ },
 \ 'ocaml': {},
 \ 'perl': {
 \   'eval_template': join([
@@ -126,12 +214,20 @@ let g:quickrun#default_config = {
 \ },
 \ 'ruby': {'eval_template': " p proc {\n%s\n}.call"},
 \ 'scala': {
-\   'output_encode': '&tenc:&enc',
+\   'output_encode': '&termencoding',
 \ },
 \ 'scheme': {
+\   'type': executable('gosh')     ? 'scheme/gauche':
+\           executable('mzscheme') ? 'scheme/mzscheme': '',
+\ },
+\ 'scheme/gauche': {
 \   'command': 'gosh',
 \   'exec': '%c %o %s:p %a',
 \   'eval_template': '(display (begin %s))',
+\ },
+\ 'scheme/mzscheme': {
+\   'command': 'mzscheme',
+\   'exec': '%c %o -f %s %a',
 \ },
 \ 'sed': {},
 \ 'sh': {},
@@ -140,6 +236,10 @@ let g:quickrun#default_config = {
 \   'exec': '%c %s',
 \   'eval_template': "echo %s",
 \   'runmode': 'simple',
+\ },
+\ 'wsh': {
+\   'command': 'cscript',
+\   'cmdopt': '//Nologo',
 \ },
 \ 'zsh': {},
 \}
@@ -165,15 +265,14 @@ endfunction
 
 " ----------------------------------------------------------------------------
 " Initialize of instance.
-function! s:Runner.initialize(argline)  " {{{2
-  let arglist = self.parse_argline(a:argline)
-  let self.config = self.set_options_from_arglist(arglist)
+function! s:Runner.initialize(config)  " {{{2
+  let self.config = a:config
   call self.normalize()
 endfunction
 
 
 
-function! s:Runner.parse_argline(argline)  " {{{2
+function! s:parse_argline(argline)  " {{{2
   " foo 'bar buz' "hoge \"huga"
   " => ['foo', 'bar buz', 'hoge "huga']
   " TODO: More improve.
@@ -200,7 +299,7 @@ endfunction
 
 
 
-function! s:Runner.set_options_from_arglist(arglist)  " {{{2
+function! s:set_options_from_arglist(arglist)  " {{{2
   let config = {}
   let option = ''
   for arg in a:arglist
@@ -255,7 +354,20 @@ function! s:Runner.normalize()  " {{{2
   \ 'g:quickrun#default_config["_"]',
   \ ]
     if exists(c)
-      call extend(config, eval(c), 'keep')
+      let new_config = eval(c)
+      if 0 <= stridx(c, 'config.type')
+        let config_type = ''
+        while has_key(config, 'type')
+        \   && has_key(new_config, 'type')
+        \   && config.type !=# ''
+        \   && config.type !=# config_type
+          let config_type = config.type
+          call extend(config, new_config, 'keep')
+          let config.type = new_config.type
+          let new_config = exists(c) ? eval(c) : {}
+        endwhile
+      endif
+      call extend(config, new_config, 'keep')
     endif
   endfor
 
@@ -428,13 +540,13 @@ function! s:Runner.run_async_vimproc(commands, ...)  " {{{2
 
   " Wait a little because execution might end immediately.
   sleep 50m
-  if s:recieve_vimproc_result(key)
+  if s:receive_vimproc_result(key)
     return
   endif
   " Execution is continuing.
   augroup plugin-quickrun-vimproc
     execute 'autocmd! CursorHold,CursorHoldI * call'
-    \       's:recieve_vimproc_result(' . string(key) . ')'
+    \       's:receive_vimproc_result(' . string(key) . ')'
   augroup END
   let self._autocmd_vimproc = 'vimproc'
   if a:0 && a:1 =~ '^\d\+$'
@@ -445,7 +557,7 @@ endfunction
 
 
 
-function! s:recieve_vimproc_result(key)  " {{{2
+function! s:receive_vimproc_result(key)  " {{{2
   let runner = get(s:runners, a:key)
 
   let vimproc = runner.vimproc
@@ -534,7 +646,9 @@ endfunction
 
 
 
+let s:python_loaded = 0
 if has('python')
+  try
 python <<EOM
 import vim, threading, subprocess, re
 
@@ -575,11 +689,17 @@ class QuickRun(threading.Thread):
     def vimstr(self, s):
         return "'" + s.replace("'", "''") + "'"
 EOM
+  let s:python_loaded = 1
+  catch
+    " XXX: This method make debugging to difficult.
+  endtry
 endif
 
 function! s:Runner.run_async_python(commands, ...)  " {{{2
   if !has('python')
     throw 'quickrun: runmode = async:python needs +python feature.'
+  elseif !s:python_loaded
+    throw 'quickrun: Loading python code failed.'
   endif
   let l:key = string(s:register(self))
   let l:input = self.config.input
@@ -596,7 +716,7 @@ endfunction
 function! s:Runner.build_command(tmpl)  " {{{2
   " FIXME: Possibility to be multiple expanded.
   let config = self.config
-  let shebang = self.detect_shebang()
+  let shebang = config.shebang ? self.detect_shebang() : ''
   let src = string(self.source_name)
   let command = shebang != '' ? string(shebang) : 'config.command'
   let rule = [
@@ -606,9 +726,10 @@ function! s:Runner.build_command(tmpl)  " {{{2
   \  ['a', 'config.args'],
   \  ['\%', string('%')],
   \]
+  let is_file = '[' . (shebang != '' ? 's' : 'cs') . ']'
   let cmd = a:tmpl
   for [key, value] in rule
-    if key =~? '[cs]'
+    if key =~? is_file
       let value = 'fnamemodify('.value.',submatch(1))'
       if key =~# '\U'
         let value = printf(config.command =~ '^\s*:' ? 'fnameescape(%s)'
@@ -689,9 +810,10 @@ function! s:Runner.sweep()  " {{{2
   if has_key(self, 'vimproc')
     try
       call self.vimproc.kill(15)
-      call remove(self, vimproc)
+      call self.vimproc.waitpid()
     catch
     endtry
+    call remove(self, 'vimproc')
   endif
 endfunction
 
@@ -957,36 +1079,45 @@ endfunction
 " ----------------------------------------------------------------------------
 " Interfaces.  {{{1
 " function for main command.
-function! quickrun#run(args)  " {{{2
+function! quickrun#run(config)  " {{{2
+  " Sweep runners.
+  " The multi run is not supported yet.
+  for [k, r] in items(s:runners)
+    call r.sweep()
+    call remove(s:runners, k)
+  endfor
+
+  let runner = s:Runner.new(a:config)
+  let config = runner.config
+
+  if config.running_mark != '' && config.output == ''
+    let mark = runner.expand(config.running_mark)
+    call runner.open_result_window()
+    if !config.append
+      silent % delete _
+    endif
+    silent $-1 put =mark
+    let b:quickrun_running_mark = 1
+    normal! zt
+    wincmd p
+    redraw
+  endif
+
+  if has_key(config, 'debug') && config.debug
+    let g:runner = runner  " for debug
+  endif
+
+  call runner.run()
+endfunction
+
+
+
+" function for main command.
+function! quickrun#command(argline)  " {{{2
   try
-    " Sweep runners.
-    " The multi run is not supported yet.
-    for [k, r] in items(s:runners)
-      call r.sweep()
-      call remove(s:runners, k)
-    endfor
-
-    let runner = s:Runner.new(a:args)
-    let config = runner.config
-
-    if config.running_mark != '' && config.output == ''
-      let mark = runner.expand(config.running_mark)
-      call runner.open_result_window()
-      if !config.append
-        silent % delete _
-      endif
-      silent $-1 put =mark
-      let b:quickrun_running_mark = 1
-      normal! zt
-      wincmd p
-      redraw
-    endif
-
-    if has_key(config, 'debug') && config.debug
-      let g:runner = runner  " for debug
-    endif
-
-    call runner.run()
+    let arglist = s:parse_argline(a:argline)
+    let config = s:set_options_from_arglist(arglist)
+    call quickrun#run(config)
   catch /^quickrun:/
     echohl ErrorMsg
     for line in split(v:exception, "\n")
@@ -1017,9 +1148,9 @@ function! quickrun#complete(lead, cmd, pos)  " {{{2
     endif
   elseif head =~ '^-'
     let options = map(['type', 'src', 'input', 'output', 'append', 'command',
-      \ 'exec', 'args', 'tempfile', 'shebang', 'eval', 'mode', 'runmode',
-      \ 'split', 'into', 'output_encode', 'shellcmd', 'running_mark',
-      \ 'eval_template'], '"-".v:val')
+      \ 'exec', 'cmdopt', 'args', 'tempfile', 'shebang', 'eval', 'mode',
+      \ 'runmode', 'split', 'into', 'output_encode', 'shellcmd',
+      \ 'running_mark', 'eval_template'], '"-".v:val')
     return filter(options, 'v:val =~ "^".head')
   end
   let types = keys(extend(exists('g:quickrun_config') ?
@@ -1076,4 +1207,3 @@ endfunction
 
 
 let &cpo = s:save_cpo
-unlet s:save_cpo
