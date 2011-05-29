@@ -48,6 +48,7 @@ map <Space> [Space]
 noremap [Space] <nop>
 
 " Load Vim plugins from pathogen "{{{2
+filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
