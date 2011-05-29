@@ -196,7 +196,7 @@ cnoremap <C-l> <C-c>
 nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
-nnoremap [Space]cd :<C-u>TabpageCD<Return>
+nnoremap [Space]cd :<C-u>CD<Return>
 " display lines down /up ward
 nnoremap j gj
 nnoremap k gk
@@ -417,7 +417,7 @@ autocmd MyAutoCmd TabEnter *
 \ let g:cur_tabnr = tabpagenr()
 
 " to keep current directory for each tab page, by kana - " http://github.com/kana/config/tree/master/vim/dot.vimrc {{{2
-command! -nargs=? -complete=file TabpageCD
+command! -nargs=? -complete=file CD
 \   execute 'cd ' . fnameescape(<q-args>)
 \ | let t:cwd = getcwd()
 
