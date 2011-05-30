@@ -263,6 +263,7 @@ alias b="bzr"
 
 # for Mercurial
 alias h="hg"
+alias hs="hg status"
 
 # for secure!
 alias cp="cp -i"
