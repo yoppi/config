@@ -17,6 +17,7 @@
   ci = commit
   co = checkout
   d = diff
+  fix = commit --amend
   st = status
 [github]
   user = yoppi

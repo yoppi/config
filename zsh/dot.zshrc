@@ -232,7 +232,7 @@ alias la="ls -a"
 alias lf="ls -F"
 alias ll="ls -l"
 alias lt="ls -lt"
-alias lth="ls -lt | head"
+alias ltr="ls -altr"
 alias du="du -h"
 alias df="df -h"
 alias su="su -l"
@@ -316,6 +316,13 @@ case "${OSTYPE}" in
     export MANPATH=/opt/local/man:$MANPATH
   fi
 esac
+
+if [ -d $HOME/.npm ]; then
+  for bin in $HOME/.npm/*/*/package/bin
+  do
+    export PATH=$bin:$PATH
+  done
+fi
 
 if [ -d $HOME/local/bin ]; then
   for bin in $HOME/local/bin; do
