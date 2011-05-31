@@ -219,6 +219,7 @@ case "${OSTYPE}" in
     alias safari="open -a Safari"
     alias cot="open -a CotEditor"
     alias gvim="/Applications/MacVim.app/Contents/MacOS/Vim -g"
+    alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
     ;;
   linux*)
     alias ls="ls --color --file-type"
