@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 10 Dec 2010.
+" Last Modified: 01 Jun 2011.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -22,7 +22,7 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 6.0, for Vim 7.0
+" Version: 6.1, for Vim 7.0
 " GetLatestVimScripts: 2620 1 :AutoInstall: neocomplcache
 "=============================================================================
 
@@ -37,6 +37,10 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 command! -nargs=0 NeoComplCacheEnable call neocomplcache#enable()
+command! -nargs=0 NeoComplCacheDisable call neocomplcache#disable()
+command! -nargs=0 NeoComplCacheLock call neocomplcache#lock()
+command! -nargs=0 NeoComplCacheUnlock call neocomplcache#unlock()
+command! -nargs=0 NeoComplCacheToggle call neocomplcache#toggle_lock()
 
 " Obsolute options check."{{{
 if exists('g:NeoComplCache_EnableAtStartup')
@@ -51,6 +55,11 @@ endif
 if exists('g:NeoComplCache_KeywordCompletionStartLength')
   echoerr 'g:NeoComplCache_KeywordCompletionStartLength option does not work this version of neocomplcache.'
 endif
+if exists('g:neocomplcache_disable_caching_buffer_name_pattern')
+  echoerr 'g:neocomplcache_disable_caching_buffer_name_pattern option does not work this version of neocomplcache.'
+  echoerr 'Please use g:neocomplcache_disable_caching_file_path_pattern option instead.'
+endif
+
 "}}}
 " Global options definition."{{{
 if !exists('g:neocomplcache_max_list')
@@ -110,8 +119,8 @@ endif
 if !exists('g:neocomplcache_caching_limit_file_size')
   let g:neocomplcache_caching_limit_file_size = 500000
 endif
-if !exists('g:neocomplcache_disable_caching_buffer_name_pattern')
-  let g:neocomplcache_disable_caching_buffer_name_pattern = ''
+if !exists('g:neocomplcache_disable_caching_file_path_pattern')
+  let g:neocomplcache_disable_caching_file_path_pattern = ''
 endif
 if !exists('g:neocomplcache_lock_buffer_name_pattern')
   let g:neocomplcache_lock_buffer_name_pattern = ''
