@@ -358,7 +358,7 @@ function gu() {
 
 # move to home in mercurial repository
 function hu() {
-  local cdup=`hg showconfig bundle.mainreporoot`
+  local cdup=`hg root`
   if [ $# = 1 ]; then
     cdup+="/$1"
   fi
