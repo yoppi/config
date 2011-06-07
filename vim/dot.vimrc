@@ -61,6 +61,7 @@ autocmd Filetype perl      setlocal softtabstop=2 shiftwidth=2
 autocmd FileType scheme    setlocal softtabstop=2 shiftwidth=2 tabstop=2
 autocmd Filetype changelog setlocal softtabstop=4 shiftwidth=4 tabstop=4
 autocmd Filetype tex       setlocal softtabstop=2 shiftwidth=2
+autocmd Filetype vim       setlocal softtabstop=2 shiftwidth=2
 
 " vim-users.jp; Hack#96 - to enable omni complete on any language
 autocmd Filetype *
@@ -339,15 +340,28 @@ endfunction
 " neocomplcache.vim "{{{2
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_min_syntax_length = 3
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+
 imap <expr><C-o> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-o>"
 smap <expr><C-o> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-o>"
 
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-Space> neocomplcache#complete_common_string()
+inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " quickrun.vim: definition of quicklaunch commands "{{{2
 let g:quicklaunch_commands = [
