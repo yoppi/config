@@ -15,7 +15,7 @@ histedit = ~/.hgext/hg_histedit.py
 git = 1
 
 [pager]
-pager = LESS='FSRX' less
+pager = LESS=-R less
 quiet = True
 attend = diff, d, log, l, lb, lc, glog, gl, qdiff, bs
 
