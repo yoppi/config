@@ -17,7 +17,7 @@ git = 1
 [pager]
 pager = LESS='FSRX' less
 quiet = True
-attend = diff, d, log, l, lc, glog, gl, qdiff, bs
+attend = diff, d, log, l, lb, lc, glog, gl, qdiff, bs
 
 [alias]
 l = log
@@ -30,6 +30,8 @@ pusha = push --new-branch
 b = branch
 bs = branches
 bsa = branches -a
+pu = pull -u
+puc = pull -u -C
 qi = qimport
 qr = qrefresh
 qf = qfinish
