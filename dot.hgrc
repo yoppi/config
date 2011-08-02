@@ -35,6 +35,7 @@ puc = pull -u -C
 qi = qimport
 qr = qrefresh
 qf = qfinish
+rvn = revert --no-backup
 sh = shelve
 tp = transplant
 ush = unshelve
