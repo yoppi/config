@@ -27,6 +27,7 @@ gl = glog
 st = status .
 pr = pull --rebase
 pusha = push --new-branch
+pushc = push -b .
 b = branch
 bs = branches
 bsa = branches -a
