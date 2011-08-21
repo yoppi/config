@@ -227,6 +227,7 @@ case "${OSTYPE}" in
   cygwin*)
     alias ls="ls --color --file-type"
     alias open="cygstart"
+    alias vim="/usr/bin/vim-nox.exe"
 esac
 
 alias la="ls -a"
