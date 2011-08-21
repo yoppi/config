@@ -15,9 +15,9 @@ histedit = ~/.hgext/hg_histedit.py
 git = 1
 
 [pager]
-pager = LESS='FSRX' less
+pager = LESS=-R less
 quiet = True
-attend = diff, d, log, l, lc, glog, gl, qdiff, bs
+attend = diff, d, log, l, lb, lc, glog, gl, qdiff, bs
 
 [alias]
 l = log
@@ -27,12 +27,16 @@ gl = glog
 st = status .
 pr = pull --rebase
 pusha = push --new-branch
+pushc = push -b .
 b = branch
 bs = branches
 bsa = branches -a
+pu = pull -u
+puc = pull -u -C
 qi = qimport
 qr = qrefresh
 qf = qfinish
+rvn = revert --no-backup
 sh = shelve
 tp = transplant
 ush = unshelve

@@ -242,6 +242,7 @@ alias where="command -v"
 alias j="jobs -l"
 alias v="vim"
 alias r="rails"
+alias sp="rspec -c"
 
 # for git
 alias g="git"
