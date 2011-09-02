@@ -1,5 +1,6 @@
 [extensions]
 color =
+churn =
 fetch =
 graphlog =
 mq =
@@ -20,6 +21,7 @@ quiet = True
 attend = diff, d, log, l, lb, lc, glog, gl, qdiff, bs
 
 [alias]
+cipower=churn -t '{author|email}' -c
 l = log
 lc = log -b .
 lb = log -b
@@ -36,6 +38,7 @@ puc = pull -u -C
 qi = qimport
 qr = qrefresh
 qf = qfinish
+qls = qseries
 rvn = revert --no-backup
 sh = shelve
 tp = transplant
