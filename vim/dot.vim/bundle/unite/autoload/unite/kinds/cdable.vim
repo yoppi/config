@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: cdable.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 25 Mar 2011.
+" Last Modified: 23 Aug 2011.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,6 +24,9 @@
 " }}}
 "=============================================================================
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 function! unite#kinds#cdable#define()"{{{
   return s:kind
 endfunction"}}}
@@ -31,6 +34,7 @@ endfunction"}}}
 let s:kind = {
       \ 'name' : 'cdable',
       \ 'action_table' : {},
+      \ 'alias_table' : { 'edit' : 'narrow' },
       \}
 
 " Actions"{{{
@@ -45,7 +49,7 @@ function! s:kind.action_table.cd.func(candidate)"{{{
   endif
 
   if a:candidate.action__directory != ''
-    execute g:unite_cd_command '`=a:candidate.action__directory`'
+    execute g:unite_kind_openable_cd_command '`=a:candidate.action__directory`'
   endif
 endfunction"}}}
 
@@ -54,13 +58,13 @@ let s:kind.action_table.lcd = {
       \ }
 function! s:kind.action_table.lcd.func(candidate)"{{{
   if &filetype ==# 'vimfiler'
-    call vimfiler#internal_commands#cd(a:candidate.action__directory)
+    call vimfiler#mappings#cd(a:candidate.action__directory)
   elseif &filetype ==# 'vimshell'
     call vimshell#switch_shell(0, a:candidate.action__directory)
   endif
 
   if a:candidate.action__directory != ''
-    execute g:unite_cd_command '`=a:candidate.action__directory`'
+    execute g:unite_kind_openable_cd_command '`=a:candidate.action__directory`'
   endif
 endfunction"}}}
 
@@ -90,7 +94,7 @@ function! s:kind.action_table.narrow.func(candidate)"{{{
   if a:candidate.word =~ '^\.\.\?/'
     let l:word = a:candidate.word
   else
-    let l:word = unite#util#substitute_path_separator(fnamemodify(a:candidate.action__directory, ':.'))
+    let l:word = a:candidate.action__directory
   endif
 
   if l:word !~ '[\\/]$'
@@ -133,5 +137,8 @@ if exists(':VimFilerTab')
   endfunction"}}}
 endif
 "}}}
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 " vim: foldmethod=marker

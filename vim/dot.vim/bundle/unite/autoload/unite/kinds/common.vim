@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: common.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 03 Feb 2011.
+" Last Modified: 03 Sep 2011.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -23,6 +23,9 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 "=============================================================================
+
+let s:save_cpo = &cpo
+set cpo&vim
 
 function! unite#kinds#common#define()"{{{
   return s:kind
@@ -73,12 +76,37 @@ let s:kind.action_table.insert = {
       \ 'description' : 'insert word',
       \ }
 function! s:kind.action_table.insert.func(candidate)"{{{
-  " Paste.
-  let l:old_reg = @"
-  let @" = a:candidate.word
-  normal! ""p
-  let @" = l:old_reg
+  let l:context = unite#get_current_unite().context
+
+  if !l:context.complete
+    " Paste.
+    let l:old_reg = @"
+    let @" = a:candidate.word
+    normal! ""p
+    let @" = l:old_reg
+
+    return
+  endif
+
+  let l:cur_text = matchstr(getline('.'), '^.*\%'
+        \ . (l:context.col-1) . 'c.')
+
+  let l:next_line = getline('.')[l:context.col :]
+  call setline(line('.'),
+        \ split(l:cur_text . a:candidate.word . l:next_line,
+        \            '\n\|\r\n'))
+  let l:next_col = len(l:cur_text)+len(a:candidate.word)+1
+  call cursor('', l:next_col)
+
+  if l:next_col < col('$')
+    startinsert
+  else
+    startinsert!
+  endif
 endfunction"}}}
 "}}}
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 " vim: foldmethod=marker

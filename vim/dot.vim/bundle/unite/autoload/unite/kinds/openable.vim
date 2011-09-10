@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: openable.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 01 Nov 2010
+" Last Modified: 23 Aug 2011.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,6 +24,14 @@
 " }}}
 "=============================================================================
 
+let s:save_cpo = &cpo
+set cpo&vim
+
+" Variables  "{{{
+call unite#util#set_default('g:unite_kind_openable_persist_open_blink_time', '250m')
+call unite#util#set_default('g:unite_kind_openable_cd_command', 'cd')
+call unite#util#set_default('g:unite_kind_openable_lcd_command', 'lcd')
+"}}}
 function! unite#kinds#openable#define()"{{{
   return s:kind
 endfunction"}}}
@@ -110,7 +118,31 @@ function! s:kind.action_table.below.func(candidates)"{{{
     call unite#take_action('open', l:candidate)
   endfor
 endfunction"}}}
+
+let s:kind.action_table.persist_open = {
+      \ 'description' : 'persistent open',
+      \ 'is_quit'     : 0,
+      \ }
+function! s:kind.action_table.persist_open.func(candidate)"{{{
+  if winnr('#') <= 0
+    new
+    wincmd p
+  endif
+
+  wincmd p
+  call unite#take_action('open', a:candidate)
+  if g:unite_kind_openable_persist_open_blink_time != ''
+    normal! V
+    redraw!
+    execute 'sleep ' . g:unite_kind_openable_persist_open_blink_time
+    execute "normal! \<ESC>"
+  endif
+  wincmd p
+endfunction"}}}
+
 "}}}
 
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 " vim: foldmethod=marker
