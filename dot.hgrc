@@ -5,6 +5,7 @@ fetch =
 graphlog =
 mq =
 pager =
+purge =
 rebase =
 record =
 transplant =
@@ -18,13 +19,14 @@ git = 1
 [pager]
 pager = LESS=-R less
 quiet = True
-attend = diff, d, log, l, lb, lc, glog, gl, qdiff, bs
+attend = diff, d, log, l, lb, lc, lone, glog, gl, qdiff, bs
 
 [alias]
 cipower=churn -t '{author|email}' -c
 l = log
 lc = log -b .
 lb = log -b
+lone = log --template "{node|short} {desc}\n"
 gl = glog
 st = status .
 pr = pull --rebase
