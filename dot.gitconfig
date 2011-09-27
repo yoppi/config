@@ -14,9 +14,12 @@
   b = branch
   ba = branch -a
   br = branch -r
+  bm = branch --merged
+  bnm = branch --no-merged
   ci = commit
   co = checkout
   d = diff
+  ds = diff --cached
   fix = commit --amend
   st = status
 [github]

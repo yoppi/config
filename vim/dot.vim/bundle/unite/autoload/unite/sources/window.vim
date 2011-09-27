@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: window.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 22 Mar 2011.
+" Last Modified: 17 Jul 2011.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -23,6 +23,9 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 "=============================================================================
+
+let s:save_cpo = &cpo
+set cpo&vim
 
 function! unite#sources#window#define()"{{{
   return s:source
@@ -60,7 +63,8 @@ function! s:source.hooks.on_init(args, context)"{{{
 
   unlet l:list[winnr()-1]
   call sort(l:list, 's:compare')
-  if empty(a:args) || a:args[0] !=# 'no-current'
+  let l:arg = get(a:args, 0, '')
+  if l:arg !=# 'no-current'
     " Add current window.
     call add(l:list, winnr())
   endif
@@ -92,5 +96,8 @@ endfunction"}}}
 function! s:compare(candidate_a, candidate_b)"{{{
   return getwinvar(a:candidate_b, 'unite_window').time - getwinvar(a:candidate_a, 'unite_window').time
 endfunction"}}}
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 " vim: foldmethod=marker

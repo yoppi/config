@@ -1,6 +1,7 @@
 [extensions]
 color =
 churn =
+convert =
 fetch =
 graphlog =
 mq =

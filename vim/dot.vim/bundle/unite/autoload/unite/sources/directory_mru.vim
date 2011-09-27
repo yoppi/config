@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: directory_mru.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 22 Mar 2011.
+" Last Modified: 04 Sep 2011.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -24,6 +24,9 @@
 " }}}
 "=============================================================================
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 " Variables  "{{{
 " The version of MRU file format.
 let s:VERSION = '0.2.0'
@@ -34,7 +37,7 @@ let s:mru_dirs = []
 let s:mru_file_mtime = 0  " the last modified time of the mru file.
 
 call unite#util#set_default('g:unite_source_directory_mru_time_format', '(%c) ')
-call unite#util#set_default('g:unite_source_directory_mru_file',  g:unite_data_directory . '/.directory_mru')
+call unite#util#set_default('g:unite_source_directory_mru_file',  g:unite_data_directory . '/directory_mru')
 call unite#util#set_default('g:unite_source_directory_mru_limit', 100)
 call unite#util#set_default('g:unite_source_directory_mru_ignore_pattern',
       \'\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)')
@@ -48,12 +51,12 @@ function! unite#sources#directory_mru#_append()"{{{
   if l:filetype ==# 'vimfiler'
     let l:path = getbufvar(bufnr('%'), 'vimfiler').current_dir
   elseif l:filetype ==# 'vimshell'
-    let l:path = getbufvar(bufnr('%'), 'vimshell').save_dir
+    let l:path = getbufvar(bufnr('%'), 'vimshell').current_dir
   else
     let l:path = getcwd()
   endif
 
-  let l:path = unite#util#substitute_path_separator(simplify(l:path))
+  let l:path = unite#util#substitute_path_separator(simplify(resolve(l:path)))
   " Chomp last /.
   let l:path = substitute(l:path, '/$', '', '')
 
@@ -65,11 +68,17 @@ function! unite#sources#directory_mru#_append()"{{{
   endif
 
   call s:load()
-  call insert(filter(s:mru_dirs, 'v:val.action__path !=# l:path'),
+
+  let l:save_ignorecase = &ignorecase
+  let &ignorecase = unite#is_win()
+
+  call insert(filter(s:mru_dirs, 'v:val.action__path != l:path'),
   \           s:convert2dictionary([l:path, localtime()]))
 
-  if g:unite_source_directory_mru_limit > 0
-    unlet s:mru_dirs[g:unite_source_directory_mru_limit]
+  let &ignorecase = l:save_ignorecase
+
+  if g:unite_source_directory_mru_limit > len(s:mru_dirs)
+    let s:mru_dirs = s:mru_dirs[ : g:unite_source_directory_mru_limit - 1]
   endif
 
   call s:save()
@@ -85,14 +94,11 @@ let s:source = {
       \}
 
 function! s:source.hooks.on_syntax(args, context)"{{{
-  syntax match uniteSource__DirectoryMru_Time /(.*)/ containedin=uniteSource__DirectoryMru
+  syntax match uniteSource__DirectoryMru_Time /^\s*\zs([^)]*)/ contained containedin=uniteSource__DirectoryMru
   highlight default link uniteSource__DirectoryMru_Time Statement
 endfunction"}}}
-
-function! s:source.gather_candidates(args, context)"{{{
-  call s:load()
-
-  for l:mru in s:mru_dirs
+function! s:source.hooks.on_post_filter(args, context)"{{{
+  for l:mru in a:context.candidates
     let l:relative_path = unite#util#substitute_path_separator(fnamemodify(l:mru.action__path, ':~:.'))
     if l:relative_path == ''
       let l:relative_path = l:mru.action__path
@@ -104,28 +110,27 @@ function! s:source.gather_candidates(args, context)"{{{
     let l:mru.abbr = strftime(g:unite_source_directory_mru_time_format, l:mru.source__time)
           \ . l:relative_path
   endfor
+endfunction"}}}
 
+function! s:source.gather_candidates(args, context)"{{{
+  call s:load()
   return s:mru_dirs
 endfunction"}}}
 
 " Actions"{{{
-let s:action_table = {}
-
-let s:action_table.delete = {
+let s:source.action_table.delete = {
       \ 'description' : 'delete from directory_mru list',
       \ 'is_invalidate_cache' : 1,
       \ 'is_quit' : 0,
       \ 'is_selectable' : 1,
       \ }
-function! s:action_table.delete.func(candidates)"{{{
+function! s:source.action_table.delete.func(candidates)"{{{
   for l:candidate in a:candidates
     call filter(s:mru_dirs, 'v:val.action__path !=# l:candidate.action__path')
   endfor
 
   call s:save()
 endfunction"}}}
-
-let s:source.action_table.directory = s:action_table
 "}}}
 
 " Misc
@@ -145,10 +150,16 @@ function! s:load()  "{{{
       return
     endif
 
-    let s:mru_dirs =
-    \   map(s:mru_dirs[: g:unite_source_directory_mru_limit - 1],
-    \              's:convert2dictionary(split(v:val, "\t"))')
-    call filter(s:mru_dirs, 'isdirectory(v:val.action__path)')
+    try
+      let s:mru_dirs = map(s:mru_dirs[: g:unite_source_directory_mru_limit - 1],
+            \              's:convert2dictionary(split(v:val, "\t"))')
+    catch
+      call unite#util#print_error('Sorry, MRU file is invalid.  Clears the MRU list.')
+      let s:mru_dirs = []
+      return
+    endtry
+
+    let s:mru_dirs = filter(s:mru_dirs, 'isdirectory(v:val.action__path)')
 
     let s:mru_file_mtime = getftime(g:unite_source_directory_mru_file)
   endif
@@ -165,5 +176,8 @@ endfunction"}}}
 function! s:convert2list(dict)  "{{{
   return [ a:dict.action__path, a:dict.source__time ]
 endfunction"}}}
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 " vim: foldmethod=marker
