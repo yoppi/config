@@ -28,6 +28,7 @@ autoload zed
 
 # set subversion editor
 export SVN_EDITOR=vim
+export EDITOR=vim
 
 # load user .zshrc configuration file
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
