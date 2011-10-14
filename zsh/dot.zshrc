@@ -367,5 +367,13 @@ function hu() {
   cd $cdup
 }
 
+# if mac OS X call screen saver
+case "${OSTYPE}" in
+  darwin*)
+  function slock() {
+    open '/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app'
+  }
+esac
+
 ## __END__ #{{{1
 # vim: filetype=zsh foldmethod=marker textwidth=78
