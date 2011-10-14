@@ -376,6 +376,10 @@ let g:quicklaunch_commands = [
 let g:changelog_timeformat="%Y-%m-%d"
 
 
+" vimclojure "{{{2
+let vimclojure#WantNailgun = 1
+let vimclojure#NailgunClient = "ng"
+
 " Others "{{{1
 " set screen title "{{{2
 "function! SetScreenTabName(name)
