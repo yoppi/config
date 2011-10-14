@@ -367,6 +367,20 @@ function hu() {
   cd $cdup
 }
 
+function hg-rm() {
+  hg status | while read file
+  do
+    echo $file | grep '^?' | awk '{print $2}' | xargs hg add
+  done
+}
+
+function hg-add() {
+  hg status | while read file
+  do
+    echo $file | grep '^?' | awk '{print $2}' | xargs hg add
+  done
+}
+
 # if mac OS X call screen saver
 case "${OSTYPE}" in
   darwin*)
