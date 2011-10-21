@@ -375,6 +375,14 @@ let g:quicklaunch_commands = [
 let g:changelog_timeformat="%Y-%m-%d"
 
 
+" qfixhowm "{{{2
+let QFixHowm_Key = 'g'
+let howm_dir = '~/dropbox/changelog/howm'
+let howm_filename = '%Y%/m/%Y-%m-%d.howm'
+let howm_fileencoding = 'utf-8'
+let howm_fileformat = 'unix'
+let mygrepprg = 'grep'
+
 " Others "{{{1
 " set screen title "{{{2
 "function! SetScreenTabName(name)
