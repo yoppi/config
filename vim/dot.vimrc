@@ -338,6 +338,32 @@ function! s:unite_my_settings() "{{{3
 endfunction
 
 
+" vimshell "{{{2
+autocmd FileType vimshell call s:vimshell_settings()
+function! s:vimshell_settings()
+  " Aliases
+  call vimshell#altercmd#define('la', 'ls -a')
+  call vimshell#altercmd#define('ll', 'ls -l')
+  call vimshell#altercmd#define('ltr', 'ls -altr')
+
+  call vimshell#altercmd#define('g', 'git')
+  call vimshell#altercmd#define('ga', 'git add')
+  call vimshell#altercmd#define('gb', 'git branch')
+  call vimshell#altercmd#define('gd', 'git diff')
+  call vimshell#altercmd#define('gl', 'git log')
+  call vimshell#altercmd#define('glg', 'git log --graph')
+  call vimshell#altercmd#define('gst', 'git status')
+
+  call vimshell#altercmd#define('v', 'vim')
+
+  call vimshell#altercmd#define('h', 'hg')
+  call vimshell#altercmd#define('hs', 'hg status')
+  call vimshell#altercmd#define('hd', 'hg diff')
+
+  call vimshell#altercmd#define('r', 'rails')
+
+endfunction
+
 " neocomplcache.vim "{{{2
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
