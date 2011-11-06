@@ -252,7 +252,9 @@ nnoremap <silent> <C-t>n :<C-u>tabnew<Return>
 nnoremap <silent> <C-t>c :<C-u>tabclose<Return>
 nnoremap <silent> <C-t>o :<C-u>tabonly<Return>
 nnoremap <silent> <C-t>j :<C-u>tabnext<Return>
+nnoremap <silent> <C-Tab> :<C-u>tabnext<Return>
 nnoremap <silent><C-t>k :<C-u>tabprevious<Return>
+nnoremap <silent><C-S-Tab> :<C-u>tabprevious<Return>
 nnoremap <silent><C-t>p :<C-u>TabPreWork<Return>
 nnoremap <silent><C-t>K :<C-u>tabfirst<Return>
 nnoremap <silent><C-t>J :<C-u>tablast<Return>
