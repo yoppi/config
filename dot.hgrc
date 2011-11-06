@@ -44,6 +44,7 @@ qf = qfinish
 qls = qseries
 rvn = revert --no-backup
 sh = shelve
+show = log -p -r
 tp = transplant
 ush = unshelve
 rec = record
