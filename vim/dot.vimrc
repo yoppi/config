@@ -126,6 +126,7 @@ set modelines=5
 set ruler
 set showcmd
 set showtabline=2
+set shellslash
 set smartindent
 "set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L
@@ -377,6 +378,7 @@ let g:changelog_timeformat="%Y-%m-%d"
 
 " qfixhowm "{{{2
 let QFixHowm_Key = 'g'
+let QFixHowm_FileType = 'markdown'
 let howm_dir = '~/dropbox/changelog/howm'
 let howm_filename = '%Y%/m/%Y-%m-%d.howm'
 let howm_fileencoding = 'utf-8'
