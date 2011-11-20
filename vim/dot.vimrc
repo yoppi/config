@@ -128,6 +128,7 @@ set modelines=5
 set ruler
 set showcmd
 set showtabline=2
+set shellslash
 set smartindent
 "set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L
@@ -409,6 +410,16 @@ let g:changelog_timeformat="%Y-%m-%d"
 " vimclojure "{{{2
 let vimclojure#WantNailgun = 1
 let vimclojure#NailgunClient = "ng"
+
+
+" qfixhowm "{{{2
+let QFixHowm_Key = 'g'
+let QFixHowm_FileType = 'markdown'
+let howm_dir = '~/dropbox/changelog/howm'
+let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
+let howm_fileencoding = 'utf-8'
+let howm_fileformat = 'unix'
+let mygrepprg = 'grep'
 
 " Others "{{{1
 " set screen title "{{{2
