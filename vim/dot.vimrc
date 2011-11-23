@@ -140,6 +140,7 @@ set t_Co=256
 set vb t_vb=
 set virtualedit+=block
 set wildmenu
+set wrap
 
 " Tabline, by kana {{{2
 function! s:set_tabline()
