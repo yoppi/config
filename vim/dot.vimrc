@@ -416,7 +416,7 @@ let vimclojure#NailgunClient = "ng"
 " qfixhowm "{{{2
 let QFixHowm_Key = 'g'
 let QFixHowm_FileType = 'markdown'
-let howm_dir = '~/dropbox/changelog/howm'
+let howm_dir = '~/dropbox/howm'
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
 let howm_fileencoding = 'utf-8'
 let howm_fileformat = 'unix'
