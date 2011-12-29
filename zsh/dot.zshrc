@@ -230,6 +230,7 @@ case "${OSTYPE}" in
     alias open="cygstart"
 esac
 
+alias grep="grep --color=auto"
 alias la="ls -a"
 alias lf="ls -F"
 alias ll="ls -l"
