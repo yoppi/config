@@ -1,11 +1,11 @@
-## 
+##
 # Update some configuration files(.zshrc, .irbrc, .gitrc, and .vimrc, so on).
 # NOTE: rake(Ruby Make) is required.
 #
 
 # Task definitions #{{{1
 HOME = ENV['HOME']
-CONFIG = "#{HOME}/config"
+CONFIG = File.expand_path(File.dirname(__FILE__))
 
 
 # for some dot files #{{{2
@@ -69,67 +69,51 @@ ALL_RULES = %w[DOT VIM ZSH].map {|type| eval("#{type}_FILES_RULE") }
 ALL_DIRS = HOME_VIM_DIRS + HOME_ZSH_DIRS
 
 # Tasks #{{{1
-TASKS = [:update_dot_files, :update_vimrc, :update_vim_files, 
-  :update_zshrc, :update_zsh_files] +
-  HOME_DOT_FILES + 
-  HOME_VIMRC + HOME_VIM_FILES +
-  HOME_ZSHRC + HOME_ZSH_FILES
+TASKS = HOME_DOT_FILES + HOME_VIMRC + HOME_VIM_FILES + HOME_ZSHRC + HOME_ZSH_FILES
 
 task :default => TASKS
 task :clean
 
 desc "Update dot files" # {{{2
-task "update_dot_files" do 
-  DOT_FILES_TABLE.each {|master, home|
-    file home => master do
-      cp master, home
-    end
-  }
-end
+DOT_FILES_TABLE.each {|master, home|
+  file home => master do
+    cp master, home
+  end
+}
 
 desc "Update vimrc" #{{{2
-task "update_vimrc" do 
-  VIMRC_TABLE.each {|master, home|
-    file home => master do
-      cp master, home
-    end
-  }
-end
+VIMRC_TABLE.each {|master, home|
+  file home => master do
+    cp master, home
+  end
+}
 
 desc "Update zshrc" #{{{2
-task "update_zshrc" do 
-  ZSHRC_TABLE.each {|master, home|
-    file home => master do
-      cp master, home
-    end
-  }
-end
+ZSHRC_TABLE.each {|master, home|
+  file home => master do
+    cp master, home
+  end
+}
 
 desc "Update vim files" #{{{2
-task "update_vim_files" do
-  VIM_FILES_TABLE.each {|master, home| 
-    # to check target a directory, exists or not
-    target = home.gsub(/\/#{File.basename(home)}/, '')
-    file home => [master, target] do |t|
-      cp master, target
-    end
-  }
-end
+VIM_FILES_TABLE.each {|master, home|
+  # to check target a directory, exists or not
+  target = home.gsub(/\/#{File.basename(home)}/, '')
+  file home => [master, target] do |t|
+    cp master, target
+  end
+}
 
 desc "Update zsh files" #{{{2
-task "update_zsh_files" do
-  ZSH_FILES_TABLE.each {|master, home|
-    target = home.gsub(/\/#{File.basename(home)}/, '')
-    file home => [master, target] do
-      cp master, target
-    end
-  }
-end
-
-
+ZSH_FILES_TABLE.each {|master, home|
+  target = home.gsub(/\/#{File.basename(home)}/, '')
+  file home => [master, target] do
+    cp master, target
+  end
+}
 
 # Make target directory tasks. #{{{2
-# if need to update Vim files, on the fly make target directories. 
+# if need to update Vim files, on the fly make target directories.
 ALL_DIRS.each {|dir|
   directory dir
 }
