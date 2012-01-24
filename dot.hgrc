@@ -24,6 +24,16 @@ attend = diff, d, log, l, lb, lc, lone, glog, gl, qdiff, bs
 
 [alias]
 cipower=churn -t '{author|email}' -c
+fix = ! \
+  hg shelve --all -n 'tmp.hg-fix' && \
+  if hg qtop > /dev/null; then \
+    hg qrefresh -m "$1"; \
+  else \
+    hg qimport -r .; \
+    hg qrefresh -m "$1" ; \
+    hg qfinish -a; \
+  fi; \
+  hg unshelve -n 'tmp.hg-fix'
 l = log
 lc = log -b .
 lb = log -b
