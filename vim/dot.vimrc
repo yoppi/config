@@ -197,6 +197,19 @@ inoremap <C-l> <ESC>
 cnoremap <C-b> <LEFT>
 cnoremap <C-f> <RIGHT>
 cnoremap <C-l> <C-c>
+cnoremap <C-x> <C-r>=<SID>GetBufferDirectory()<Return>/
+function! s:GetBufferDirectory()
+  let path = expand('%:p:h')
+  let cwd = getcwd()
+  if match(path, cwd) != 0
+    return path
+  elseif strlen(path) > strlen(cwd)
+    return strpart(path, strlen(cwd) + 1)
+  else
+    return '.'
+  endif
+endfunction
+
 
 nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
