@@ -78,4 +78,5 @@ window Gvim /gvim.exe:Vim/ : Global
   key C-H = C-H
 window Mintty /imtty.exe:mintty/ : Global
   key C-H = C-H
-
+window Putty /putty.exe/ : Global
+  key C-H = C-H

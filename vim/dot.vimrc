@@ -123,6 +123,8 @@ if has('gui_macvim')
 end
 set incsearch
 set laststatus=2
+set list
+set listchars=tab:>.,trail:$
 set modeline
 set modelines=5
 set ruler
