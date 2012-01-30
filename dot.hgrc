@@ -20,7 +20,7 @@ git = 1
 [pager]
 pager = LESS='FXR' less
 quiet = True
-attend = diff, d, log, l, lb, lc, lone, glog, gl, qdiff, bs
+attend = diff, d, log, l, lb, lc, lone, glog, gl, qdiff, bs, show
 
 [alias]
 cipower=churn -t '{author|email}' -c
