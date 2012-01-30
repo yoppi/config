@@ -124,7 +124,7 @@ end
 set incsearch
 set laststatus=2
 set list
-set listchars=tab:>.,trail:$
+set listchars=tab:>.
 set modeline
 set modelines=5
 set ruler
@@ -567,6 +567,7 @@ command! -nargs=0 GetHighlightingGroup
 " auto buffer update {{{2
 function! s:AutoUpdate()
   if expand('%') =~ s:savebuf_regex && !&readonly && &buftype == ''
+    silent! DeleteSpaceEachLine
     silent update
   endif
 endfunction
