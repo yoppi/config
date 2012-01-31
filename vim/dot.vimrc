@@ -556,9 +556,13 @@ command! -nargs=1 -complete=file Rename
 \   file <args>
 \ | call delete(expand('#'))
 
-" remove the spaces end of lines "{{{2
-command! -bang -bar -complete=file -nargs=0 DeleteSpaceEachLine
-\ execute ':%s/\s\+$//'
+" remove the last spaces of lines "{{{2
+command! -bar DeleteLastSpacesEachLine %s/\s\+$//e
+function! s:DeleteLastSpacesEachLine()
+  let save_cursor = getpos('.')
+  DeleteLastSpacesEachLine
+  call setpos('.', save_cursor)
+endfunction
 
 " check highlighing {{{2
 command! -nargs=0 GetHighlightingGroup
@@ -567,14 +571,14 @@ command! -nargs=0 GetHighlightingGroup
 " auto buffer update {{{2
 function! s:AutoUpdate()
   if expand('%') =~ s:savebuf_regex && !&readonly && &buftype == ''
-    silent! DeleteSpaceEachLine
     silent update
   endif
 endfunction
 
-autocmd MyAutoCmd CursorHold * call s:AutoUpdate()
+autocmd MyAutoCmd CursorHold * nested call s:AutoUpdate()
+autocmd MyAutoCmd BufWritePre * call s:DeleteLastSpacesEachLine()
 set updatetime=500
-if !exists('s:savebuf')
+if !exists('s:savebuf_regex')
   let s:savebuf_regex = '.\+'
 endif
 
