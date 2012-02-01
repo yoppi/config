@@ -385,31 +385,6 @@ function! s:vimshell_settings()
 
 endfunction
 
-" neocomplcache.vim "{{{2
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_min_syntax_length = 3
-"if !exists('g:neocomplcache_omni_patterns')
-"  let g:neocomplcache_omni_patterns = {}
-"endif
-"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-imap <expr><C-o> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-o>"
-smap <expr><C-o> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : "\<C-o>"
-
-inoremap <expr><C-g> neocomplcache#undo_completion()
-inoremap <expr><C-Space> neocomplcache#complete_common_string()
-inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 " quickrun.vim: definition of quicklaunch commands "{{{2
 let g:quicklaunch_commands = [
