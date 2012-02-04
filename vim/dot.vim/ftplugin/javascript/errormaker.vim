@@ -7,4 +7,4 @@ if exists("g:dit_javascript_errormaker")
   finish
 endif
 let g:dit_javascript_errormaker = 1
-au BufWritePost *.js silent make
+autocmd BufWritePost *.js silent make!
