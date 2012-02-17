@@ -1,7 +1,7 @@
 # .zshrc
 
 # misc. #{{{1
-# Environment variable configuration 
+# Environment variable configuration
 export LANG=ja_JP.UTF-8
 
 # for fakeclip.vim
@@ -194,7 +194,7 @@ for cn in ${(k)pc}; do
 done
 pc[reset]=$(colorword . . 00)
 
-local c_user 
+local c_user
 local c_red=$'\e[31m'
 local c_green=$'\e[32m'
 case "$USER" in
@@ -297,10 +297,18 @@ zstyle ':completion:*' list-colors ''
 
 ## PATH #{{{1
 
+if [ -d $HOME/local/bin ]; then
+  for bin in $HOME/local/bin; do
+    if [ -d $bin ]; then
+      export PATH=$bin:$PATH
+    fi
+  done
+fi
+
 if [ -d /usr/local/bin ]; then
   for bin in /usr/local/bin; do
     if [ -d $bin ]; then
-      export PATH=$bin:$PATH
+      export PATH=$PATH:$bin
     fi
   done
 fi
@@ -309,7 +317,7 @@ fi
 if [ -d $HOME/.cabal/bin ]; then
   for bin in $HOME/.cabal/bin; do
     if [ -d $bin ]; then
-      export PATH=$bin:$PATH
+      export PATH=$PATH:$bin
     fi
   done
 fi
@@ -330,14 +338,10 @@ if [ -d $HOME/.npm ]; then
   done
 fi
 
-if [ -d $HOME/local/bin ]; then
-  for bin in $HOME/local/bin; do
-    if [ -d $bin ]; then
-      export PATH=$bin:$PATH
-    fi
-  done
+# Shared Library Path
+if [ -d /usr/local/lib ]; then
+  export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 fi
-
 
 
 ## Bindkey #{{{1
