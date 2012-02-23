@@ -247,6 +247,16 @@ nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
 nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>CD<Return>
+
+" rails.vim
+nnoremap [Space]rv :<C-u>RVview<Return>
+nnoremap [Space]rc :<C-u>Rcontroller<Space>
+nnoremap [Space]rm :<C-u>Rmodel<Space>
+nnoremap [Space]rh :<C-u>Rhelper<Space>
+nnoremap [Space]ri :<C-u>Rinitializer<Space>
+nnoremap [Space]rl :<C-u>Rlocale<Space>
+nnoremap [Space]re :<C-u>Renvironment<Space>
+
 " display lines down /up ward
 nnoremap j gj
 nnoremap k gk
