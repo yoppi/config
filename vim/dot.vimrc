@@ -328,6 +328,7 @@ onoremap gc  :<C-u>normal gc<Enter>
 " Color Syntax "{{{1
 syntax enable
 set background=dark
+colorscheme desert
 autocmd MyAutoCmd ColorScheme *
 \   hi Comment     ctermfg=blue
 \ | hi Pmenu       cterm=underline ctermbg=black guibg=black
@@ -337,9 +338,6 @@ autocmd MyAutoCmd ColorScheme *
 \ | hi TabLineFill cterm=underline ctermbg=black ctermfg=white
 \ | hi Normal      guibg=grey5
 doautocmd MyAutoCmd ColorScheme * _
-if has('gui')
-  colorscheme koehler
-endif
 
 " Vim Plugin Settings "{{{1
 " unite.vim "{{{2
