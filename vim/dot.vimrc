@@ -1,6 +1,36 @@
-" misc. "{{{1
+" Opening "{{{1
 set nocompatible
 
+" story teller and casts "{{{2
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmalik/vundle'
+Bundle 'fuenor/qfixhowm'
+Bundle 'kana/vim-fakeclip'
+Bundle 'kana/vim-smartchr'
+Bundle 'kana/vim-smartword'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'motemen/git-vim'
+Bundle 'motemen/hatena-vim'
+Bundle 'rosstimson/scala-vim-support'
+Bundle 'Shougo/unite.vim'
+Bundle 'thinca/vim-quickrun'
+Bundle 'thinca/vim-ref'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/AutoComplPop'
+Bundle 'vim-scripts/CSApprox'
+Bundle 'vim-scripts/L9'
+Bundle 'vim-scripts/Source-Explorer-srcexpl.vim'
+Bundle 'vim-scripts/VimClojure'
+Bundle 'vim-scripts/gtags.vim'
+Bundle 'vim-scripts/pdc.vim'
+Bundle 'yoppi/errormarker.vim'
+Bundle 'yoppi/perl5lib'
+
+" start! my .vimrc
 augroup MyAutoCmd
   autocmd!
 augroup END
