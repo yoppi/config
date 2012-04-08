@@ -20,7 +20,7 @@ if has('gui_running') || has('gui_macvim')
   elseif has('gui_macvim')
     set transparency=10
   endif
-  colorscheme koehler
+  colorscheme molokai
   hi Pmenu       gui=underline guibg=black
   hi PmenuSel    guibg=blue
   hi Normal guibg=grey5

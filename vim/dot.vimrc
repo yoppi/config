@@ -370,7 +370,7 @@ onoremap gc  :<C-u>normal gc<Enter>
 " Color Syntax "{{{1
 syntax enable
 set background=dark
-colorscheme desert
+colorscheme molokai
 autocmd MyAutoCmd ColorScheme *
 \   hi Comment     ctermfg=blue
 \ | hi Pmenu       cterm=underline ctermbg=black guibg=black
