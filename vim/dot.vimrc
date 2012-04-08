@@ -28,6 +28,7 @@ Bundle 'vim-scripts/Source-Explorer-srcexpl.vim'
 Bundle 'vim-scripts/VimClojure'
 "Bundle 'vim-scripts/gtags.vim'
 Bundle 'vim-scripts/pdc.vim'
+Bundle 'tomasr/molokai'
 Bundle 'yoppi/errormarker.vim'
 Bundle 'yoppi/perl5lib'
 
