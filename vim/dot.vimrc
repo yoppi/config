@@ -388,7 +388,7 @@ let g:unite_update_time = 100
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_file_mru_filename_format = ''
 let g:unite_source_file_rec_ignore_pattern = '.svn/*'
-nnoremap <silent> [Space]ff :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark<Return>
+nnoremap <silent> [Space]ff :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark file/new<Return>
 nnoremap <silent> [Space]fb :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<Return>
 nnoremap <silent> [Space]fr :<C-u>Unite file_rec<Return>
 nnoremap <silent> [Space]fm :<C-u>Unite file_mru<Return>
