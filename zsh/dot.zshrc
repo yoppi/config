@@ -343,6 +343,10 @@ if [ -d /usr/local/lib ]; then
   export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 fi
 
+if [ -f ~/.aws.conf ]; then
+  source ~/.aws.conf
+fi
+
 
 ## Bindkey #{{{1
 bindkey '' backward-delete-char
