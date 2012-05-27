@@ -259,6 +259,7 @@ nnoremap [Space]rh :<C-u>Rhelper<Space>
 nnoremap [Space]ri :<C-u>Rinitializer<Space>
 nnoremap [Space]rl :<C-u>Rlocale<Space>
 nnoremap [Space]re :<C-u>Renvironment<Space>
+nnoremap [Space]rs :<C-u>Rschema<Return>
 
 " fugitive.vim
 nnoremap [Space]gd :<C-u>Gdiff<Return>
