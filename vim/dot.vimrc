@@ -260,6 +260,9 @@ nnoremap [Space]ri :<C-u>Rinitializer<Space>
 nnoremap [Space]rl :<C-u>Rlocale<Space>
 nnoremap [Space]re :<C-u>Renvironment<Space>
 
+" fugitive.vim
+nnoremap [Space]gd :<C-u>Gdiff<Return>
+
 " display lines down /up ward
 nnoremap j gj
 nnoremap k gk
