@@ -245,6 +245,11 @@ alias v="vim"
 alias r="rails"
 alias sp="rspec -c"
 
+# for tmux
+alias t="tmux"
+alias ta="tmux attach -dt"
+alias tn="tmux new -s"
+
 # for git
 alias g="git"
 alias ga="git add"
