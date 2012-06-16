@@ -12,6 +12,7 @@ Bundle 'kana/vim-fakeclip'
 Bundle 'kana/vim-smartchr'
 Bundle 'kana/vim-smartinput'
 Bundle 'kana/vim-smartword'
+Bundle 'kana/vim-tabpagecd'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'motemen/hatena-vim'
 Bundle 'rosstimson/scala-vim-support'
@@ -408,7 +409,7 @@ nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<Return>
 
 autocmd FileType unite call s:unite_my_settings()
 
-function! s:unite_my_settings() "{{{3
+function! s:unite_my_settings()
   nmap <buffer> <C-c> <Plug>(unite_exit)
   imap <buffer> jj <Plug>(unite_insert leave)
 
@@ -418,8 +419,8 @@ function! s:unite_my_settings() "{{{3
   nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
   inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
 
-  nnoremap <silent><buffer><expr> f unite#smart_map('v', unite#do_action('vimfiler'))
-  inoremap <silent><buffer><expr> f unite#smart_map('v', unite#do_action('vimfiler'))
+  nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('file'))
+  inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('file'))
 endfunction
 
 " vimfiler "{{{2
@@ -482,21 +483,6 @@ let howm_fileencoding = 'utf-8'
 let howm_fileformat = 'unix'
 
 " Others "{{{1
-" set screen title "{{{2
-"function! SetScreenTabName(name)
-"  let arg = 'k' . a:name . '\\'
-"  silent! exe '!echo -n "' . arg . "\""
-"endfunction
-"
-"if &term =~ "screen"
-"  autocmd VimLeave * call SetScreenTabName('** free **')
-"  autocmd BufEnter *
-"  \   if bufname ("") !~ "^\[A-Za-z0-9\]*://"
-"  \ |   call SetScreenTabName("%")
-"  \ | endif
-"endif
-
-
 " move to previous working tabpage "{{{2
 command! -bar -nargs=0 TabPreWork call s:tabprework()
 function! s:tabprework()
@@ -536,16 +522,6 @@ autocmd MyAutoCmd TabLeave *
 autocmd MyAutoCmd TabEnter *
 \ let g:cur_tabnr = tabpagenr()
 
-" to keep current directory for each tab page, by kana - " http://github.com/kana/config/tree/master/vim/dot.vimrc {{{2
-command! -nargs=? -complete=file CD
-\   execute 'cd ' . fnameescape(<q-args>)
-\ | let t:cwd = getcwd()
-
-autocmd MyAutoCmd TabEnter *
-\   if !exists('t:cwd')
-\ |   let t:cwd = getcwd()
-\ | endif
-\ | execute 'cd ' . fnameescape(t:cwd)
 
 " suspend automatic cd with screen, by kana "{{{2
 command! -bar -nargs=0 SuspendWithAutomaticCD
