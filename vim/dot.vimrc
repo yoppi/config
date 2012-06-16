@@ -16,6 +16,8 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'motemen/hatena-vim'
 Bundle 'rosstimson/scala-vim-support'
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimfiler'
+Bundle 'Shougo/vimproc'
 Bundle 'thinca/vim-quickrun'
 Bundle 'thinca/vim-ref'
 Bundle 'tpope/vim-rails'
@@ -389,21 +391,41 @@ doautocmd MyAutoCmd ColorScheme * _
 
 " Vim Plugin Settings "{{{1
 " unite.vim "{{{2
+nnoremap [unite] <Nop>
+nmap [Space]f [unite]
+
 let g:unite_update_time = 100
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_file_mru_filename_format = ''
 let g:unite_source_file_rec_ignore_pattern = '.svn/*'
-nnoremap <silent> [Space]ff :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark file/new<Return>
-nnoremap <silent> [Space]fb :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<Return>
-nnoremap <silent> [Space]fr :<C-u>Unite file_rec<Return>
-nnoremap <silent> [Space]fm :<C-u>Unite file_mru<Return>
-nnoremap <silent> [Space]fk :<C-u>Unite bookmark<Return>
+let g:unite_source_file_rec_ignore_pattern = '.git/*'
+nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark file/new<Return>
+nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<Return>
+nnoremap <silent> [unite]r :<C-u>Unite file_rec<Return>
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<Return>
+nnoremap <silent> [unite]k :<C-u>Unite bookmark<Return>
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<Return>
 
 autocmd FileType unite call s:unite_my_settings()
+
 function! s:unite_my_settings() "{{{3
   nmap <buffer> <C-c> <Plug>(unite_exit)
+  imap <buffer> jj <Plug>(unite_insert leave)
+
+  nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
+  inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
+
+  nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
+  inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
+
+  nnoremap <silent><buffer><expr> f unite#smart_map('v', unite#do_action('vimfiler'))
+  inoremap <silent><buffer><expr> f unite#smart_map('v', unite#do_action('vimfiler'))
 endfunction
 
+" vimfiler "{{{2
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_safe_mode_by_default = 0
+nnoremap <silent> [Space]o :<C-u>VimFiler -split -simple -winwidth=35 -no-quit<Return>
 
 " vimshell "{{{2
 autocmd FileType vimshell call s:vimshell_settings()
@@ -430,6 +452,8 @@ function! s:vimshell_settings()
   call vimshell#altercmd#define('r', 'rails')
 
 endfunction
+
+
 
 
 " quickrun.vim: definition of quicklaunch commands "{{{2
