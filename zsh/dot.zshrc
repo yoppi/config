@@ -265,7 +265,7 @@ alias gsw="git show"
 alias gvn="git svn"
 alias gsh="git stash"
 alias gshp="git stash pop"
-alias gst="git status"
+alias gst="git status -sb"
 
 # for bazaar
 alias b="bzr"
