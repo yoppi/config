@@ -36,6 +36,7 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'tomasr/molokai'
 Bundle 'yoppi/errormarker.vim'
 Bundle 'yoppi/perl5lib'
+Bundle 'h1mesuke/unite-outline'
 
 " start! my .vimrc
 augroup MyAutoCmd
@@ -405,6 +406,7 @@ nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%
 nnoremap <silent> [unite]r :<C-u>Unite file_rec<Return>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<Return>
 nnoremap <silent> [unite]k :<C-u>Unite bookmark<Return>
+nnoremap <silent> [unite]o :<C-u>Unite outline<Return>
 nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<Return>
 
 autocmd FileType unite call s:unite_my_settings()
