@@ -21,6 +21,7 @@
   d = diff
   ds = diff --cached
   fix = commit --amend
+  gr = grep -n
   st = status
 [github]
   user = yoppi
