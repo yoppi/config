@@ -385,7 +385,7 @@ syntax enable
 set background=dark
 colorscheme molokai
 autocmd MyAutoCmd ColorScheme *
-\   hi Comment     ctermfg=blue
+\   hi Comment     term=bold ctermfg=blue guifg=#707070
 \ | hi Pmenu       cterm=underline ctermbg=black guibg=black
 \ | hi PmenuSel    ctermbg=blue  guibg=blue
 \ | hi Visual      ctermfg=lightgray
