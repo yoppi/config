@@ -409,7 +409,7 @@ nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%
 nnoremap <silent> [unite]r :<C-u>Unite file_rec<Return>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<Return>
 nnoremap <silent> [unite]k :<C-u>Unite bookmark<Return>
-nnoremap <silent> [unite]o :<C-u>Unite outline<Return>
+nnoremap <silent> [unite]o :<C-u>Unite -vertical -no-quit -winwidth=35 outline<Return>
 nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<Return>
 
 autocmd FileType unite call s:unite_my_settings()
@@ -456,6 +456,8 @@ function! s:vimshell_settings()
   call vimshell#altercmd#define('hd', 'hg diff')
 
   call vimshell#altercmd#define('r', 'rails')
+
+  inoremap <C-l> <ESC>
 
 endfunction
 
