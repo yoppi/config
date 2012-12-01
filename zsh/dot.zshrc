@@ -30,6 +30,9 @@ autoload zed
 export SVN_EDITOR=vim
 export EDITOR=vim
 
+# load antigen settings
+source ~/.zsh/_antigen
+
 # load user .zshrc configuration file
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
 
@@ -73,16 +76,6 @@ setopt complete_aliases     # aliased ls needs if file/dir completions work
 
 
 ## Prompt #{{{1
-# use zsh-git prompt
-#setopt promptsubst
-
-# Load the prompt theme system
-#autoload -U promptinit
-#promptinit
-
-# Use the yoppi prompt theme
-#rompt yoppi
-
 autoload -Uz add-zsh-hook
 autoload -Uz colors
 colors

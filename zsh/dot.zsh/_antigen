@@ -1,0 +1,7 @@
+source ~/.zsh/antigen/antigen.zsh
+
+antigen-bundle git
+antigen-bundle autojump
+
+antigen-apply
+

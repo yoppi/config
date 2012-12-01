@@ -52,17 +52,13 @@ ZSHRC_TABLE = Hash[*zipped.flatten]
 MASTER_ZSHDIR = "#{MASTER_ZSHHOME}/dot.zsh"
 HOME_ZSHDIR = "#{HOME}/.zsh"
 
-MASTER_ZSH_FILES = FileList["#{MASTER_ZSHDIR}/**/*"].
-  select {|f| File.file? f }
-HOME_ZSH_FILES = MASTER_ZSH_FILES.
-  map {|f| f.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") }
+MASTER_ZSH_FILES = FileList["#{MASTER_ZSHDIR}/**/*"].select {|f| File.file? f }
+HOME_ZSH_FILES = MASTER_ZSH_FILES.map {|f| f.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") }
 zipped = MASTER_ZSH_FILES.zip HOME_ZSH_FILES
 ZSH_FILES_TABLE = Hash[*zipped.flatten]
 
-MASTER_ZSH_DIRS = FileList["#{MASTER_ZSHDIR}/**/*"].
-  select {|f| File.directory? f }
-HOME_ZSH_DIRS = MASTER_ZSH_DIRS.
-  map {|d| d.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") }
+MASTER_ZSH_DIRS = FileList["#{MASTER_ZSHDIR}/**/*"].select {|f| File.directory? f }
+HOME_ZSH_DIRS = MASTER_ZSH_DIRS.map {|d| d.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") }
 ZSH_FILES_RULE = lambda {|x| x.gsub(%r|(#{CONFIG}/)?zsh/dot|, "#{HOME}/") }
 
 ALL_RULES = %w[DOT VIM ZSH].map {|type| eval("#{type}_FILES_RULE") }
