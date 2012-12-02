@@ -388,6 +388,7 @@ autocmd MyAutoCmd ColorScheme *
 \   hi Comment     term=bold ctermfg=blue guifg=#707070
 \ | hi Pmenu       cterm=underline ctermbg=black guibg=black
 \ | hi PmenuSel    ctermbg=blue  guibg=blue
+\ | hi PmenuSel    term=reverse ctermfg=219 ctermbg=89 guifg=#960050 guibg=#1E0010
 \ | hi Visual      ctermfg=lightgray
 \ | hi TabLineSel  ctermbg=gray ctermfg=black
 \ | hi TabLineFill cterm=underline ctermbg=black ctermfg=white
