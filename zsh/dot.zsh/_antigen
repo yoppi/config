@@ -1,7 +1,14 @@
 source ~/.zsh/antigen/antigen.zsh
 
+antigen-lib
+
 antigen-bundle git
+antigen-bundle git-flow
 antigen-bundle autojump
+
+antigen-bundle zsh-users/zsh-syntax-highlighting
+
+antigen-theme agnoster
 
 antigen-apply
 
