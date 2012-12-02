@@ -490,6 +490,11 @@ let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
 let howm_fileencoding = 'utf-8'
 let howm_fileformat = 'unix'
 
+
+" powerline "{{{2
+let g:Powerline_symbols = 'fancy'
+
+
 " Others "{{{1
 " move to previous working tabpage "{{{2
 command! -bar -nargs=0 TabPreWork call s:tabprework()
