@@ -283,7 +283,7 @@ nnoremap [Space]h zc
 nnoremap [Space]l zo
 " stop the highliting
 nnoremap [Space]/ :<C-u>nohlsearch<Return>
-nnoremap <Tab> <C-w>w
+nnoremap <Tab> <C-w>p
 
 
 noremap <silent> <C-z>  :<C-u>SuspendWithAutomaticCD<Return>
