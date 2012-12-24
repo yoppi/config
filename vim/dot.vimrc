@@ -134,7 +134,7 @@ if exists('+guicursor')
 endif
 if exists('+guifont')
   if has('gui_macvim')
-    set guifont=Bitstream\ Vera\ Sans\ Mono:h14
+    set guifont=Ricty\ Discord:h16
   elseif (has('win32') || has('win64')) && has('gui_running')
     set guifont=Bitstream\ Vera\ Sans\ Mono:h11
   elseif has('unix') && has('gui_running')
@@ -143,7 +143,7 @@ if exists('+guifont')
 endif
 if exists('+guifontwide')
   if has('gui_macvim')
-    set guifontwide=HiraMaruPro-W4:h14
+    set guifontwide=Ricty\ Discord:h16
   elseif has('win32') || has('win64')
     set guifontwide=MS_Gothic:h11
   endif
