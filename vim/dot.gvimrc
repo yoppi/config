@@ -1,10 +1,10 @@
 " Options "{{{1
 if has('gui_macvim')
   if exists('+guifont')
-    set guifont=Bitstream\ Vera\ Sans\ Mono:h14
+    set guifont=Ricty\ Discord:h16
   endif
   if exists('+guifontwide')
-    set guifontwide=HiraMaruPro-W4:h14
+    set guifontwide=Ricty\ Discord:h16
   endif
 elseif has('win32') || has('win64')
   set guifont=Bitstream\ Vera\ Sans\ Mono:h11
