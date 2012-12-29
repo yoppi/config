@@ -1,10 +1,10 @@
 " Options "{{{1
 if has('gui_macvim')
   if exists('+guifont')
-    set guifont=Ricty\ Discord:h16
+    set guifont=Ricty\ Discord\ for\ Powerline:h16
   endif
   if exists('+guifontwide')
-    set guifontwide=Ricty\ Discord:h16
+    set guifontwide=Ricty\ Discord\ for\ Powerline:h16
   endif
 elseif has('win32') || has('win64')
   set guifont=Bitstream\ Vera\ Sans\ Mono:h11
@@ -22,7 +22,6 @@ if has('gui_running') || has('gui_macvim')
   endif
   colorscheme molokai
   hi Pmenu       gui=underline guibg=black
-  hi PmenuSel    guibg=blue
   hi Normal guibg=grey5
 endif
 
