@@ -433,26 +433,34 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
 " unite "{{{2
 nnoremap [unite] <Nop>
-nmap [Space]f [unite]
+nmap f [unite]
 
 let g:unite_update_time = 100
+
+let g:unite_enable_start_insert = 1
+let g:unite_enable_short_source_names = 1
+
+let g:unite_split_rule = "botright"
+
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_file_mru_filename_format = ''
 let g:unite_source_file_rec_ignore_pattern = '.svn/*'
 let g:unite_source_file_rec_ignore_pattern = '.git/*'
-nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark file/new<Return>
+nnoremap <silent> [unite]c :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark file/new<Return>
 nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<Return>
-nnoremap <silent> [unite]r :<C-u>Unite file_rec<Return>
+nnoremap <silent> [unite]f :<C-u>Unite file_rec<Return>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<Return>
 nnoremap <silent> [unite]k :<C-u>Unite bookmark<Return>
-nnoremap <silent> [unite]o :<C-u>Unite -vertical -no-quit -winwidth=35 outline<Return>
+nnoremap <silent> [unite]o :<C-u>Unite -vertical -no-quit -no-start-insert -winwidth=35 outline<Return>
 nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<Return>
 
 autocmd FileType unite call s:unite_my_settings()
 
 function! s:unite_my_settings()
   nmap <buffer> <C-c> <Plug>(unite_exit)
-  imap <buffer> jj <Plug>(unite_insert leave)
+  imap <buffer> jj <Plug>(unite_insert_leave)
+  imap <buffer> <C-l> <Plug>(unite_insert_leave)
+  imap <buffer> <C-c> <Plug>(unite_exit)
 
   nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
   inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
