@@ -313,16 +313,18 @@ vnoremap <C-l> <ESC>
 ""vnoremap ' "zdi'<C-R>z'<ESC>
 ""inoremap <C-h> <BS>
 
-" tag jump, by kana "{{{2
-nnoremap tt <C-]>
-vnoremap tt <C-]>
-nnoremap <silent>tj :<C-u>tag<Return>
-nnoremap <silent>tk :<C-u>pop<Return>
-nnoremap <silent>tl :<C-u>tags<Return>
-nnoremap <silent>tn :<C-u>tnext<Return>
-nnoremap <silent>tp :<C-u>tprevious<Return>
-nnoremap <silent>tP :<C-u>tfirst<Return>
-nnoremap <silent>tN :<C-u>tlast<Return>
+" tag jump "{{{2
+nnoremap [tag] <Nop>
+nmap t [tag]
+nnoremap [tag]t <C-]>
+vnoremap [tag]t <C-]>
+nnoremap <silent>[tag]j :<C-u>tag<Return>
+nnoremap <silent>[tag]k :<C-u>pop<Return>
+nnoremap <silent>[tag]l :<C-u>tags<Return>
+nnoremap <silent>[tag]n :<C-u>tnext<Return>
+nnoremap <silent>[tag]p :<C-u>tprevious<Return>
+nnoremap <silent>[tag]P :<C-u>tfirst<Return>
+nnoremap <silent>[tag]N :<C-u>tlast<Return>
 
 " tabpage motion, by kana "{{{2
 nnoremap <silent> <C-t>n :<C-u>tabnew<Return>
