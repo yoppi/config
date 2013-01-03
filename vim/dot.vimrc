@@ -273,7 +273,12 @@ nnoremap [Space]re :<C-u>Renvironment<Space>
 nnoremap [Space]rs :<C-u>Rschema<Return>
 
 " fugitive.vim
-nnoremap [Space]gd :<C-u>Gdiff<Return>
+nnoremap [git] <Nop>
+nmap [Space]g [git]
+nnoremap [git]c :<C-u>Gcommit<Return>
+nnoremap [git]d :<C-u>Gdiff<Return>
+nnoremap [git]s :<C-u>Gstatus<Return>
+nnoremap [git]b :<C-u>Gblame<Return>
 
 " display lines down /up ward
 nnoremap j gj
