@@ -265,14 +265,16 @@ nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>CD<Return>
 
 " rails.vim
-nnoremap [Space]rv :<C-u>RVview<Return>
-nnoremap [Space]rc :<C-u>Rcontroller<Space>
-nnoremap [Space]rm :<C-u>Rmodel<Space>
-nnoremap [Space]rh :<C-u>Rhelper<Space>
-nnoremap [Space]ri :<C-u>Rinitializer<Space>
-nnoremap [Space]rl :<C-u>Rlocale<Space>
-nnoremap [Space]re :<C-u>Renvironment<Space>
-nnoremap [Space]rs :<C-u>Rschema<Return>
+nnoremap [rails] <Nop>
+nmap [Space]r [rails]
+nnoremap [rails]v :<C-u>RVview<Return>
+nnoremap [rails]c :<C-u>Rcontroller<Space>
+nnoremap [rails]m :<C-u>Rmodel<Space>
+nnoremap [rails]h :<C-u>Rhelper<Space>
+nnoremap [rails]i :<C-u>Rinitializer<Space>
+nnoremap [rails]l :<C-u>Rlocale<Space>
+nnoremap [rails]e :<C-u>Renvironment<Space>
+nnoremap [rails]s :<C-u>Rschema<Return>
 
 " fugitive.vim
 nnoremap [git] <Nop>
