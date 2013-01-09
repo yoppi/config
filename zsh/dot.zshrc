@@ -272,5 +272,16 @@ case "${OSTYPE}" in
   }
 esac
 
+# for z
+if [ -f `brew --prefix`/etc/profile.d/z.sh ]; then
+  . `brew --prefix`/etc/profile.d/z.sh
+  if ! [ -f $HOME/.z ]; then
+    touch $HOME/.z
+  fi
+  function precmd() {
+    _z --add "$(pwd -P)"
+  }
+fi
+
 ## __END__ #{{{1
 # vim: filetype=zsh foldmethod=marker textwidth=78
