@@ -446,19 +446,22 @@ nnoremap [unite] <Nop>
 nmap f [unite]
 
 let g:unite_update_time = 100
-
 let g:unite_enable_start_insert = 1
 let g:unite_enable_short_source_names = 1
-
 let g:unite_split_rule = "botright"
-
-let g:unite_source_file_mru_limit = 200
+let g:unite_source_file_mru_limit = 500
 let g:unite_source_file_mru_filename_format = ''
-let g:unite_source_file_rec_ignore_pattern = '.svn/*'
-let g:unite_source_file_rec_ignore_pattern = '.git/*'
+call unite#custom_source('file_rec', 'ignore_pattern', (unite#sources#file_rec#define()[0]['ignore_pattern']) . '\|\<coverage\>\|\<log\>\|\<\.rsync_cache\>\|\<tmp\>')
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
 nnoremap <silent> [unite]c :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark file/new<Return>
 nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<Return>
-nnoremap <silent> [unite]f :<C-u>Unite file_rec<Return>
+nnoremap <silent> [unite]g :<C-u>Unite grep
+nnoremap <silent> [unite]f :<C-u>Unite file_rec/async<Return>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<Return>
 nnoremap <silent> [unite]k :<C-u>Unite bookmark<Return>
 nnoremap <silent> [unite]o :<C-u>Unite -vertical -no-quit -no-start-insert -winwidth=35 outline<Return>
@@ -494,7 +497,6 @@ function! s:vimshell_settings()
   call vimshell#altercmd#define('la', 'ls -a')
   call vimshell#altercmd#define('ll', 'ls -l')
   call vimshell#altercmd#define('ltr', 'ls -altr')
-
   call vimshell#altercmd#define('g', 'git')
   call vimshell#altercmd#define('ga', 'git add')
   call vimshell#altercmd#define('gb', 'git branch')
@@ -502,17 +504,12 @@ function! s:vimshell_settings()
   call vimshell#altercmd#define('gl', 'git log')
   call vimshell#altercmd#define('glg', 'git log --graph')
   call vimshell#altercmd#define('gst', 'git status')
-
   call vimshell#altercmd#define('v', 'vim')
-
   call vimshell#altercmd#define('h', 'hg')
   call vimshell#altercmd#define('hs', 'hg status')
   call vimshell#altercmd#define('hd', 'hg diff')
-
   call vimshell#altercmd#define('r', 'rails')
-
   inoremap <C-l> <ESC>
-
 endfunction
 
 
