@@ -167,6 +167,7 @@ set imdisable
 if has('gui_macvim')
   set iminsert=0
 end
+set imsearch=0
 set incsearch
 set laststatus=2
 set list
