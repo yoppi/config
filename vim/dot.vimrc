@@ -88,11 +88,6 @@ if has('iconv')
   unlet s:enc_jis
 endif
 
-let mapleader = ","
-
-map <Space> [Space]
-noremap [Space] <nop>
-
 
 " Filetype "{{{2
 filetype plugin indent on
@@ -222,6 +217,12 @@ let &tabline = '%!' . s:SID() . 'set_tabline()'
 
 
 " Keymaping "{{{1
+" <Leader>
+let mapleader = ","
+
+map <Space> [Space]
+noremap [Space] <nop>
+
 " My working Debian cannot recognize <C-h> as BackSpace in insert mode on
 " screen.
 let ostype = system("echo $OSTYPE")
