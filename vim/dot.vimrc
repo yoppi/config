@@ -1,4 +1,4 @@
-" Opening "{{{1
+" Prologue "{{{1
 set nocompatible
 
 " story teller and casts "{{{2
