@@ -221,6 +221,9 @@ if [ -f ~/.aws.conf ]; then
   source ~/.aws.conf
 fi
 
+if [ -d $HOME/.rbenv ]; then
+  export PATH=$HOME/.rbenv/shims:$PATH;
+fi
 
 ## Bindkey #{{{1
 bindkey '' backward-delete-char
