@@ -2,7 +2,7 @@
 
 " syntax check only
 "compiler ruby
-setlocal makeprg=ruby\ -c\ $*
+setlocal makeprg=~/.rbenv/shims/ruby\ -c\ $*
 setlocal errorformat=%f:%l:%m
 
 if exists("g:did_ruby_errormaker")
