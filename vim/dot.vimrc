@@ -492,7 +492,6 @@ function! s:vimshell_settings()
   call vimshell#altercmd#define('hs', 'hg status')
   call vimshell#altercmd#define('hd', 'hg diff')
   call vimshell#altercmd#define('r', 'rails')
-  inoremap <C-l> <ESC>
 endfunction
 
 
