@@ -9,6 +9,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 "NeoBundle 'vim-scripts/gtags.vim'
+NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/unite.vim'
