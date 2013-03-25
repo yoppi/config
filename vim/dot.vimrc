@@ -128,22 +128,6 @@ endif
 if exists('+guicursor')
   set guicursor=a:blinkwait5000-blinkon2500-blinkwait1250
 endif
-if exists('+guifont')
-  if has('gui_macvim')
-    set guifont=Ricty\ Discord\ for\ Powerline:h18
-  elseif (has('win32') || has('win64')) && has('gui_running')
-    set guifont=Bitstream\ Vera\ Sans\ Mono:h11
-  elseif has('unix') && has('gui_running')
-    set guifont=DejaVu\ Sans\ Mono\ 12
-  endif
-endif
-if exists('+guifontwide')
-  if has('gui_macvim')
-    set guifontwide=Ricty\ Discord\ for\ Powerline:h18
-  elseif has('win32') || has('win64')
-    set guifontwide=MS_Gothic:h11
-  endif
-endif
 if exists('+guioptions')
   if has('gui_macvim') || has('win32') || has('win64')
   "set guioptions=cMg
