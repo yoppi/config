@@ -20,8 +20,8 @@ bindkey -e
 
 # Command history configuration
 HISTFILE=~/.zsh_history
-HISTSIZE=4294967296
-SAVEHIST=4294967296
+HISTSIZE=4294967295
+SAVEHIST=4294967295
 
 # zsh editor
 autoload zed
