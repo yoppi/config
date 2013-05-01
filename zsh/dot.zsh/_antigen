@@ -1,6 +1,6 @@
 source ~/.zsh/antigen/antigen.zsh
 
-antigen-lib
+antigen-use oh-my-zsh
 
 antigen-bundle git
 antigen-bundle git-flow
