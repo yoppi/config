@@ -10,6 +10,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 "NeoBundle 'vim-scripts/gtags.vim'
 NeoBundle 'cakebaker/scss-syntax.vim'
+NeoBundle 'digitaltoad/vim-jade.git'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/unite.vim'
@@ -94,6 +95,8 @@ endif
 filetype plugin indent on
 autocmd Filetype c,cpp     setlocal softtabstop=4 shiftwidth=4 tabstop=8
 autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2
+autocmd FileType coffee setlocal softtabstop=2 shiftwidth=2
+autocmd FileType jade setlocal softtabstop=2 shiftwidth=2
 autocmd Filetype ruby      setlocal softtabstop=2 shiftwidth=2
 autocmd Filetype python    setlocal softtabstop=2 shiftwidth=2
 autocmd Filetype perl      setlocal softtabstop=2 shiftwidth=2
