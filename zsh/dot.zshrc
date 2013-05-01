@@ -76,9 +76,6 @@ setopt complete_aliases     # aliased ls needs if file/dir completions work
 
 
 ## Prompt #{{{1
-# NOTE: use agnoster that is oh-my-zsh color theme
-PROMPT='%{%f%b%k%}$(build_prompt)
-/ _ /✘ '
 
 ## Aliases #{{{1
 case "${OSTYPE}" in
