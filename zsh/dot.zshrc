@@ -167,7 +167,6 @@ zstyle ':completion:*' list-colors ''
 
 
 ## PATH #{{{1
-
 if [ -d $HOME/local/bin ]; then
   for bin in $HOME/local/bin; do
     if [ -d $bin ]; then
@@ -200,14 +199,10 @@ case "${OSTYPE}" in
     export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
     export MANPATH=/opt/local/man:$MANPATH
   fi
+  if [ -d /usr/local/share/npm/bin ]; then
+    export PATH=/usr/local/share/npm/bin:$PATH
+  fi
 esac
-
-if [ -d $HOME/.npm ]; then
-  for bin in $HOME/.npm/*/*/package/bin
-  do
-    export PATH=$bin:$PATH
-  done
-fi
 
 # Shared Library Path
 if [ -d /usr/local/lib ]; then
