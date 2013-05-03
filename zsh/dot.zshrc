@@ -168,28 +168,16 @@ zstyle ':completion:*' list-colors ''
 
 ## PATH #{{{1
 if [ -d $HOME/local/bin ]; then
-  for bin in $HOME/local/bin; do
-    if [ -d $bin ]; then
-      export PATH=$bin:$PATH
-    fi
-  done
+  export PATH=$HOME/local/bin:$PATH
 fi
 
 if [ -d /usr/local/bin ]; then
-  for bin in /usr/local/bin; do
-    if [ -d $bin ]; then
-      export PATH=$PATH:$bin
-    fi
-  done
+  export PATH=/usr/local/bin:$PATH
 fi
 
 # for haskell application
 if [ -d $HOME/.cabal/bin ]; then
-  for bin in $HOME/.cabal/bin; do
-    if [ -d $bin ]; then
-      export PATH=$PATH:$bin
-    fi
-  done
+  export PATH=$HOME/.cabal/bin:$PATH
 fi
 
 case "${OSTYPE}" in
