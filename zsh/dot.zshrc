@@ -197,6 +197,10 @@ if [ -d /usr/local/lib ]; then
   export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 fi
 
+if [ -d /usr/local/share/npm/lib/node_modules ]; then
+  export NODE_PATH=/usr/local/share/npm/lib/node_modules:$NODE_PATH
+fi
+
 if [ -f ~/.aws.conf ]; then
   source ~/.aws.conf
 fi
