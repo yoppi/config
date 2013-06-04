@@ -1,6 +1,7 @@
 function! s:ruby_iskeyword()
-  " Ruby method could use ? and !, like `nil?`, `save!`
-  return &iskeyword . ",?,!"
+  " ? and ! are used in method name, like `nil?`, `save!`
+  " $ used in global variable.
+  return &iskeyword . ",?,!,$"
 endfunction
 
 function! s:set_ruby_iskeyword(ruby_iskeyword)
