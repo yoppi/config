@@ -90,6 +90,7 @@ case "${OSTYPE}" in
     ;;
   linux*)
     alias ls="ls --color --file-type"
+    alias open="xdg-open"
     ;;
   cygwin*)
     alias ls="ls --color --file-type"
