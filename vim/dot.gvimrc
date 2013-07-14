@@ -5,6 +5,9 @@ if has('gui_macvim')
 elseif has('win32') || has('win64')
   set guifont=Bitstream\ Vera\ Sans\ Mono:h11
   set guifontwide=MS_Gothic:h11
+elseif has('gui')
+  set guifont=Ricty\ Discord\ 14
+  set guifontwide=Ricty\ Discord\ 14
 else
   " nop
 endif
@@ -13,7 +16,7 @@ endif
 colorscheme molokai
 hi Pmenu gui=underline guibg=black
 hi Normal guibg=grey5
-if has('gui_running') || has('gui_macvim')
+if has('gui_macvim')
   set transparency=0
 elseif has('win32') || has('win64')
   set transparency=220
