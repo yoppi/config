@@ -438,7 +438,6 @@ let g:unite_enable_short_source_names = 1
 let g:unite_split_rule = "botright"
 let g:unite_source_file_mru_limit = 500
 let g:unite_source_file_mru_filename_format = ''
-call unite#custom_source('file_rec', 'ignore_pattern', (unite#sources#file_rec#define()[0]['ignore_pattern']) . '\|\<coverage\>\|\<log\>\|\<\.rsync_cache\>\|\<tmp\>')
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nocolor --nogroup'
