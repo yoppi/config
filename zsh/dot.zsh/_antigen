@@ -8,7 +8,7 @@ antigen-bundle autojump
 
 antigen-bundle zsh-users/zsh-syntax-highlighting
 
-antigen-theme agnoster
+antigen-theme ys
 
 antigen-apply
 
