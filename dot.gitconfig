@@ -1,7 +1,7 @@
 # .gitconfig
 [core]
   quotepath = false
-  pager = less -r
+  pager = less -F -X
 [user]
   name = yoppi
   email = y.hirokazu@gmail.com
@@ -25,5 +25,7 @@
   st = status
 [github]
   user = yoppi
+[push]
+  default = simple
 
 # __END__
