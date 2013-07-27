@@ -6,8 +6,8 @@ elseif has('win32') || has('win64')
   set guifont=Bitstream\ Vera\ Sans\ Mono:h11
   set guifontwide=MS_Gothic:h11
 elseif has('gui')
-  set guifont=Ricty\ Discord\ 14
-  set guifontwide=Ricty\ Discord\ 14
+  set guifont=Ricty\ Discord\ 12
+  set guifontwide=Ricty\ Discord\ 12
 else
   " nop
 endif
