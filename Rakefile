@@ -54,7 +54,7 @@ HOME_ZSH_FILES = MASTER_ZSH_FILES.map {|f| f.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZS
 ZSH_FILES_TABLE = Hash[*MASTER_ZSH_FILES.zip(HOME_ZSH_FILES).flatten]
 
 MASTER_ZSH_DIRS = FileList["#{MASTER_ZSHDIR}/**/*"].select {|f| File.directory? f }
-HOME_ZSH_DIRS = MASTER_ZSH_DIRS.map {|d| d.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") }
+HOME_ZSH_DIRS = MASTER_ZSH_DIRS.map {|d| d.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") } << HOME_ZSHDIR
 ZSH_FILES_RULE = lambda {|x| x.gsub(%r|(#{CONFIG}/)?zsh/dot|, "#{HOME}/") }
 
 # make rule #{{{2
