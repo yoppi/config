@@ -12,8 +12,7 @@ CONFIG = File.expand_path(File.dirname(__FILE__))
 MASTER_DOT_FILES = FileList["#{CONFIG}/dot.*"]
 HOME_DOT_FILES = MASTER_DOT_FILES.
   map {|dotfile| "#{HOME}/#{File.basename(dotfile).gsub(/^dot/, '')}" }
-zipped = MASTER_DOT_FILES.zip HOME_DOT_FILES
-DOT_FILES_TABLE = Hash[*zipped.flatten]
+DOT_FILES_TABLE = Hash[*MASTER_DOT_FILES.zip(HOME_DOT_FILES).flatten]
 DOT_FILES_RULE = lambda {|x| x.gsub(%r|(#{CONFIG}/)?dot|, "#{HOME}/") }
 
 
@@ -21,8 +20,7 @@ DOT_FILES_RULE = lambda {|x| x.gsub(%r|(#{CONFIG}/)?dot|, "#{HOME}/") }
 MASTER_VIMHOME = "#{CONFIG}/vim"
 MASTER_VIMRC = ["#{MASTER_VIMHOME}/dot.vimrc", "#{MASTER_VIMHOME}/dot.gvimrc"]
 HOME_VIMRC = ["#{HOME}/.vimrc", "#{HOME}/.gvimrc"]
-zipped = MASTER_VIMRC.zip HOME_VIMRC
-VIMRC_TABLE = Hash[*zipped.flatten]
+VIMRC_TABLE = Hash[*MASTER_VIMRC.zip(HOME_VIMRC).flatten]
 
 MASTER_VIMDIR = "#{MASTER_VIMHOME}/dot.vim"
 HOME_VIMDIR = "#{HOME}/.vim"
@@ -46,21 +44,20 @@ ZSHRC = %w[.zshrc .zshenv]
 MASTER_ZSHHOME = "#{CONFIG}/zsh"
 MASTER_ZSHRC = ZSHRC.map {|f| "#{MASTER_ZSHHOME}/dot" + f }
 HOME_ZSHRC = ZSHRC.map {|f| "#{HOME}/" + f }
-zipped = MASTER_ZSHRC.zip HOME_ZSHRC
-ZSHRC_TABLE = Hash[*zipped.flatten]
+ZSHRC_TABLE = Hash[*MASTER_ZSHRC.zip(HOME_ZSHRC).flatten]
 
 MASTER_ZSHDIR = "#{MASTER_ZSHHOME}/dot.zsh"
 HOME_ZSHDIR = "#{HOME}/.zsh"
 
 MASTER_ZSH_FILES = FileList["#{MASTER_ZSHDIR}/**/*"].select {|f| File.file? f }
 HOME_ZSH_FILES = MASTER_ZSH_FILES.map {|f| f.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") }
-zipped = MASTER_ZSH_FILES.zip HOME_ZSH_FILES
-ZSH_FILES_TABLE = Hash[*zipped.flatten]
+ZSH_FILES_TABLE = Hash[*MASTER_ZSH_FILES.zip(HOME_ZSH_FILES).flatten]
 
 MASTER_ZSH_DIRS = FileList["#{MASTER_ZSHDIR}/**/*"].select {|f| File.directory? f }
 HOME_ZSH_DIRS = MASTER_ZSH_DIRS.map {|d| d.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") }
 ZSH_FILES_RULE = lambda {|x| x.gsub(%r|(#{CONFIG}/)?zsh/dot|, "#{HOME}/") }
 
+# make rule #{{{2
 ALL_RULES = %w[DOT VIM ZSH].map {|type| eval("#{type}_FILES_RULE") }
 ALL_DIRS = HOME_VIM_DIRS + HOME_ZSH_DIRS
 
