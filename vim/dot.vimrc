@@ -212,6 +212,8 @@ let mapleader = ","
 map <Space> [Space]
 noremap [Space] <nop>
 
+nnoremap <Leader>ss :<C-u>source $MYVIMRC<Return>
+
 " My working Debian cannot recognize <C-h> as BackSpace in insert mode on
 " screen.
 let ostype = system("echo $OSTYPE")
@@ -245,10 +247,8 @@ function! s:GetBufferDirectory()
   endif
 endfunction
 
-
 nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
-nnoremap [Space]ss :<C-u>source $MYVIMRC<Return>
 nnoremap [Space]cd :<C-u>CD<Return>
 
 " rails.vim
