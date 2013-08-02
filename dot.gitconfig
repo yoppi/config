@@ -22,10 +22,13 @@
   ds = diff --cached
   fix = commit --amend
   gr = grep -n
+  ls = log --pretty=oneline
   st = status
 [github]
   user = yoppi
 [push]
   default = simple
+[log]
+  date = local
 
 # __END__
