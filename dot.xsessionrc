@@ -1,0 +1,14 @@
+#!/bin/sh
+
+setxkbmap -option "ctrl:swapcaps"
+xset r rate 200 25
+
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+
+ibus-daemon -d &
+dropbox start &
+gnome-terminal &
+gvim &
+
