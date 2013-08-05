@@ -258,18 +258,16 @@ case "${OSTYPE}" in
   function slock() {
     open '/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app'
   }
-esac
-
-# for z
-if [ -f `brew --prefix`/etc/profile.d/z.sh ]; then
-  . `brew --prefix`/etc/profile.d/z.sh
-  if ! [ -f $HOME/.z ]; then
-    touch $HOME/.z
+  if [ `brew --prefix`/etc/profile.d/z.sh ]; then
+    . `brew --prefix`/etc/profile.d/z.sh
+    if ! [ -f $HOME/.z ]; then
+      touch $HOME/.z
+    fi
+    function precmd() {
+      _z --add "$(pwd -P)"
+    }
   fi
-  function precmd() {
-    _z --add "$(pwd -P)"
-  }
-fi
+esac
 
 ## __END__ #{{{1
 # vim: filetype=zsh foldmethod=marker textwidth=78
