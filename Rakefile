@@ -13,7 +13,7 @@ MASTER_DOT_FILES = FileList["#{CONFIG}/dot.*"].select {|f| !File.directory? f}
 HOME_DOT_FILES = MASTER_DOT_FILES.
   map {|dotfile| "#{HOME}/#{File.basename(dotfile).gsub(/^dot/, '')}" }
 
-MASTER_DOT_DIR_FILES = FileList["#{CONFIG}/dot.*/**/*"]
+MASTER_DOT_DIR_FILES = FileList["#{CONFIG}/dot.*/**/*"].select {|f| !File.directory? f}
 HOME_DOT_DIR_FILES =
   MASTER_DOT_DIR_FILES.map {|dotfile| dotfile.gsub(%r|#{CONFIG}/dot|, "#{HOME}/") }
 HOME_DOT_DIRS =
@@ -22,28 +22,6 @@ HOME_DOT_DIRS =
 DOT_FILES_TABLE =
   (Hash[*MASTER_DOT_FILES.zip(HOME_DOT_FILES).flatten]).
     merge(Hash[*MASTER_DOT_DIR_FILES.zip(HOME_DOT_DIR_FILES).flatten])
-
-# for Vim files #{{{2
-MASTER_VIMHOME = "#{CONFIG}/vim"
-MASTER_VIMRC = ["#{MASTER_VIMHOME}/dot.vimrc", "#{MASTER_VIMHOME}/dot.gvimrc"]
-HOME_VIMRC = ["#{HOME}/.vimrc", "#{HOME}/.gvimrc"]
-VIMRC_TABLE = Hash[*MASTER_VIMRC.zip(HOME_VIMRC).flatten]
-
-MASTER_VIMDIR = "#{MASTER_VIMHOME}/dot.vim"
-HOME_VIMDIR = "#{HOME}/.vim"
-
-MASTER_VIM_FILES = FileList["#{MASTER_VIMDIR}/**/*"].
-  select {|f| File.file? f } # Vim package allfiles
-HOME_VIM_FILES = MASTER_VIM_FILES.
-  map {|file| file.gsub(/#{MASTER_VIMDIR}/, HOME_VIMDIR) }
-zipped = MASTER_VIM_FILES.zip HOME_VIM_FILES
-VIM_FILES_TABLE = Hash[*zipped.flatten]
-
-MASTER_VIM_DIRS = FileList["#{MASTER_VIMDIR}/**/*"].
-  select {|f| File.directory? f }
-HOME_VIM_DIRS = MASTER_VIM_DIRS.
-  map {|d| d.gsub(/#{MASTER_VIMDIR}/, HOME_VIMDIR) }
-
 
 # for zsh files #{{{2
 ZSHRC = %w[.zshrc .zshenv]
@@ -63,10 +41,10 @@ MASTER_ZSH_DIRS = FileList["#{MASTER_ZSHDIR}/**/*"].select {|f| File.directory? 
 HOME_ZSH_DIRS = MASTER_ZSH_DIRS.map {|d| d.gsub(/#{MASTER_ZSHDIR}/, "#{HOME_ZSHDIR}") } << HOME_ZSHDIR
 
 # make directory rule #{{{2
-ALL_DIRS = HOME_DOT_DIRS + HOME_VIM_DIRS + HOME_ZSH_DIRS
+ALL_DIRS = HOME_DOT_DIRS + HOME_ZSH_DIRS
 
 # Tasks #{{{1
-TASKS = HOME_DOT_FILES + HOME_DOT_DIR_FILES + HOME_VIMRC + HOME_VIM_FILES + HOME_ZSHRC + HOME_ZSH_FILES
+TASKS = HOME_DOT_FILES + HOME_DOT_DIR_FILES + HOME_ZSHRC + HOME_ZSH_FILES
 
 task :default => TASKS
 task :clean
@@ -79,24 +57,9 @@ DOT_FILES_TABLE.each {|master, home|
   end
 }
 
-desc "Update vimrc" #{{{2
-VIMRC_TABLE.each {|master, home|
-  file home => master do
-    cp master, home
-  end
-}
-
 desc "Update zshrc" #{{{2
 ZSHRC_TABLE.each {|master, home|
   file home => master do
-    cp master, home
-  end
-}
-
-desc "Update vim files" #{{{2
-VIM_FILES_TABLE.each {|master, home|
-  target = File.dirname home
-  file home => [master, target] do |t|
     cp master, home
   end
 }
