@@ -114,7 +114,7 @@ alias sp="rspec -c"
 
 # for tmux
 alias t="tmux"
-alias ta="tmux attach -dt"
+alias ta="tmux -2 attach -dt"
 alias tn="tmux -2 new -s"
 
 # for git
