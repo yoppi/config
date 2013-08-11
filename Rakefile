@@ -23,9 +23,6 @@ DOT_FILES_TABLE =
   (Hash[*MASTER_DOT_FILES.zip(HOME_DOT_FILES).flatten]).
     merge(Hash[*MASTER_DOT_DIR_FILES.zip(HOME_DOT_DIR_FILES).flatten])
 
-# make directory rule #{{{2
-ALL_DIRS = HOME_DOT_DIRS
-
 # Tasks #{{{1
 TASKS = HOME_DOT_FILES + HOME_DOT_DIR_FILES
 
@@ -41,8 +38,8 @@ DOT_FILES_TABLE.each {|master, home|
 }
 
 # Make target directory tasks. #{{{2
-# if need to update Vim files, on the fly make target directories.
-ALL_DIRS.each {|dir|
+# if need to update dot files, on the fly make target directories.
+HOME_DOT_DIRS.each {|dir|
   directory dir
 }
 
