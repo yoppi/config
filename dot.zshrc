@@ -168,10 +168,6 @@ zstyle ':completion:*' list-colors ''
 
 
 ## PATH #{{{1
-if [ -d $HOME/local/bin ]; then
-  export PATH=$HOME/local/bin:$PATH
-fi
-
 if [ -d /usr/local/bin ]; then
   export PATH=/usr/local/bin:$PATH
 fi
@@ -208,6 +204,10 @@ fi
 
 if [ -d $HOME/.rbenv ]; then
   export PATH=$HOME/.rbenv/shims:$PATH;
+fi
+
+if [ -d $HOME/local/bin ]; then
+  export PATH=$HOME/local/bin:$PATH
 fi
 
 ## Bindkey #{{{1
