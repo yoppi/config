@@ -91,28 +91,6 @@ if has('iconv')
   unlet s:enc_jis
 endif
 
-
-" Filetype "{{{2
-filetype plugin indent on
-autocmd Filetype c,cpp     setlocal softtabstop=4 shiftwidth=4 tabstop=8
-autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2
-autocmd FileType coffee setlocal softtabstop=2 shiftwidth=2
-autocmd FileType jade setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype ruby      setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype python    setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype perl      setlocal softtabstop=2 shiftwidth=2
-autocmd FileType scheme    setlocal softtabstop=2 shiftwidth=2 tabstop=2
-autocmd Filetype changelog setlocal softtabstop=4 shiftwidth=4 tabstop=4
-autocmd Filetype tex       setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype vim       setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype html,markdown,pdc setlocal softtabstop=2 shiftwidth=2
-
-" vim-users.jp; Hack#96 - to enable omni complete on any language
-autocmd Filetype *
-\   if &omnifunc == ""
-\ |   setlocal omnifunc=syntaxcomplete#Complete
-\ | endif
-
 " Options {{{2
 "set number
 set ambiwidth=double
@@ -171,36 +149,28 @@ set virtualedit+=block
 set wildmenu
 set wrap
 
-" Tabline, by kana {{{2
-function! s:set_tabline()
-  let s = ''
-  for i in range(1, tabpagenr('$'))
-    let bufnrs = tabpagebuflist(i)
-    let curbufnr = bufnrs[tabpagewinnr(i)-1]
-    let no = (i <=10 ? i-1 : '#') " tab number is started 0, like screen
-    let mod = len(filter(bufnrs, 'getbufvar(v:val, "&mod")')) ? '+' : ' '
-    let title = fnamemodify(bufname(curbufnr), ':t')
-    let title = len(title) ? title : '[No name]'
-    let cur = fnamemodify(bufname(curbufnr), ':p:h') == getcwd() ? '@' : '*'
 
-    let s .= '%' . i . 'T'
-    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
-    let s .= ' ' . no . mod . title . '[' . cur . ']' . ' '
-    let s .= '%#TabLineFill#'
-  endfor
+" Filetype "{{{1
+filetype plugin indent on
+autocmd Filetype c,cpp     setlocal softtabstop=4 shiftwidth=4 tabstop=8
+autocmd Filetype java setlocal softtabstop=4 shiftwidth=4
+autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2
+autocmd FileType coffee setlocal softtabstop=2 shiftwidth=2
+autocmd FileType jade setlocal softtabstop=2 shiftwidth=2
+autocmd Filetype ruby      setlocal softtabstop=2 shiftwidth=2
+autocmd Filetype python    setlocal softtabstop=2 shiftwidth=2
+autocmd Filetype perl      setlocal softtabstop=2 shiftwidth=2
+autocmd FileType scheme    setlocal softtabstop=2 shiftwidth=2 tabstop=2
+autocmd Filetype changelog setlocal softtabstop=4 shiftwidth=4 tabstop=4
+autocmd Filetype tex       setlocal softtabstop=2 shiftwidth=2
+autocmd Filetype vim       setlocal softtabstop=2 shiftwidth=2
+autocmd Filetype html,markdown,pdc setlocal softtabstop=2 shiftwidth=2
 
-  let s .= '%#TabLineFill#%T'
-  let s .= '%=%#TabLine#%999X'
-  let branch_name = s:git_branch_name(getcwd())
-  let s .= '[' . (branch_name != '' ? branch_name : '') . ']'
-  return s
-endfunction
-
-function! s:SID()
-  return matchstr(expand('<sfile>'), '<SNR>\d\+_')
-endfunction
-
-let &tabline = '%!' . s:SID() . 'set_tabline()'
+" vim-users.jp; Hack#96 - to enable omni complete on any language
+autocmd Filetype *
+\   if &omnifunc == ""
+\ |   setlocal omnifunc=syntaxcomplete#Complete
+\ | endif
 
 
 
@@ -536,6 +506,40 @@ let g:Powerline_symbols = 'fancy'
 
 
 " Others "{{{1
+" Tabline, by kana {{{2
+function! s:set_tabline()
+  let s = ''
+  for i in range(1, tabpagenr('$'))
+    let bufnrs = tabpagebuflist(i)
+    let curbufnr = bufnrs[tabpagewinnr(i)-1]
+    let no = (i <=10 ? i-1 : '#') " tab number is started 0, like screen
+    let mod = len(filter(bufnrs, 'getbufvar(v:val, "&mod")')) ? '+' : ' '
+    let title = fnamemodify(bufname(curbufnr), ':t')
+    let title = len(title) ? title : '[No name]'
+    let cur = fnamemodify(bufname(curbufnr), ':p:h') == getcwd() ? '@' : '*'
+
+    let s .= '%' . i . 'T'
+    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let s .= ' ' . no . mod . title . '[' . cur . ']' . ' '
+    let s .= '%#TabLineFill#'
+  endfor
+
+  let s .= '%#TabLineFill#%T'
+  let s .= '%=%#TabLine#%999X'
+  let branch_name = s:git_branch_name(getcwd())
+  let s .= '[' . (branch_name != '' ? branch_name : '') . ']'
+  return s
+endfunction
+
+function! s:SID()
+  return matchstr(expand('<sfile>'), '<SNR>\d\+_')
+endfunction
+
+let &tabline = '%!' . s:SID() . 'set_tabline()'
+
+
+
+
 " move to previous working tabpage "{{{2
 command! -bar -nargs=0 TabPreWork call s:tabprework()
 function! s:tabprework()
