@@ -166,6 +166,7 @@ autocmd Filetype tex       setlocal softtabstop=2 shiftwidth=2
 autocmd Filetype vim       setlocal softtabstop=2 shiftwidth=2
 autocmd Filetype html,markdown,pdc setlocal softtabstop=2 shiftwidth=2
 autocmd Filetype eruby setlocal softtabstop=2 shiftwidth=2
+autocmd FileType xml setlocal softtabstop=2 shiftwidth=2
 
 " vim-users.jp; Hack#96 - to enable omni complete on any language
 autocmd Filetype *
