@@ -2,6 +2,7 @@
 set nocompatible
 
 " story teller and casts "{{{2
+let $PATH = $HOME . '/local/bin:' . $PATH
 filetype off
 set rtp+=~/.vim/bundle/neobundle.vim/
 call neobundle#rc(expand('~/.vim/bundle/'))
