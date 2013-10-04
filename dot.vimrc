@@ -777,6 +777,20 @@ function! s:first_line(file)
   let lines = readfile(a:file, '', 1)
   return 1 <= len(lines) ? lines[0] : ''
 endfunction
+
+
+" change current directory {{{2
+command! -nargs=? -complete=dir -bang CD call s:ChangeCurrentDir('<args>', '<bang>')
+function! s:ChangeCurrentDir(directory, bang)
+  if a:directory == ''
+    lcd %:p:h
+  else
+    execute ' lcd ' . a:directory
+  endif
+  if a:bang == ''
+    pwd
+  endif
+endfunction
 " Epilogue {{{1
 set secure
 
