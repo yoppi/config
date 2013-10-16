@@ -452,7 +452,7 @@ endfunction
 " vimfiler "{{{2
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
-nnoremap <silent> [Space]o :<C-u>VimFiler -split -toggle -simple -winwidth=35 -no-quit<Return>
+nnoremap <silent> [Space]o :<C-u>VimFilerBufferDir -split -toggle -simple -winwidth=35 -no-quit<Return>
 
 " vimshell "{{{2
 let g:vimshell_user_prompt ='fnamemodify(getcwd(), ":~")'
