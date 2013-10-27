@@ -30,5 +30,7 @@
   default = simple
 [log]
   date = local
+[pretty]
+  oneline2 = %C(yellow)%h%C(cyan)%d%Creset %ci %C(green)%an%Creset - %s
 
 # __END__

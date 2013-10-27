@@ -119,28 +119,20 @@ alias tn="tmux -2 new -s"
 
 # for git
 alias g="git"
-alias ga="git add"
-alias gb="git branch"
-alias gc="git commit"
-alias gd="git diff"
+alias a="git add"
+alias b="git branch"
+alias c="git commit"
+alias d="git diff"
 alias ge="git config -e"
-alias gf="git fetch"
+alias f="git fetch"
 alias gg="git grep"
-alias gl="git log"
+alias l="git log --pretty=oneline2"
 alias gp="git push"
 alias gsw="git show"
 alias gvn="git svn"
 alias gsh="git stash"
 alias gshp="git stash pop"
-alias gst="git status -sb"
-
-# for bazaar
-alias b="bzr"
-
-# for Mercurial
-alias h="hg"
-alias hs="hg status"
-alias hd="hg diff"
+alias s="git status -sb"
 
 # for secure!
 alias cp="cp -i"
