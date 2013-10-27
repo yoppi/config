@@ -455,6 +455,8 @@ let g:vimfiler_safe_mode_by_default = 0
 nnoremap <silent> [Space]o :<C-u>VimFilerBufferDir -split -toggle -simple -winwidth=35 -no-quit<Return>
 
 " vimshell "{{{2
+nnoremap [Space]s :<C-u>VimShellPop<Return>
+
 let g:vimshell_user_prompt ='fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt = "$ "
 let g:vimshell_enable_smart_case = 1
@@ -466,12 +468,12 @@ function! s:vimshell_settings()
   call vimshell#altercmd#define('ll', 'ls -l')
   call vimshell#altercmd#define('ltr', 'ls -altr')
   call vimshell#altercmd#define('g', 'git')
-  call vimshell#altercmd#define('ga', 'git add')
-  call vimshell#altercmd#define('gb', 'git branch')
-  call vimshell#altercmd#define('gd', 'git diff')
-  call vimshell#altercmd#define('gl', 'git log')
-  call vimshell#altercmd#define('glg', 'git log --graph')
-  call vimshell#altercmd#define('gst', 'git status')
+  call vimshell#altercmd#define('a', 'git add')
+  call vimshell#altercmd#define('b', 'git branch')
+  call vimshell#altercmd#define('d', 'git diff')
+  call vimshell#altercmd#define('l', 'git log')
+  call vimshell#altercmd#define('lg', 'git log --graph')
+  call vimshell#altercmd#define('s', 'git status -sb')
   call vimshell#altercmd#define('v', 'vim')
   call vimshell#altercmd#define('h', 'hg')
   call vimshell#altercmd#define('hs', 'hg status')
