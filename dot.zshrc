@@ -76,6 +76,29 @@ setopt complete_aliases     # aliased ls needs if file/dir completions work
 
 
 ## Prompt #{{{1
+local git_info='$(git_prompt_info)'
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}:%{$FG[029]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+#ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}x"
+ZSH_THEME_GIT_PROMPT_DIRTY=""
+#ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}o"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+
+local git_status='$(git_prompt_status)'
+ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%}+"
+ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[red]%}!"
+ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}x"
+ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%}@"
+ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%}="
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[yellow]%}?"
+
+local current_dir='${PWD/#$HOME/~}'
+
+PROMPT="%{$fg[blue]%}{ \
+%{$fg[cyan]%}${current_dir}%{$reset_color%}\
+${git_info} \
+%{$fg[blue]%}}%{$reset_color%}\
+%{$reset_color%} > "
 
 ## Aliases #{{{1
 case "${OSTYPE}" in
