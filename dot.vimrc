@@ -273,6 +273,7 @@ noremap ` '
 " visual-search
 vnoremap * y/<C-R>"<Return>
 vnoremap <C-l> <ESC>
+vnoremap <C-S-c> "+y
 
 
 " auto complete parentheses "{{{2
