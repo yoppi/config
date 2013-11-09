@@ -31,6 +31,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'lepture/vim-velocity'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'motemen/hatena-vim'
+NeoBundle 'noahfrederick/vim-hemisu'
 NeoBundle 'rosstimson/scala-vim-support'
 NeoBundle 'slim-template/vim-slim'
 NeoBundle 'thinca/vim-quickrun'
@@ -363,7 +364,7 @@ onoremap gc  :<C-u>normal gc<Enter>
 " Color Syntax "{{{1
 syntax enable
 set background=dark
-colorscheme molokai
+colorscheme hemisu
 autocmd MyAutoCmd ColorScheme *
 \   hi Comment     term=bold ctermfg=blue guifg=#707070
 \ | hi Pmenu       cterm=underline ctermbg=black guibg=black
