@@ -105,7 +105,7 @@ set backupcopy=yes
 set backupdir=~/tmp,/tmp
 "set cursorline
 set directory=~/tmp,/tmp
-set expandtab
+"set expandtab
 set fileformat=unix
 set fileformats=unix,dos
 set foldmethod=marker
