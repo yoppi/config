@@ -8,7 +8,7 @@ let g:loaded_go_errormarker = 1
 
 function! s:go_build()
   " NOTE: 依存関係を go build でpacakgeから解決させるため、package宣言がmain以外ならファイルを指定しない
-  let pos = search('^\s*package\s\+main')
+  let pos = search('^\s*package\s\+main', 'n')
   if (pos != 0)
     silent make! %
   else
