@@ -150,7 +150,7 @@ set smartindent
 set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L
 set ttimeoutlen=50
 if exists('+transparency')
-  set transparency=10
+  "set transparency=10
 endif
 set t_Co=256
 set vb t_vb=
