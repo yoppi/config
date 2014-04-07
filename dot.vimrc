@@ -365,7 +365,7 @@ doautocmd MyAutoCmd ColorScheme * _
 " Vim Plugin Settings "{{{1
 " neocomplcache "{{{2
 let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_at_startup = 0
 let g:neocomplcache_min_syntax_length = 3
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
@@ -388,7 +388,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+"let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 
 
