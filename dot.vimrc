@@ -411,7 +411,7 @@ endif
 
 nnoremap <silent> [unite]c :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark file/new<Return>
 nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<Return>
-nnoremap <silent> [unite]g :<C-u>Unite grep
+nnoremap <silent> [unite]g :<C-u>Unite grep:. -buffer-name=search-buffer<Return>
 nnoremap <silent> [unite]f :<C-u>Unite file_rec/async<Return>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<Return>
 nnoremap <silent> [unite]k :<C-u>Unite bookmark<Return>
