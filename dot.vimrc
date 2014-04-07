@@ -161,28 +161,23 @@ set wrap
 
 " Filetype "{{{1
 filetype plugin indent on
-autocmd Filetype c,cpp     setlocal softtabstop=4 shiftwidth=4 tabstop=8
-autocmd Filetype java setlocal softtabstop=4 shiftwidth=4
-autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2
-autocmd FileType coffee setlocal softtabstop=2 shiftwidth=2
-autocmd FileType jade setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype ruby      setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype python    setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype perl      setlocal softtabstop=2 shiftwidth=2
-autocmd FileType scheme    setlocal softtabstop=2 shiftwidth=2 tabstop=2
-autocmd Filetype changelog setlocal softtabstop=4 shiftwidth=4 tabstop=4
-autocmd Filetype tex       setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype vim       setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype html,markdown,pdc setlocal softtabstop=2 shiftwidth=2
-autocmd Filetype eruby setlocal softtabstop=2 shiftwidth=2
-autocmd FileType xml setlocal softtabstop=2 shiftwidth=2
-autocmd FileType cucumber setlocal softtabstop=2 shiftwidth=2
-
-" vim-users.jp; Hack#96 - to enable omni complete on any language
-autocmd Filetype *
-\   if &omnifunc == ""
-\ |   setlocal omnifunc=syntaxcomplete#Complete
-\ | endif
+autocmd Filetype c,cpp setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=8
+autocmd Filetype java setlocal expandtab softtabstop=4 shiftwidth=4
+autocmd FileType javascript setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType coffee setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType jade setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd Filetype ruby setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd Filetype python setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd Filetype perl setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType scheme setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
+autocmd Filetype changelog setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=4
+autocmd Filetype tex setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd Filetype vim setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd Filetype html,markdown,pdc setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd Filetype eruby setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType xml setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType cucumber setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType objc setlocal expandtab softtabstop=4 shiftwidth=4
 
 
 
