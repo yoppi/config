@@ -10,28 +10,34 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 "NeoBundle 'vim-scripts/gtags.vim'
-NeoBundle 'cakebaker/scss-syntax.vim'
-NeoBundle 'digitaltoad/vim-jade.git'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'jnwhiteh/vim-golang'
-NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'AndrewRadev/linediff.vim'
+NeoBundle 'LeafCage/yankround.vim'
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unit-outline'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/vimshell'
+NeoBundle 'cakebaker/scss-syntax.vim'
+NeoBundle 'digitaltoad/vim-jade.git'
 NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'gregsexton/gitv'
 NeoBundle 'h1mesuke/vim-alignta'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'jnwhiteh/vim-golang'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'kana/vim-smartchr'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-smartword'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'lepture/vim-velocity'
 NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mhinz/vim-startify'
 NeoBundle 'motemen/hatena-vim'
 NeoBundle 'noahfrederick/vim-hemisu'
+NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'rosstimson/scala-vim-support'
 NeoBundle 'slim-template/vim-slim'
 NeoBundle 'thinca/vim-quickrun'
@@ -42,17 +48,15 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'vim-scripts/AutoComplPop'
 NeoBundle 'vim-scripts/CSApprox'
-NeoBundle 'vim-scripts/L9'
 NeoBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
 NeoBundle 'vim-scripts/VimClojure'
-NeoBundle 'vim-scripts/YankRing.vim'
 NeoBundle 'vim-scripts/nginx.vim'
 NeoBundle 'vim-scripts/pdc.vim'
 NeoBundle 'yoppi/errormarker.vim'
 NeoBundle 'yoppi/perl5lib'
 NeoBundle 'yoppi/vim-tabpagecd'
+
 
 " start! my .vimrc
 augroup MyAutoCmd
@@ -512,8 +516,34 @@ let howm_fileencoding = 'utf-8'
 let howm_fileformat = 'unix'
 
 
-" powerline "{{{2
-let g:Powerline_symbols = 'fancy'
+
+
+" lightline "{{{2
+let g:lightline = {
+        \ 'enable': { 'tabline': 0 },
+        \ }
+
+
+" yankround.vim "{{{2
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+" 履歴取得数
+let g:yankround_max_history = 50
+" 履歴一覧(kien/ctrlp.vim)
+nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
+
+
+" ctrlp.vim "{{{2
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:15,results:15'
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
+let g:ctrlp_mruf_max = 1000
+let g:ctrlp_prompt_mappings = {
+  \ 'PrtBS()': ['<c-h>', '<bs>'],
+  \ 'PrtCurLeft()': ['<left>', '<c-^>'],
+  \ }
+nnoremap <C-m> :<C-u>CtrlPMRUFiles<Return>
 
 
 " Others "{{{1
