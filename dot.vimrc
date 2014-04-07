@@ -275,19 +275,6 @@ vnoremap <C-l> <ESC>
 vnoremap <C-S-c> "+y
 
 
-" auto complete parentheses "{{{2
-""inoremap { {}<LEFT>
-""inoremap [ []<LEFT>
-""inoremap ( ()<LEFT>
-""inoremap " ""<LEFT>
-""inoremap ' ''<LEFT>
-""vnoremap { "zdi^V{<C-R>z}<ESC>
-""vnoremap [ "zdi^V[<C-R>z]<ESC>
-""vnoremap ( "zdi^V(<C-R>z)<ESC>
-""vnoremap " "zdi^V"<C-R>z^V"<ESC>
-""vnoremap ' "zdi'<C-R>z'<ESC>
-""inoremap <C-h> <BS>
-
 " tag jump "{{{2
 nnoremap [tag] <Nop>
 nmap t [tag]
