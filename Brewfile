@@ -10,6 +10,8 @@ cask install google-chrome
 cask install iterm2
 cask install java
 cask install moom
+cask install sequel-pro
+cask install skype
 cask install vagrant
 cask install virtualbox
 cask install witch
