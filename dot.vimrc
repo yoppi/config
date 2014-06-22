@@ -152,6 +152,7 @@ if exists('+transparency')
   "set transparency=10
 endif
 set t_Co=256
+set undodir=~/tmp,/tmp
 set vb t_vb=
 set virtualedit+=block
 set wildmenu
