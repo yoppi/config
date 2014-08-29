@@ -808,6 +808,12 @@ function! s:ChangeCurrentDir(directory, bang)
     pwd
   endif
 endfunction
+
+
+" git-brwose-remote {{{2
+command! -nargs=* -range GitBrowseRemote !git browse-remote --rev -L<line1>,<line2> <f-args> -- %
+
+
 " Epilogue {{{1
 set secure
 
