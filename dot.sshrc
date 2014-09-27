@@ -1,0 +1,36 @@
+export VIM=$SSHHOME/.sshrc.d/
+export SCREENRC=$SSHHOME/.sshrc.d/screenrc
+export SHELL=`which bash`
+
+alias screen="SHELL=$SSHHOME/bashsshrc screen"
+
+alias df="df -h"
+alias du="du -h"
+alias grep="grep -n --color=auto"
+alias j="jobs -l"
+alias la="ls -a"
+alias lf="ls -F"
+alias ll="ls -l"
+alias lt="ls -lt"
+alias ltr="ls -altr"
+alias where="command -v"
+alias vim="vim -u ${SSHHOME}/.sshrc.d/vimrc"
+
+# git commands
+alias g="git"
+alias a="git add"
+alias b="git branch"
+alias c="git commit"
+alias d="git diff"
+alias ge="git config -e"
+alias f="git fetch"
+alias gg="git grep -n"
+alias l="git log --pretty=oneline2"
+alias gp="git push"
+alias gsw="git show"
+alias gvn="git svn"
+alias gsh="git stash"
+alias gst="git status"
+alias gshp="git stash pop"
+alias s="git status -sb"
+
