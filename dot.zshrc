@@ -103,7 +103,7 @@ ${git_info} \
 ## Aliases #{{{1
 case "${OSTYPE}" in
   darwin*)
-    alias ls="ls -G -w"
+    alias ls="ls -G -w -F"
     alias firefox="open -a Firefox"
     alias preview="open -a Preview"
     alias safari="open -a Safari"
@@ -122,7 +122,6 @@ esac
 
 alias grep="grep -n --color=auto"
 alias la="ls -a"
-alias lf="ls -F"
 alias ll="ls -l"
 alias lt="ls -lt"
 alias ltr="ls -altr"
