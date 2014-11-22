@@ -16,7 +16,6 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'cakebaker/scss-syntax.vim'
@@ -40,6 +39,7 @@ NeoBundle 'noahfrederick/vim-hemisu'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'rosstimson/scala-vim-support'
 NeoBundle 'slim-template/vim-slim'
+NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'tomasr/molokai'
@@ -169,6 +169,7 @@ autocmd FileType jade setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd Filetype ruby setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd Filetype python setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd Filetype perl setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd Filetype php setlocal expandtab softtabstop=4 shiftwidth=4
 autocmd FileType scheme setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
 autocmd Filetype changelog setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=4
 autocmd Filetype tex setlocal expandtab softtabstop=2 shiftwidth=2
@@ -436,10 +437,8 @@ function! s:unite_my_settings()
   inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('file'))
 endfunction
 
-" vimfiler "{{{2
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_safe_mode_by_default = 0
-nnoremap <silent> [Space]o :<C-u>VimFilerBufferDir -split -toggle -simple -winwidth=35 -no-quit<Return>
+" NERDTree "{{{2
+nnoremap <silent> [Space]o :<C-u>:NERDTreeToggle<Return>
 
 " vimshell "{{{2
 nnoremap [Space]s :<C-u>VimShellPop<Return>
