@@ -140,6 +140,7 @@ set list
 set listchars=tab:>.
 set modeline
 set modelines=5
+set mouse=
 set ruler
 set showcmd
 set showtabline=2
