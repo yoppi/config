@@ -438,6 +438,7 @@ function! s:unite_my_settings()
 endfunction
 
 " NERDTree "{{{2
+let g:NERDTreeDirArrows = 0
 nnoremap <silent> [Space]o :<C-u>:NERDTreeToggle<Return>
 
 " vimshell "{{{2
