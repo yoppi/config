@@ -113,6 +113,9 @@ set formatoptions=tcroqMm
 if exists('+fuoptions')
   set fuoptions=maxvert,maxhorz
 endif
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
 if exists('+guicursor')
   set guicursor=a:blinkwait5000-blinkon2500-blinkwait1250
 endif
@@ -273,6 +276,9 @@ vnoremap * y/<C-R>"<Return>
 vnoremap <C-l> <ESC>
 vnoremap <C-S-c> "+y
 
+nnoremap K <Nop>
+nnoremap K :silent! grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 
 " tag jump "{{{2
 nnoremap [tag] <Nop>
@@ -328,7 +334,7 @@ nnoremap qo :<C-u>copen<Return>
 nnoremap qc :<C-u>cclose<Return>
 nnoremap qp :<C-u>colder<Return>
 nnoremap qn :<C-u>cnewer<Return>
-nnoremap qg :<C-u>vimgrep
+nnoremap qg :<C-u>vimgrep<Space>
 
 " smartword setting "{{{2
 map w <Plug>(smartword-w)
@@ -523,8 +529,11 @@ let g:ctrlp_prompt_mappings = {
   \ 'PrtBS()': ['<c-h>', '<bs>'],
   \ 'PrtCurLeft()': ['<left>', '<c-^>'],
   \ }
-nnoremap <C-m> :<C-u>CtrlPMRUFiles<Return>
 
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+endif
 
 " Others "{{{1
 " Tabline, by kana {{{2
