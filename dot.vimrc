@@ -365,6 +365,7 @@ autocmd MyAutoCmd ColorScheme *
 \ | hi Normal      guibg=grey5
 doautocmd MyAutoCmd ColorScheme * _
 
+
 " Vim Plugin Settings "{{{1
 " neocomplcache "{{{2
 let g:acp_enableAtStartup = 0
@@ -443,6 +444,7 @@ endfunction
 let g:NERDTreeDirArrows = 0
 nnoremap <silent> [Space]o :<C-u>:NERDTreeToggle<Return>
 
+
 " vimshell "{{{2
 nnoremap [Space]s :<C-u>VimShellPop<Return>
 
@@ -471,9 +473,7 @@ function! s:vimshell_settings()
 endfunction
 
 
-
-
-" quickrun.vim: definition of quicklaunch commands "{{{2
+" quickrun.vim "{{{2
 let g:quicklaunch_commands = [
   \ 'rake',
   \ 'ls -a',
@@ -481,7 +481,8 @@ let g:quicklaunch_commands = [
   \ 'wc -l ~/.vimrc'
   \]
 
-" changelog.vim timeformat "{{{2
+
+" changelog.vim "{{{2
 let g:changelog_timeformat="%Y-%m-%d"
 
 
@@ -498,8 +499,6 @@ let howm_dir = '~/Dropbox/howm'
 let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
 let howm_fileencoding = 'utf-8'
 let howm_fileformat = 'unix'
-
-
 
 
 " lightline "{{{2
