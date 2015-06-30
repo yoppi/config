@@ -4,7 +4,7 @@ set nocompatible
 " set $PATH
 let $PATH = $HOME.'/local/bin:'. $HOME.'/dev/bin:' . $HOME.'/.rbenv/shims:' . $PATH
 
-" story teller and casts "{{{2
+" Story teller and casts "{{{1
 call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/linediff.vim'
@@ -59,7 +59,7 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-" auto encoding discrimination "{{{2
+" Auto encoding discrimination "{{{1
 set encoding=utf-8
 if has('iconv')
   let s:enc_euc = 'euc-jp'
@@ -180,8 +180,6 @@ autocmd Filetype eruby setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType xml setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType cucumber setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType objc setlocal expandtab softtabstop=4 shiftwidth=4
-
-
 
 
 " Keymaping "{{{1
