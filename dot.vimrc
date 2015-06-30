@@ -39,6 +39,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-surround'
+Plug 'vim-scripts/AutoComplPop'
 Plug 'vim-scripts/CSApprox'
 Plug 'vim-scripts/Source-Explorer-srcexpl.vim'
 Plug 'vim-scripts/VimClojure'
@@ -367,78 +368,13 @@ doautocmd MyAutoCmd ColorScheme * _
 
 
 " Vim Plugin Settings "{{{1
-" neocomplcache "{{{2
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 0
-let g:neocomplcache_min_syntax_length = 3
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+" AutoComplPop "{{{2
+let g:acp_enableAtStartup = 1
+inoremap <silent> <CR> <C-r>=<SID>acp_cr_function()<CR>
+function! s:acp_cr_function()
+  return pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 endfunction
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-"let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-
-
-
-" unite "{{{2
-nnoremap [unite] <Nop>
-nmap f [unite]
-
-let g:unite_update_time = 100
-let g:unite_enable_start_insert = 1
-let g:unite_enable_short_source_names = 1
-let g:unite_split_rule = "botright"
-let g:unite_source_file_mru_limit = 500
-let g:unite_source_file_mru_filename_format = ''
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nocolor --nogroup'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-
-nnoremap <silent> [unite]c :<C-u>UniteWithCurrentDir -buffer-name=files file buffer file_mru bookmark file/new<Return>
-nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<Return>
-nnoremap <silent> [unite]g :<C-u>Unite grep:. -buffer-name=search-buffer<Return>
-nnoremap <silent> [unite]f :<C-u>Unite file_rec/async<Return>
-nnoremap <silent> [unite]m :<C-u>Unite file_mru<Return>
-nnoremap <silent> [unite]k :<C-u>Unite bookmark<Return>
-nnoremap <silent> [unite]o :<C-u>Unite -vertical -no-quit -no-start-insert -winwidth=35 outline<Return>
-nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<Return>
-
-autocmd FileType unite call s:unite_my_settings()
-
-function! s:unite_my_settings()
-  nmap <buffer> <C-c> <Plug>(unite_exit)
-  imap <buffer> jj <Plug>(unite_insert_leave)
-  imap <buffer> <C-l> <Plug>(unite_insert_leave)
-  imap <buffer> <C-c> <Plug>(unite_exit)
-
-  nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-  inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-
-  nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-  inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-
-  nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('file'))
-  inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('file'))
-endfunction
 
 " NERDTree "{{{2
 let g:NERDTreeDirArrows = 0
