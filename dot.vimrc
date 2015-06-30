@@ -468,6 +468,13 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
+nnoremap [ctrlp] <Nop>
+nmap f [ctrlp]
+nnoremap <silent> [ctrlp]b :<C-u>CtrlPBookmarkDir<Return>
+nnoremap <silent> [ctrlp]f :<C-u>CtrlP<Return>
+nnoremap <silent> [ctrlp]m :<C-u>CtrlPMRUFiles<Return>
+
+
 " Others "{{{1
 " Tabline, by kana {{{2
 function! s:set_tabline()
