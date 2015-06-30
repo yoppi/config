@@ -9,10 +9,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/linediff.vim'
 Plug 'LeafCage/yankround.vim'
-Plug 'Shougo/neocomplcache'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
 Plug 'Shougo/vimproc'
 Plug 'Shougo/vimshell'
 Plug 'cakebaker/scss-syntax.vim'
