@@ -195,8 +195,10 @@ if ostype =~ "linux"
 endif
 unlet ostype
 
-inoremap <C-b> <LEFT>
-inoremap <C-f> <RIGHT>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
 inoremap <expr> <Leader>df  strftime("%Y-%m-%d %H:%M:%S")
 inoremap <expr> <Leader>dd  strftime("%Y-%m-%d")
 inoremap <expr> <Leader>dt  strftime("%H:%M:%S")
@@ -204,8 +206,10 @@ inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-l> <ESC>
 
-cnoremap <C-b> <LEFT>
-cnoremap <C-f> <RIGHT>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
 cnoremap <C-l> <C-c>
 cnoremap <C-x> <C-r>=<SID>GetBufferDirectory()<Return>/
 function! s:GetBufferDirectory()
