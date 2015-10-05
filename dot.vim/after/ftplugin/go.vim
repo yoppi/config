@@ -1,7 +1,7 @@
 if $GOROOT == ""
-  let $GOROOT=$HOME . "/local/go/1.3"
+  let $GOROOT=$HOME . "/local/go/1.5.1"
 end
 
 if $GOPATH == ""
-  let $GOPATH=$HOME . "/.go/1.3"
+  let $GOPATH=$HOME . "/dev"
 end
