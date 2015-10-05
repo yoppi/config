@@ -18,5 +18,6 @@ if has('unix') || has('win32') || has('win64')
 endif
 
 "hi Pmenu gui=underline guibg=black
-colorscheme hemisu
-hi Normal guibg=grey5
+"hi Normal guibg=grey5
+colorscheme smyck
+set linespace=1

@@ -16,6 +16,7 @@ Plug 'fatih/vim-go'
 Plug 'fuenor/qfixhowm'
 Plug 'gregsexton/gitv'
 Plug 'h1mesuke/vim-alignta'
+Plug 'hukl/Smyck-Color-Scheme'
 Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-smartchr'
@@ -354,7 +355,7 @@ onoremap gc  :<C-u>normal gc<Enter>
 " Color Syntax "{{{1
 syntax enable
 set background=dark
-colorscheme hemisu
+colorscheme smyck
 autocmd MyAutoCmd ColorScheme *
 \   hi Comment     term=bold ctermfg=blue guifg=#707070
 \ | hi Pmenu ctermbg=8 guibg=#606060
