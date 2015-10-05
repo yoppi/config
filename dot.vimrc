@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/linediff.vim'
 Plug 'LeafCage/yankround.vim'
+Plug 'Shougo/neocomplete'
 Plug 'Shougo/vimproc'
 Plug 'Shougo/vimshell'
 Plug 'cakebaker/scss-syntax.vim'
@@ -41,7 +42,6 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/AutoComplPop'
 Plug 'vim-scripts/CSApprox'
 Plug 'vim-scripts/Source-Explorer-srcexpl.vim'
 Plug 'vim-scripts/VimClojure'
@@ -107,7 +107,7 @@ set directory=~/tmp,/tmp
 "set expandtab
 set fileformat=unix
 set fileformats=unix,dos
-set foldmethod=marker
+set foldmethod=manual
 set formatoptions=tcroqMm
 if exists('+fuoptions')
   set fuoptions=maxvert,maxhorz
@@ -370,13 +370,29 @@ doautocmd MyAutoCmd ColorScheme * _
 
 
 " Vim Plugin Settings "{{{1
-" AutoComplPop "{{{2
-let g:acp_enableAtStartup = 1
-inoremap <silent> <CR> <C-r>=<SID>acp_cr_function()<CR>
-function! s:acp_cr_function()
-  return pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+
+" neocomplete.vim "{{{2
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
 endfunction
 
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " NERDTree "{{{2
 let g:NERDTreeDirArrows = 0
