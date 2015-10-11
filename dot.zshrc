@@ -77,7 +77,7 @@ setopt complete_aliases     # aliased ls needs if file/dir completions work
 
 ## Prompt #{{{1
 local git_info='$(git_prompt_info)'
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}:%{$FG[029]%}"
+ZSH_THEME_GIT_PROMPT_PREFIX=":%{$FG[033]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 #ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}x"
 ZSH_THEME_GIT_PROMPT_DIRTY=""
@@ -85,20 +85,17 @@ ZSH_THEME_GIT_PROMPT_DIRTY=""
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 local git_status='$(git_prompt_status)'
-ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%}+"
-ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[red]%}!"
-ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}x"
-ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%}@"
-ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%}="
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[yellow]%}?"
+ZSH_THEME_GIT_PROMPT_ADDED="%{$FG[046]%}+"
+ZSH_THEME_GIT_PROMPT_MODIFIED="%{$FG[202]%}!"
+ZSH_THEME_GIT_PROMPT_DELETED="%{$FG[124]%}x"
+ZSH_THEME_GIT_PROMPT_RENAMED="%{$FG[201]%}@"
+ZSH_THEME_GIT_PROMPT_UNMERGED="%{$FG[190]%}="
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$FG[190]%}?"
 
 local current_dir='${PWD/#$HOME/~}'
 
-PROMPT="%{$fg[blue]%}{ \
-%{$fg[cyan]%}${current_dir}%{$reset_color%}\
-${git_info} \
-%{$fg[blue]%}}%{$reset_color%}\
-%{$reset_color%} > "
+PROMPT="/ _ /${git_status}%{$reset_color%} < "
+RPROMPT="[${current_dir}${git_info}]"
 
 ## Aliases #{{{1
 case "${OSTYPE}" in
