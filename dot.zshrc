@@ -1,5 +1,8 @@
 # .zshrc
 
+# load antigen settings
+source ~/.zsh/_antigen
+
 # misc. #{{{1
 # Environment variable configuration
 export LANG=ja_JP.UTF-8
@@ -18,20 +21,12 @@ esac
 bindkey -e
 #bindkey -v
 
-# Command history configuration
-HISTFILE=~/.zsh_history
-HISTSIZE=4294967295
-SAVEHIST=4294967295
-
 # zsh editor
 autoload zed
 
 # set subversion editor
 export SVN_EDITOR=vim
 export EDITOR=vim
-
-# load antigen settings
-source ~/.zsh/_antigen
 
 # load user .zshrc configuration file
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
@@ -48,6 +43,10 @@ fpath=(~/.zsh/functions/Completion ${fpath})
 autoload -U compinit
 compinit
 
+# Command history configuration
+HISTFILE=~/.zsh_history
+HISTSIZE=4294967295
+SAVEHIST=4294967295
 
 
 ## Options #{{{1
@@ -94,7 +93,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$FG[190]%}?"
 
 local current_dir='${PWD/#$HOME/~}'
 
-PROMPT="/ _ /${git_status}%{$reset_color%} < "
+PROMPT="( ◔ ౪◔)${git_status}%{$reset_color%} < "
 RPROMPT="[${current_dir}${git_info}]"
 
 ## Aliases #{{{1
