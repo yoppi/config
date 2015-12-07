@@ -180,6 +180,7 @@ filetype plugin indent on
 autocmd Filetype c,cpp setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=8
 autocmd Filetype java setlocal expandtab softtabstop=4 shiftwidth=4
 autocmd FileType javascript setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType json setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType coffee setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType jade setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd Filetype ruby setlocal expandtab softtabstop=2 shiftwidth=2
@@ -195,6 +196,7 @@ autocmd Filetype eruby setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType xml setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType cucumber setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType objc setlocal expandtab softtabstop=4 shiftwidth=4
+autocmd FileType yaml setlocal expandtab softtabstop=2 shiftwidth=2
 
 
 " Keymaping "{{{1
