@@ -11,5 +11,5 @@ elseif has('gui')
 else
   " nop
 endif
-colorscheme smyck
+colorscheme hemisu
 set linespace=1

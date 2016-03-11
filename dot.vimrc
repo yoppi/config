@@ -374,7 +374,7 @@ onoremap gc  :<C-u>normal gc<Enter>
 " Color Syntax "{{{1
 syntax enable
 set background=dark
-colorscheme smyck
+colorscheme hemisu
 autocmd MyAutoCmd ColorScheme *
 \   hi Comment     term=bold ctermfg=blue guifg=#707070
 \ | hi Pmenu ctermbg=8 guibg=#606060
