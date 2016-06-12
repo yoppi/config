@@ -93,7 +93,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$FG[190]%}?"
 
 local current_dir='${PWD/#$HOME/~}'
 
-PROMPT="( ◔ ౪◔)${git_status}%{$reset_color%} < "
+PROMPT="${git_status}%{$reset_color%} < "
 RPROMPT="[${current_dir}${git_info}]"
 
 ## Aliases #{{{1
