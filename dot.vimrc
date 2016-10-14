@@ -324,10 +324,8 @@ nnoremap <silent><C-S-Tab> :<C-u>tabprevious<Return>
 nnoremap <silent><C-t>p :<C-u>TabPreWork<Return>
 nnoremap <silent><C-t>K :<C-u>tabfirst<Return>
 nnoremap <silent><C-t>J :<C-u>tablast<Return>
-nnoremap <silent><C-t>l
-\ :<C-u>execute 'tabmove' min([tabpagenr()+v:count1-1, tabpagenr('$')])<Return>
-nnoremap <silent><C-t>h
-\ :<C-u>execute 'tabmove' max([tabpagenr()-v:count1-1, 0])<Return>
+nnoremap <silent><C-t>l :<C-u>execute 'tabmove' min([tabpagenr()+v:count1-1+1, tabpagenr('$')])<Return>
+nnoremap <silent><C-t>h :<C-u>execute 'tabmove' max([tabpagenr()-v:count1-1, 0])<Return>
 nnoremap <silent><C-t>L :<C-u>tabmove<Return>
 nnoremap <silent><C-t>H :<C-u>tabmove 0<Return>
 nnoremap <silent> <C-w><C-t> :<C-u>MoveWinTab<Return>
