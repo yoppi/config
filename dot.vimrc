@@ -372,17 +372,20 @@ onoremap gc  :<C-u>normal gc<Enter>
 
 " Color Syntax "{{{1
 syntax enable
+
 set background=dark
 colorscheme hemisu
+
 autocmd MyAutoCmd ColorScheme *
-\   hi Comment     term=bold ctermfg=blue guifg=#707070
+\   hi Comment term=bold ctermfg=blue guifg=#707070
 \ | hi Pmenu ctermbg=8 guibg=#606060
 \ | hi PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
 \ | hi PmenuSbar ctermbg=0 guibg=#d6d6d6
-\ | hi Visual      ctermfg=lightgray
-\ | hi TabLineSel  ctermbg=gray ctermfg=black
+\ | hi Visual ctermfg=lightgray
+\ | hi TabLine ctermbg=gray ctermfg=black guibg=gray guifg=black
+\ | hi TabLineSel ctermbg=black ctermfg=white
 \ | hi TabLineFill ctermbg=black ctermfg=white
-\ | hi Normal      guibg=grey5
+\ | hi Normal guibg=grey5
 doautocmd MyAutoCmd ColorScheme * _
 
 
