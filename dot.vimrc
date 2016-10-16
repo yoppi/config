@@ -415,12 +415,11 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " NERDTree "{{{2
-let g:NERDTreeDirArrows = 0
-nnoremap <silent> [Space]o :<C-u>:NERDTreeToggle<Return>
+nnoremap <silent> [Space]o :<C-u>:NERDTreeToggle <C-r>=getcwd()<Return><Return>
 
 
 " vimshell "{{{2
-nnoremap [Space]s :<C-u>VimShellPop<Return>
+nnoremap [Space]s :<C-u>VimShellPop <C-r>=getcwd()<Return><Return>
 
 let g:vimshell_user_prompt ='fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt = "$ "
