@@ -213,11 +213,15 @@ if [ -f ~/.aws.conf ]; then
 fi
 
 if [ -d $HOME/.rbenv ]; then
-  export PATH=$HOME/.rbenv/shims:$PATH;
+  export PATH=$HOME/.rbenv/shims:$PATH
 fi
 
 if [ -d $HOME/local/bin ]; then
   export PATH=$HOME/local/bin:$PATH
+fi
+
+if [ -d $HOME/bin ]; then
+  export PATH=$HOME/bin:$PATH
 fi
 
 ## Bindkey #{{{1
