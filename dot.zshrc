@@ -1,12 +1,29 @@
-# .zshrc
+# Prologue #{{{1
 
 # load antigen settings
-source ~/.zsh/_antigen
+[ -f ~/.zsh/_antigen ] && source ~/.zsh/_antigen
 
-# misc. #{{{1
-# Environment variable configuration
+bindkey -e
+#bindkey -v
+bindkey '' backward-delete-char
+bindkey '' backward-delete-char
+bindkey '[3~' backward-delete-char
+
+# completion
+autoload -U compinit
+compinit
+# zsh editor
+autoload -U zed
+
+# parameters
+HISTFILE=~/.zsh_history
+HISTSIZE=4294967295
+SAVEHIST=4294967295
+
+# environment variables
 export LANG=ja_JP.UTF-8
-
+export SVN_EDITOR=vim
+export EDITOR=vim
 # for fakeclip.vim
 case $OSTYPE in
   darwin*)
@@ -14,42 +31,7 @@ case $OSTYPE in
   ;;
 esac
 
-# Keybind configuration
-#   * -e: emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e
-#   goes to end of it)
-#   * -v: vi like keybind. modal key editing.
-bindkey -e
-#bindkey -v
-
-# zsh editor
-autoload zed
-
-# set subversion editor
-export SVN_EDITOR=vim
-export EDITOR=vim
-
-# load user .zshrc configuration file
-[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
-
-# load each project configuration file
-if [ -d $HOME/.zsh/proj ]; then
-  for envfile in $HOME/.zsh/proj/*; do
-    source $envfile
-  done
-fi
-
-# Completion configuration
-fpath=(~/.zsh/functions/Completion ${fpath})
-autoload -U compinit
-compinit
-
-# Command history configuration
-HISTFILE=~/.zsh_history
-HISTSIZE=4294967295
-SAVEHIST=4294967295
-
-
-## Options #{{{1
+# Options #{{{1
 # auto change directory
 setopt auto_cd
 # auto directory pushd that you can get dirs list by cd -[tab]
@@ -70,11 +52,7 @@ setopt hist_ignore_dups     # ignore duplication command history list
 setopt share_history        # share command history data
 setopt complete_aliases     # aliased ls needs if file/dir completions work
 
-
-
-
-
-## Prompt #{{{1
+# Prompt #{{{1
 local git_info='$(git_prompt_info)'
 ZSH_THEME_GIT_PROMPT_PREFIX=":%{$FG[033]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
@@ -93,17 +71,13 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$FG[190]%}?"
 
 local current_dir='${PWD/#$HOME/~}'
 
-PROMPT="${git_status}%{$reset_color%} < "
+PROMPT="${git_status}%{$reset_color%}$ "
 RPROMPT="[${current_dir}${git_info}]"
 
-## Aliases #{{{1
+# Aliases #{{{1
 case "${OSTYPE}" in
   darwin*)
     alias ls="ls -G -w -F"
-    alias firefox="open -a Firefox"
-    alias preview="open -a Preview"
-    alias safari="open -a Safari"
-    alias cot="open -a CotEditor"
     alias gvim="/Applications/MacVim.app/Contents/MacOS/Vim -g"
     alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
     ;;
@@ -114,6 +88,7 @@ case "${OSTYPE}" in
   cygwin*)
     alias ls="ls --color --file-type"
     alias open="cygstart"
+    ;;
 esac
 
 alias grep="grep -n --color=auto"
@@ -121,12 +96,9 @@ alias la="ls -a"
 alias ll="ls -l"
 alias lt="ls -lt"
 alias ltr="ls -altr"
-alias su="su -l"
 alias where="command -v"
-alias j="jobs -l"
 alias v="vim"
 alias r="rails"
-alias sp="rspec -c"
 
 # for tmux
 alias t="tmux"
@@ -137,26 +109,19 @@ alias tn="tmux -2 new -s"
 alias g="git"
 alias a="git add"
 alias b="git branch"
-alias c="git commit"
 alias d="git diff"
-alias ge="git config -e"
 alias f="git fetch"
 alias gg="git grep -n"
 alias l="git log --pretty=oneline2"
-alias gp="git push"
-alias gsw="git show"
-alias gvn="git svn"
-alias gsh="git stash"
-alias gshp="git stash pop"
 alias s="git status -sb"
 
 # for secure!
 alias cp="cp -i"
 alias mv="mv -i"
 
-## Search #{{{1
+# Search #{{{1
 # historical backward/forward search with linehead string binded to ^P/^N
-autoload history-search-end
+autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
@@ -164,54 +129,21 @@ bindkey "^n" history-beginning-search-forward-end
 bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 
-
-
-
-
-## Coloring #{{{1
+# Coloring #{{{1
 zstyle ':completion:*' list-colors ''
 
-
-
-
-
-## PATH #{{{1
+# PATH #{{{1
 if [ -d /usr/local/bin ]; then
   export PATH=/usr/local/bin:$PATH
 fi
 
-# for haskell application
 if [ -d $HOME/.cabal/bin ]; then
   export PATH=$HOME/.cabal/bin:$PATH
 fi
 
-case "${OSTYPE}" in
-  darwin*)
-  # for MacPorts
-  if [ -d "/opt/local/bin" ]; then
-    export PATH=/opt/local/bin:/opt/local/sbin/:$PATH
-    export MANPATH=/opt/local/man:$MANPATH
-  fi
-  if [ -d /usr/local/share/npm/bin ]; then
-    export PATH=/usr/local/share/npm/bin:$PATH
-  fi
-esac
-
-# Shared Library Path
-if [ -d /usr/local/lib ]; then
-  export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-fi
-
-if [ -d /usr/local/share/npm/lib/node_modules ]; then
-  export NODE_PATH=/usr/local/share/npm/lib/node_modules:$NODE_PATH
-fi
-
-if [ -f ~/.aws.conf ]; then
-  source ~/.aws.conf
-fi
-
 if [ -d $HOME/.rbenv ]; then
-  export PATH=$HOME/.rbenv/shims:$PATH
+  export PATH=$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH
+  eval "$(rbenv init -)"
 fi
 
 if [ -d $HOME/local/bin ]; then
@@ -222,16 +154,16 @@ if [ -d $HOME/bin ]; then
   export PATH=$HOME/bin:$PATH
 fi
 
-## Bindkey #{{{1
-bindkey '' backward-delete-char
-bindkey '' backward-delete-char
-bindkey '[3~' backward-delete-char
+if [ -d $HOME/local/go/1.8 ]; then
+  export GOPATH=$HOME
+  export GOROOT=$HOME/local/go/1.8
+fi
 
+if [ -d /usr/local/lib ]; then
+  export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+fi
 
-
-
-
-## Utils {{{1
+# Utils {{{1
 # up to home in git repository
 function gu() {
   local cdup="./`git rev-parse --show-cdup`"
@@ -281,5 +213,5 @@ case "${OSTYPE}" in
   fi
 esac
 
-## __END__ #{{{1
+# __END__ #{{{1
 # vim: filetype=zsh foldmethod=marker textwidth=78
