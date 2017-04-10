@@ -180,6 +180,7 @@ filetype plugin indent on
 autocmd Filetype c,cpp setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=8
 autocmd Filetype changelog setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=4
 autocmd FileType coffee setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType cs setlocal expandtab softtabstop=4 shiftwidth=4
 autocmd FileType cucumber setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd Filetype eruby setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd Filetype html,markdown,pdc setlocal expandtab softtabstop=2 shiftwidth=2
