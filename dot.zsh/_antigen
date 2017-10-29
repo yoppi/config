@@ -1,14 +1,15 @@
 source ~/.zsh/antigen/antigen.zsh
 
-antigen-use oh-my-zsh
+antigen use oh-my-zsh
 
-antigen-bundle git
-antigen-bundle git-flow
-antigen-bundle autojump
+antigen bundle autojump
+antigen bundle docker
+antigen bundle git
+antigen bundle git-flow
+antigen bundle go
+antigen bundle zsh-users/zsh-completions src
+antigen bundle zsh-users/zsh-syntax-highlighting
 
-antigen-bundle zsh-users/zsh-syntax-highlighting
+#antigen theme ys
 
-antigen-theme ys
-
-antigen-apply
-
+antigen apply
