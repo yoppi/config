@@ -10,8 +10,8 @@ bindkey '' backward-delete-char
 bindkey '[3~' backward-delete-char
 
 # completion
-autoload -U compinit
-compinit
+autoload -U compinit && compinit
+
 # zsh editor
 autoload -U zed
 
@@ -154,9 +154,9 @@ if [ -d $HOME/bin ]; then
   export PATH=$HOME/bin:$PATH
 fi
 
-if [ -d $HOME/local/go/1.8 ]; then
+if [ -d $HOME/local/go/1.9.2 ]; then
   export GOPATH=$HOME
-  export GOROOT=$HOME/local/go/1.8
+  export GOROOT=$HOME/local/go/1.9.2
 fi
 
 if [ -d /usr/local/lib ]; then
