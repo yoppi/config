@@ -179,26 +179,27 @@ endif
 
 " Filetype "{{{1
 filetype plugin indent on
-autocmd Filetype c,cpp setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=8
-autocmd Filetype changelog setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=4
+autocmd FileType c,cpp setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=8
+autocmd FileType changelog setlocal expandtab softtabstop=4 shiftwidth=4 tabstop=4
 autocmd FileType coffee setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType cs setlocal expandtab softtabstop=4 shiftwidth=4
 autocmd FileType cucumber setlocal expandtab softtabstop=2 shiftwidth=2
-autocmd Filetype eruby setlocal expandtab softtabstop=2 shiftwidth=2
-autocmd Filetype html,markdown,pdc setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType eruby setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType html,markdown,pdc setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType jade setlocal expandtab softtabstop=2 shiftwidth=2
-autocmd Filetype java setlocal expandtab softtabstop=4 shiftwidth=4
+autocmd FileType java setlocal expandtab softtabstop=4 shiftwidth=4
 autocmd FileType javascript setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType json setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType objc setlocal expandtab softtabstop=4 shiftwidth=4
-autocmd Filetype perl setlocal expandtab softtabstop=2 shiftwidth=2
-autocmd Filetype php setlocal expandtab softtabstop=4 shiftwidth=4
-autocmd Filetype python setlocal expandtab softtabstop=2 shiftwidth=2
-autocmd Filetype ruby setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType perl setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType php setlocal expandtab softtabstop=4 shiftwidth=4
+autocmd FileType python setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType ruby setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType scheme setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
 autocmd FileType sh setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
-autocmd Filetype tex setlocal expandtab softtabstop=2 shiftwidth=2
-autocmd Filetype vim setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType sql setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType tex setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType vim setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType xml setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType yaml setlocal expandtab softtabstop=2 shiftwidth=2
 
