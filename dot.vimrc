@@ -419,6 +419,15 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
+" vim-go "{{{2
+let g:go_fmt_command = 'goimports'
+let g:go_list_type = 'quickfix'
+let g:go_def_mode = 'guru'
+let g:go_info_mode = 'gocode'
+let g:go_updatetime = 800
+let g:go_jump_to_error = 1
+let g:go_gocode_autobuild = 0
+
 " NERDTree "{{{2
 nnoremap <silent> [Space]o :<C-u>:NERDTreeToggle <C-r>=getcwd()<Return><Return>
 
