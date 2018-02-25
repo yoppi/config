@@ -154,9 +154,9 @@ if [ -d $HOME/bin ]; then
   export PATH=$HOME/bin:$PATH
 fi
 
-if [ -d $HOME/local/go/1.9.2 ]; then
+if [ -d $HOME/local/go/1.10 ]; then
   export GOPATH=$HOME
-  export GOROOT=$HOME/local/go/1.9.2
+  export GOROOT=$HOME/local/go/1.10
 fi
 
 if [ -d /usr/local/lib ]; then
