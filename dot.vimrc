@@ -160,6 +160,7 @@ set showcmd
 set showtabline=2
 set shellslash
 set smartindent
+set splitbelow
 "set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L
 set ttimeoutlen=50
