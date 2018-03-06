@@ -2,6 +2,7 @@
 
 # load antigen settings
 [ -f ~/.zsh/_antigen ] && source ~/.zsh/_antigen
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 bindkey -e
 #bindkey -v
@@ -135,6 +136,10 @@ zstyle ':completion:*' list-colors ''
 # PATH #{{{1
 if [ -d /usr/local/bin ]; then
   export PATH=/usr/local/bin:$PATH
+fi
+
+if [ -d /usr/local/opt/python/libexec/bin ]; then
+  export PATH=/usr/local/opt/python/libexec/bin:$PATH
 fi
 
 if [ -d $HOME/.cabal/bin ]; then
