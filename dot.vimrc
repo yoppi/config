@@ -194,7 +194,7 @@ autocmd FileType json setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType objc setlocal expandtab softtabstop=4 shiftwidth=4
 autocmd FileType perl setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType php setlocal expandtab softtabstop=4 shiftwidth=4
-autocmd FileType python setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType python setlocal expandtab softtabstop=4 shiftwidth=4
 autocmd FileType ruby setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType scheme setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
 autocmd FileType sh setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
