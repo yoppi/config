@@ -24,7 +24,16 @@ SAVEHIST=4294967295
 # environment variables
 export LANG=ja_JP.UTF-8
 export SVN_EDITOR=vim
-export EDITOR=vim
+
+case ${OSTYPE} in
+  darwin*)
+    export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+    ;;
+  *)
+    export EDITOR=vim
+    ;;
+esac
+
 # for fakeclip.vim
 case $OSTYPE in
   darwin*)
