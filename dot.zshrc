@@ -160,17 +160,22 @@ if [ -d $HOME/.rbenv ]; then
   eval "$(rbenv init -)"
 fi
 
+if [ -d $HOME/.pyenv ]; then
+  export PATH=$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH
+  eval "$(pyenv init -)"
+fi
+
+if [ -d $HOME/local/go/1.12.3 ]; then
+  export GOPATH=$HOME
+  export GOROOT=$HOME/local/go/1.12.3
+fi
+
 if [ -d $HOME/local/bin ]; then
   export PATH=$HOME/local/bin:$PATH
 fi
 
 if [ -d $HOME/bin ]; then
   export PATH=$HOME/bin:$PATH
-fi
-
-if [ -d $HOME/local/go/1.10 ]; then
-  export GOPATH=$HOME
-  export GOROOT=$HOME/local/go/1.10
 fi
 
 if [ -d /usr/local/lib ]; then
