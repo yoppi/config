@@ -215,6 +215,19 @@ function hg-add() {
   done
 }
 
+function fzf-z-search() {
+  local res=$(z | sort -rn | cut -c 12- | fzf)
+  if [ -n "${res}" ]; then
+    BUFFER+="cd ${res}"
+    zle accept-line
+  else
+    return 1
+  fi
+}
+
+zle -N fzf-z-search
+bindkey "^f" fzf-z-search
+
 # if mac OS X call screen saver
 case "${OSTYPE}" in
   darwin*)
