@@ -226,7 +226,7 @@ function fzf-z-search() {
 }
 
 zle -N fzf-z-search
-bindkey "^f" fzf-z-search
+bindkey "^g" fzf-z-search
 
 # if mac OS X call screen saver
 case "${OSTYPE}" in
