@@ -16,15 +16,15 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/linediff.vim'
 Plug 'LeafCage/yankround.vim'
-Plug 'Shougo/neocomplete'
-Plug 'Shougo/vimproc'
-Plug 'Shougo/vimshell'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'fatih/vim-go'
 Plug 'fatih/vim-hclfmt'
+Plug 'fisadev/vim-isort'
+Plug 'flowtype/vim-flow'
 Plug 'fuenor/qfixhowm'
 Plug 'gregsexton/gitv'
 Plug 'h1mesuke/vim-alignta'
+Plug 'hashivim/vim-terraform'
 Plug 'hukl/Smyck-Color-Scheme'
 Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-fakeclip'
@@ -36,10 +36,14 @@ Plug 'kien/ctrlp.vim'
 Plug 'lepture/vim-velocity'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-startify'
-Plug 'motemen/hatena-vim'
+Plug 'natebosch/vim-lsc'
 Plug 'noahfrederick/vim-hemisu'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
 Plug 'rking/ag.vim'
 Plug 'rosstimson/scala-vim-support'
 Plug 'scrooloose/nerdtree'
@@ -49,7 +53,7 @@ Plug 'thinca/vim-ref'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rails'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/CSApprox'
 Plug 'vim-scripts/Source-Explorer-srcexpl.vim'
@@ -221,13 +225,12 @@ noremap [Space] <nop>
 
 nnoremap <Leader>ss :<C-u>source $MYVIMRC<Return>
 
-" My working Debian cannot recognize <C-h> as BackSpace in insert mode on
-" screen.
-let ostype = system("echo $OSTYPE")
-if ostype =~ "linux"
-  imap <C-h> <BS>
-endif
-unlet ostype
+noremap <C-h> :<C-u>help<Space>
+
+noremap : ;
+noremap ; :
+noremap ' `
+noremap ` '
 
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
@@ -262,28 +265,7 @@ nnoremap [Space]w :<C-u>write<Return>
 nnoremap [Space]q :<C-u>quit<Return>
 nnoremap [Space]cd :<C-u>CD<Return>
 
-" rails.vim
-nnoremap [rails] <Nop>
-nmap [Space]r [rails]
-nnoremap [rails]v :<C-u>RVview<Return>
-nnoremap [rails]c :<C-u>Rcontroller<Space>
-nnoremap [rails]m :<C-u>Rmodel<Space>
-nnoremap [rails]h :<C-u>Rhelper<Space>
-nnoremap [rails]i :<C-u>Rinitializer<Space>
-nnoremap [rails]l :<C-u>Rlocale<Space>
-nnoremap [rails]e :<C-u>Renvironment<Space>
-nnoremap [rails]s :<C-u>Rschema<Return>
-
-" fugitive.vim
-nnoremap [git] <Nop>
-nmap [Space]g [git]
-nnoremap [git]c :<C-u>Gcommit<Return>
-nnoremap [git]d :<C-u>Gdiff<Return>
-nnoremap [git]s :<C-u>Gvsplit :<Return>
-nnoremap [git]e :<C-u>Gedit :<Return>
-nnoremap [git]b :<C-u>Gblame<Return>
-
-" display lines down /up ward
+" display lines down / up ward
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
@@ -295,24 +277,21 @@ nnoremap [Space]l zo
 nnoremap [Space]/ :<C-u>nohlsearch<Return>
 nnoremap <Tab> <C-w>p
 
-
-noremap <silent> <C-z>  :<C-u>SuspendWithAutomaticCD<Return>
-noremap <C-h> :<C-u>help<Space>
-noremap : ;
-noremap ; :
-noremap ' `
-noremap ` '
-
 " visual-search
 vnoremap * y/<C-R>"<Return>
 vnoremap <C-l> <ESC>
 vnoremap <C-S-c> "+y
-
 nnoremap K <Nop>
 nnoremap K :silent! grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 
-" tag jump "{{{2
+" terminal
+nnoremap [Space]t :<C-u>vertical terminal<Return><C-L>
+nnoremap [Space]st :<C-u>terminal<Return>
+tnoremap <C-w>c <C-w><C-c>
+
+
+" tag jump
 nnoremap [tag] <Nop>
 nmap t [tag]
 nnoremap [tag]t <C-]>
@@ -325,7 +304,8 @@ nnoremap <silent>[tag]p :<C-u>tprevious<Return>
 nnoremap <silent>[tag]P :<C-u>tfirst<Return>
 nnoremap <silent>[tag]N :<C-u>tlast<Return>
 
-" tabpage motion, by kana "{{{2
+
+" tabpage motion, by kana
 nnoremap <silent> <C-t>n :<C-u>tabnew<Return>
 nnoremap <silent> <C-t>c :<C-u>tabclose<Return>
 nnoremap <silent> <C-t>o :<C-u>tabonly<Return>
@@ -347,10 +327,10 @@ for i in range(10)
 endfor
 unlet i
 
-" quickfix, by kana "{{{2
+
+" quickfix, by kana
 nnoremap q <Nop>
 nnoremap Q q
-
 nnoremap qj :<C-u>cnext<Return>
 nnoremap qk :<C-u>cprevious<Return>
 nnoremap qr :<C-u>crewind<Return>
@@ -366,24 +346,25 @@ nnoremap qp :<C-u>colder<Return>
 nnoremap qn :<C-u>cnewer<Return>
 nnoremap qg :<C-u>vimgrep<Space>
 
-" smartword setting "{{{2
-map w <Plug>(smartword-w)
-map b <Plug>(smartword-b)
-map e <Plug>(smartword-e)
-map ge <Plug>(smartword-ge)
-noremap ,w w
-noremap ,b b
-noremap ,e e
-noremap ,ge ge
 
-
-" select last modified text "{{{2
+" select last modified text
 nnoremap gc  `[v`]
 vnoremap gc  :<C-u>normal gc<Enter>
 onoremap gc  :<C-u>normal gc<Enter>
 
+
+" My working Debian cannot recognize <C-h> as BackSpace in insert mode on
+" screen.
+let ostype = system("echo $OSTYPE")
+if ostype =~ "linux"
+  imap <C-h> <BS>
+endif
+unlet ostype
+
+
 " Color Syntax "{{{1
 syntax enable
+colorscheme hemisu
 
 set background=dark
 colorscheme hemisu
@@ -401,73 +382,47 @@ autocmd MyAutoCmd ColorScheme *
 doautocmd MyAutoCmd ColorScheme * _
 
 
-" Vim Plugin Settings "{{{1
+" Plugin Settings "{{{1
+" vim-lsp "{{{2
+let g:lsp_async_completion = 1
+let g:lsp_log_file = expand('~/tmp/vim-lsp.log')
+let g:lsp_log_verbose = 1
 
-" neocomplete.vim "{{{2
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-if !exists('g:neocomplete#keyword_patterns')
-  let g:neocomplete#keyword_patterns = {}
+if executable('pyls')
+  autocmd User lsp_setup call lsp#register_server({
+    \ 'name': 'pyls',
+    \ 'cmd': { server_info -> ['pyls'] },
+    \ 'whitelist': ['python'],
+    \ })
+  autocmd FileType python setlocal omnifunc=lsp#complete
 endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-endfunction
+if executable('gopls')
+  autocmd User lsp_setup call lsp#register_server({
+    \ 'name': 'gopls',
+    \ 'cmd': { server_info -> ['gopls', '-mode', 'stdio'] },
+    \ 'whitelist': ['go'],
+    \ })
+  autocmd FileType go setlocal omnifunc=lsp#complete
+endif
 
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " vim-go "{{{2
 let g:go_fmt_command = 'goimports'
 let g:go_list_type = 'quickfix'
-let g:go_def_mode = 'guru'
-let g:go_info_mode = 'gocode'
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
 let g:go_updatetime = 800
 let g:go_jump_to_error = 1
 let g:go_gocode_autobuild = 0
 
-" NERDTree "{{{2
+
+" nerdtree "{{{2
 nnoremap <silent> [Space]o :<C-u>:NERDTreeToggle <C-r>=getcwd()<Return><Return>
 
 
-" vimshell "{{{2
-nnoremap [Space]s :<C-u>VimShellPop <C-r>=getcwd()<Return><Return>
-
-let g:vimshell_user_prompt ='fnamemodify(getcwd(), ":~")'
-let g:vimshell_prompt = "$ "
-let g:vimshell_enable_smart_case = 1
-
-autocmd FileType vimshell call s:vimshell_settings()
-function! s:vimshell_settings()
-  " Aliases
-  call vimshell#altercmd#define('la', 'ls -a')
-  call vimshell#altercmd#define('ll', 'ls -l')
-  call vimshell#altercmd#define('ltr', 'ls -altr')
-  call vimshell#altercmd#define('g', 'git')
-  call vimshell#altercmd#define('a', 'git add')
-  call vimshell#altercmd#define('b', 'git branch')
-  call vimshell#altercmd#define('d', 'git diff')
-  call vimshell#altercmd#define('l', 'git log')
-  call vimshell#altercmd#define('lg', 'git log --graph')
-  call vimshell#altercmd#define('s', 'git status -sb')
-  call vimshell#altercmd#define('v', 'vim')
-  call vimshell#altercmd#define('h', 'hg')
-  call vimshell#altercmd#define('hs', 'hg status')
-  call vimshell#altercmd#define('hd', 'hg diff')
-  call vimshell#altercmd#define('r', 'rails')
-endfunction
-
-
-" quickrun.vim "{{{2
+" vim-quickrun "{{{2
 let g:quicklaunch_commands = [
   \ 'rake',
   \ 'ls -a',
@@ -480,25 +435,28 @@ let g:quicklaunch_commands = [
 let g:changelog_timeformat="%Y-%m-%d"
 
 
-" vimclojure "{{{2
+" VimClojure "{{{2
 let vimclojure#WantNailgun = 1
 let vimclojure#NailgunClient = "ng"
 
 
 " qfixhowm "{{{2
-let QFixHowm_Key = 'g'
-let QFixHowm_FileType = 'markdown'
-let QFixMRU_Filename = '~/Dropbox/howm/.qfixmru'
-let howm_dir = '~/Dropbox/howm'
-let howm_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
-let howm_fileencoding = 'utf-8'
-let howm_fileformat = 'unix'
+let g:QFixHowm_Key = 'g'
+let g:howm_dir = '/Users/hirokazu.yoshida/Dropbox/howm'
+let g:qfixmemo_dir = '/Users/hirokazu.yoshida/Dropbox/howm'
+let g:qfixmemo_ext = 'md'
+let g:qfixmemo_fileencoding  = 'utf-8'
+let g:qfixmemo_fileformat = 'unix'
+let g:qfixmemo_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
+let g:qfixmemo_filetype = 'markdown'
+let g:QFixMRU_Filename = '/Users/hirokazu.yoshida/Dropbox/howm/.qfixmru'
+let g:QFixMRU_RootDir = qfixmemo_dir
 
 
-" lightline "{{{2
+" lightline.vim "{{{2
 let g:lightline = {
-        \ 'enable': { 'tabline': 0 },
-        \ }
+\ 'enable': { 'tabline': 0 },
+\ }
 
 
 " yankround.vim "{{{2
@@ -513,10 +471,11 @@ nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
 
 
 " ctrlp.vim "{{{2
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:15,results:15'
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:15,results:15'
+let g:ctrlp_max_files = 100000
 let g:ctrlp_mruf_max = 1000
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_prompt_mappings = {
   \ 'PrtBS()': ['<c-h>', '<bs>'],
   \ 'PrtCurLeft()': ['<left>', '<c-^>'],
@@ -532,6 +491,40 @@ nmap f [ctrlp]
 nnoremap <silent> [ctrlp]b :<C-u>CtrlPBookmarkDir<Return>
 nnoremap <silent> [ctrlp]f :<C-u>CtrlP<Return>
 nnoremap <silent> [ctrlp]m :<C-u>CtrlPMRUFiles<Return>
+
+
+" vim-rails "{{{2
+nnoremap [rails] <Nop>
+nmap [Space]r [rails]
+nnoremap [rails]v :<C-u>RVview<Return>
+nnoremap [rails]c :<C-u>Rcontroller<Space>
+nnoremap [rails]m :<C-u>Rmodel<Space>
+nnoremap [rails]h :<C-u>Rhelper<Space>
+nnoremap [rails]i :<C-u>Rinitializer<Space>
+nnoremap [rails]l :<C-u>Rlocale<Space>
+nnoremap [rails]e :<C-u>Renvironment<Space>
+nnoremap [rails]s :<C-u>Rschema<Return>
+
+
+" vim-fugitive "{{{2
+nnoremap [git] <Nop>
+nmap [Space]g [git]
+nnoremap [git]c :<C-u>Gcommit<Return>
+nnoremap [git]d :<C-u>Gdiff<Return>
+nnoremap [git]s :<C-u>Gvsplit :<Return>
+nnoremap [git]e :<C-u>Gedit :<Return>
+nnoremap [git]b :<C-u>Gblame<Return>
+
+
+" vim-smartword "{{{2
+map w <Plug>(smartword-w)
+map b <Plug>(smartword-b)
+map e <Plug>(smartword-e)
+map ge <Plug>(smartword-ge)
+noremap ,w w
+noremap ,b b
+noremap ,e e
+noremap ,ge ge
 
 
 " Others "{{{1
@@ -612,6 +605,8 @@ autocmd MyAutoCmd TabEnter *
 " suspend automatic cd with screen, by kana "{{{2
 command! -bar -nargs=0 SuspendWithAutomaticCD
 \ call s:PseudoSuspendWithAutomaticCD()
+
+noremap <silent> <C-z>  :<C-u>SuspendWithAutomaticCD<Return>
 
 if !exists('s:gnu_screen_available_p')
   if has('gui_running')
