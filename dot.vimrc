@@ -108,7 +108,7 @@ if has('iconv')
   unlet s:enc_jis
 endif
 
-" Options {{{2
+" Options {{{1
 "set number
 set ambiwidth=double
 set autoindent
@@ -132,8 +132,8 @@ if exists('+guicursor')
   set guicursor=a:blinkwait5000-blinkon2500-blinkwait1250
 endif
 if has('gui_macvim')
-  set guifont=Ricty\ Discord\ Regular\ for\ Powerline:h18
-  set guifontwide=Ricty\ Discord\ Regular\ for\ Powerline:h18
+  set guifont=Ricty\ Diminished\ Discord\ Regular:h18
+  set guifontwide=Ricty\ Diminished\ Discord\ Regular:h18
 elseif has('win32') || has('win64')
   set guifont=Bitstream_Vera_Sans_Mono:h11
   set guifontwide=MS_Gothic:h11
@@ -161,17 +161,20 @@ end
 set imsearch=0
 set incsearch
 set laststatus=2
+set linespace=1
 set list
 set listchars=tab:>.
 set modeline
 set modelines=5
 set mouse=
+set noshowmode
 set ruler
 set showcmd
 set showtabline=2
 set shellslash
 set smartindent
 set splitbelow
+set splitright
 "set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L
 set ttimeoutlen=50
