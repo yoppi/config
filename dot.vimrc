@@ -297,8 +297,6 @@ tnoremap <C-w>c <C-w><C-c>
 " tag jump
 nnoremap [tag] <Nop>
 nmap t [tag]
-nnoremap [tag]t <C-]>
-vnoremap [tag]t <C-]>
 nnoremap <silent>[tag]j :<C-u>tag<Return>
 nnoremap <silent>[tag]k :<C-u>pop<Return>
 nnoremap <silent>[tag]l :<C-u>tags<Return>
@@ -409,16 +407,45 @@ if executable('gopls')
   autocmd FileType go setlocal omnifunc=lsp#complete
 endif
 
+function! s:lsp_def_with_stack() abort
+  let l:tagstack = gettagstack()
+  let l:tagname = expand('<cword>')
+  let l:bufnr = bufnr('%')
+  let l:pos = getpos('.')
+
+  execute("LspDefinition")
+
+  if l:tagstack.curidx == 1
+    let l:action = 'r'
+    let l:length = 1
+    let l:curidx = l:tagstack.curidx + 1
+  else
+    let l:action = 'a'
+    let l:length = l:tagstack.length + 1
+    let l:curidx = l:tagstack.curidx + 1
+  endif
+
+  let l:pos[0] = l:bufnr
+  let l:newtag = [{'tagname': l:tagname, 'from': l:pos, 'bufnr': bufnr("%")}]
+  call settagstack(win_getid(),
+        \ {'length': l:length, 'curidx': l:curidx, 'items': l:newtag},
+        \ l:action)
+endfunction
+
+command! LspDefinitionWithStack call s:lsp_def_with_stack()
+nnoremap <C-]> :<C-u>call <SID>lsp_def_with_stack()<Return>
+nnoremap <C-[> :<C-u>pop<Return>
 
 
 " vim-go "{{{2
-let g:go_fmt_command = 'goimports'
-let g:go_list_type = 'quickfix'
+let g:go_def_mapping_enabled = 0
 let g:go_def_mode = 'gopls'
-let g:go_info_mode = 'gopls'
-let g:go_updatetime = 800
-let g:go_jump_to_error = 1
+let g:go_fmt_command = 'goimports'
 let g:go_gocode_autobuild = 0
+let g:go_info_mode = 'gopls'
+let g:go_jump_to_error = 1
+let g:go_list_type = 'quickfix'
+let g:go_updatetime = 800
 
 
 " nerdtree "{{{2
