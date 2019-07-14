@@ -388,6 +388,7 @@ doautocmd MyAutoCmd ColorScheme * _
 let g:lsp_async_completion = 1
 let g:lsp_log_file = expand('~/tmp/vim-lsp.log')
 let g:lsp_log_verbose = 1
+let g:lsp_diagnostics_enabled = 0
 
 if executable('pyls')
   autocmd User lsp_setup call lsp#register_server({
