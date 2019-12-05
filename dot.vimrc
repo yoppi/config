@@ -2,11 +2,17 @@
 set nocompatible
 
 " set $PATH
-let $PATH = $HOME.'/local/bin:'. $HOME.'/bin:' . $HOME.'/.rbenv/shims:' . $HOME.'/.pyenv/shims:' . $PATH
+let $PATH =
+  \ $HOME.'/local/bin:' .
+  \ $HOME.'/bin:' .
+  \ $HOME.'/.rbenv/shims:' .
+  \ $HOME.'/.pyenv/shims:' .
+  \ $HOME.'/.nodenv/shims:' .
+  \ $PATH
 
 " use Python3
-set pythonthreehome=$HOME/.pyenv/versions/3.7.2
-set pythonthreedll=$HOME/.pyenv/versions/3.7.2/lib/libpython3.7m.dylib
+set pythonthreehome=$HOME/.pyenv/versions/3.7.4
+set pythonthreedll=$HOME/.pyenv/versions/3.7.4/lib/libpython3.7m.dylib
 if has('python3')
   " nop
 endif
