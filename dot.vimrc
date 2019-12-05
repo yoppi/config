@@ -509,9 +509,9 @@ nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
 
 " ctrlp.vim "{{{2
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:15,results:15'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:100,results:15'
 let g:ctrlp_max_files = 100000
-let g:ctrlp_mruf_max = 1000
+let g:ctrlp_mruf_max = 10000
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_prompt_mappings = {
   \ 'PrtBS()': ['<c-h>', '<bs>'],
