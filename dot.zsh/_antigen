@@ -10,6 +10,4 @@ antigen bundle go
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-#antigen theme ys
-
 antigen apply

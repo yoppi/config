@@ -1,7 +1,8 @@
 # Prologue #{{{1
 
-# load antigen settings
+# load antigen
 [ -f ~/.zsh/_antigen ] && source ~/.zsh/_antigen
+# load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 bindkey -e
@@ -21,7 +22,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=4294967295
 SAVEHIST=4294967295
 
-# environment variables
+# Environments#{{{1
 export LANG=ja_JP.UTF-8
 export SVN_EDITOR=vim
 
@@ -34,12 +35,52 @@ case ${OSTYPE} in
     ;;
 esac
 
-# for fakeclip.vim
+## for fakeclip.vim
 case $OSTYPE in
   darwin*)
     export __CF_USER_TEXT_ENCODING=0x1F5:0x08000100:0
   ;;
 esac
+
+## PATH
+if [ -d /usr/local/bin ]; then
+  export PATH=/usr/local/bin:$PATH
+fi
+
+if [ -d /usr/local/opt/python/libexec/bin ]; then
+  export PATH=/usr/local/opt/python/libexec/bin:$PATH
+fi
+
+if [ -d $HOME/.cabal/bin ]; then
+  export PATH=$HOME/.cabal/bin:$PATH
+fi
+
+if [ -d $HOME/.rbenv ]; then
+  export PATH=$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH
+  eval "$(rbenv init -)"
+fi
+
+if [ -d $HOME/.pyenv ]; then
+  export PATH=$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH
+  eval "$(pyenv init -)"
+fi
+
+if [ -d $HOME/local/go/1.12.3 ]; then
+  export GOPATH=$HOME
+  export GOROOT=$HOME/local/go/1.12.3
+fi
+
+if [ -d $HOME/local/bin ]; then
+  export PATH=$HOME/local/bin:$PATH
+fi
+
+if [ -d $HOME/bin ]; then
+  export PATH=$HOME/bin:$PATH
+fi
+
+if [ -d /usr/local/lib ]; then
+  export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+fi
 
 # Options #{{{1
 # auto change directory
@@ -139,50 +180,10 @@ bindkey "^n" history-beginning-search-forward-end
 bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 
-# Coloring #{{{1
+# Colors #{{{1
 zstyle ':completion:*' list-colors ''
 
-# PATH #{{{1
-if [ -d /usr/local/bin ]; then
-  export PATH=/usr/local/bin:$PATH
-fi
-
-if [ -d /usr/local/opt/python/libexec/bin ]; then
-  export PATH=/usr/local/opt/python/libexec/bin:$PATH
-fi
-
-if [ -d $HOME/.cabal/bin ]; then
-  export PATH=$HOME/.cabal/bin:$PATH
-fi
-
-if [ -d $HOME/.rbenv ]; then
-  export PATH=$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH
-  eval "$(rbenv init -)"
-fi
-
-if [ -d $HOME/.pyenv ]; then
-  export PATH=$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH
-  eval "$(pyenv init -)"
-fi
-
-if [ -d $HOME/local/go/1.12.3 ]; then
-  export GOPATH=$HOME
-  export GOROOT=$HOME/local/go/1.12.3
-fi
-
-if [ -d $HOME/local/bin ]; then
-  export PATH=$HOME/local/bin:$PATH
-fi
-
-if [ -d $HOME/bin ]; then
-  export PATH=$HOME/bin:$PATH
-fi
-
-if [ -d /usr/local/lib ]; then
-  export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-fi
-
-# Utils {{{1
+# Functions {{{1
 # up to home in git repository
 function gu() {
   local cdup="./`git rev-parse --show-cdup`"
