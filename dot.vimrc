@@ -479,14 +479,14 @@ let vimclojure#NailgunClient = "ng"
 
 " qfixhowm "{{{2
 let g:QFixHowm_Key = 'g'
-let g:howm_dir = '/Users/hirokazu.yoshida/Dropbox/howm'
-let g:qfixmemo_dir = '/Users/hirokazu.yoshida/Dropbox/howm'
+let g:howm_dir = $HOME . '/Dropbox/howm'
+let g:qfixmemo_dir = $HOME .'/Dropbox/howm'
 let g:qfixmemo_ext = 'md'
 let g:qfixmemo_fileencoding  = 'utf-8'
 let g:qfixmemo_fileformat = 'unix'
 let g:qfixmemo_filename = '%Y/%m/%Y-%m-%d-%H%M%S.md'
 let g:qfixmemo_filetype = 'markdown'
-let g:QFixMRU_Filename = '/Users/hirokazu.yoshida/Dropbox/howm/.qfixmru'
+let g:QFixMRU_Filename = $HOME . '/Dropbox/howm/.qfixmru'
 let g:QFixMRU_RootDir = qfixmemo_dir
 
 
