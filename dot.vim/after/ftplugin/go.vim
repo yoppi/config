@@ -1,5 +1,5 @@
 if $GOROOT == ""
-  let $GOROOT = $HOME."/local/go/1.12.3"
+  let $GOROOT = $HOME."/local/go/1.13.5"
 end
 
 if $GOPATH == ""
