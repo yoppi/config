@@ -77,7 +77,7 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-" Auto encoding discrimination "{{{1
+" Auto encoding "{{{1
 set encoding=utf-8
 if has('iconv')
   let s:enc_euc = 'euc-jp'
@@ -96,7 +96,7 @@ if has('iconv')
     let &fileencodings = &fileencodings . ',' . 'ucs-2'
   endif
 
-  if &fileencodings ==# 'utf-8'
+  if &encoding ==# 'utf-8'
     let &fileencodings = &fileencodings . ',' . s:enc_euc
     let &fileencodings = &fileencodings . ',' . 'cp932'
   elseif &encoding =~# '^euc-\%(jp\|jisx0213\)$'
