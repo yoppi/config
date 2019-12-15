@@ -11,8 +11,9 @@ let $PATH =
   \ $PATH
 
 " use Python3
-set pythonthreehome=$HOME/.pyenv/versions/3.7.4
-set pythonthreedll=$HOME/.pyenv/versions/3.7.4/lib/libpython3.7m.dylib
+" loading as firster
+set pythonthreehome=$HOME/.pyenv/versions/3.7.5
+set pythonthreedll=$HOME/.pyenv/versions/3.7.5/lib/libpython3.7m.dylib
 if has('python3')
   " nop
 endif
