@@ -98,10 +98,12 @@ if has('iconv')
   endif
 
   if &encoding ==# 'utf-8'
+    let &fileencodings = &fileencodings . ',' . 'utf-8'
     let &fileencodings = &fileencodings . ',' . s:enc_euc
     let &fileencodings = &fileencodings . ',' . 'cp932'
   elseif &encoding =~# '^euc-\%(jp\|jisx0213\)$'
     let &encoding = s:enc_euc
+    let &fileencodings = &fileencodings . ',' . s:enc_euc
     let &fileencodings = &fileencodings . ',' . 'utf-8'
     let &fileencodings = &fileencodings . ',' . 'cp932'
   else
@@ -109,7 +111,6 @@ if has('iconv')
     let &fileencodings = &fileencodings . ',' . s:enc_euc
     let &fileencodings = &fileencodings . ',' . s:enc_jis
   endif
-  let &fileencodings = &fileencodings . ',' . &encoding
 
   unlet s:enc_euc
   unlet s:enc_jis
