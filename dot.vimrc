@@ -398,6 +398,7 @@ let g:lsp_log_file = expand('~/tmp/vim-lsp.log')
 let g:lsp_log_verbose = 1
 let g:lsp_diagnostics_enabled = 0
 
+" Python
 if executable('pyls')
   autocmd User lsp_setup call lsp#register_server({
     \ 'name': 'pyls',
@@ -407,6 +408,7 @@ if executable('pyls')
   autocmd FileType python setlocal omnifunc=lsp#complete
 endif
 
+" Go
 if executable('gopls')
   autocmd User lsp_setup call lsp#register_server({
     \ 'name': 'gopls',
@@ -416,6 +418,7 @@ if executable('gopls')
   autocmd FileType go setlocal omnifunc=lsp#complete
 endif
 
+" back to callpoint
 function! s:lsp_def_with_stack() abort
   let l:tagstack = gettagstack()
   let l:tagname = expand('<cword>')
@@ -567,7 +570,7 @@ noremap ,ge ge
 
 
 " Others "{{{1
-" Tabline, by kana {{{2
+" set tabline by kana {{{2
 function! s:set_tabline()
   let s = ''
   for i in range(1, tabpagenr('$'))
@@ -599,49 +602,25 @@ endfunction
 let &tabline = '%!' . s:SID() . 'set_tabline()'
 
 
+" edit encoding commadns by kana "{{{2
+command! -bang -bar -complete=file -nargs=? Utf8
+\ edit<bang> ++enc=utf-8 <args>
+command! -bang -bar -complete=file -nargs=? Eucjp
+\ edit<bang> ++enc=euc-jp <args>
+command! -bang -bar -complete=file -nargs=? Cp932
+\ edit<bang> ++enc=cp932 <args>
+command! -bang -bar -complete=file -nargs=? Iso2022jp
+\ edit<bang> ++enc=iso-2022-jp <args>
+command! -bang -bar -complete=file -nargs=? Jis  Iso2022jp<bang> <args>
+command! -bang -bar -complete=file -nargs=? Sjis  Cp932<bang> <args>
+
+" Rename current file, by ujihisa
+command! -nargs=1 -complete=file Rename
+\   file <args>
+\ | call delete(expand('#'))
 
 
-" move to previous working tabpage "{{{2
-command! -bar -nargs=0 TabPreWork call s:tabprework()
-function! s:tabprework()
-  " Wrapper for my own built-in command :tabprework.
-  if exists(':tabprework') == 2
-    execute 'tabprework'
-  else
-    execute 'tabnext ' . g:pre_tabnr
-  endif
-endfunction
-
-" memorize previous tabpage number
-" Enter the new tabpage, action is defined follow:
-"     WinLeave
-"     TabLeave
-"     TabEnter
-"     WinEnter
-"     BufLeave
-"     BufEnter
-" when switching to another tab page, the action order is:
-"     BufLeave
-"     WinLeave
-"     TabLeave
-"     TabEnter
-"     WinEnter
-"     BufEnter
-" If you want to get more infomation, see ':help tabpage'
-if !exists('g:pre_tabnr')
-  let g:pre_tabnr = tabpagenr()
-endif
-if !exists('g:cur_tabnr')
-  let g:cur_tabnr = tabpagenr()
-endif
-
-autocmd MyAutoCmd TabLeave *
-\ let g:pre_tabnr = g:cur_tabnr
-autocmd MyAutoCmd TabEnter *
-\ let g:cur_tabnr = tabpagenr()
-
-
-" suspend automatic cd with screen, by kana "{{{2
+" suspend automatic cd with screen by kana "{{{2
 command! -bar -nargs=0 SuspendWithAutomaticCD
 \ call s:PseudoSuspendWithAutomaticCD()
 
@@ -693,50 +672,8 @@ function! s:check_process(name)
   "redir END
 endfunction
 
-" edit encoding commadns, by kana "{{{2
-command! -bang -bar -complete=file -nargs=? Utf8
-\ edit<bang> ++enc=utf-8 <args>
-command! -bang -bar -complete=file -nargs=? Eucjp
-\ edit<bang> ++enc=euc-jp <args>
-command! -bang -bar -complete=file -nargs=? Cp932
-\ edit<bang> ++enc=cp932 <args>
-command! -bang -bar -complete=file -nargs=? Iso2022jp
-\ edit<bang> ++enc=iso-2022-jp <args>
-command! -bang -bar -complete=file -nargs=? Jis  Iso2022jp<bang> <args>
-command! -bang -bar -complete=file -nargs=? Sjis  Cp932<bang> <args>
 
-" Rename current file, by ujihisa
-command! -nargs=1 -complete=file Rename
-\   file <args>
-\ | call delete(expand('#'))
-
-" remove the last spaces of lines "{{{2
-command! -bar DeleteLastSpacesEachLine %s/\s\+$//e
-function! s:DeleteLastSpacesEachLine()
-  let save_cursor = getpos('.')
-  DeleteLastSpacesEachLine
-  call setpos('.', save_cursor)
-endfunction
-
-" check highlighing {{{2
-command! -nargs=0 GetHighlightingGroup
-\ echo 'hi<' . synIDattr(synID(line('.'),col('.'),1),'name') . '> trans<' . synIDattr(synID(line('.'),col('.'),0),'name') . '> lo<' . synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name') . '>'
-
-" auto buffer update {{{2
-function! s:AutoUpdate()
-  if expand('%') =~ s:savebuf_regex && !&readonly && &buftype == ''
-    silent update
-  endif
-endfunction
-
-autocmd MyAutoCmd CursorHold * nested call s:AutoUpdate()
-autocmd MyAutoCmd BufWritePre * call s:DeleteLastSpacesEachLine()
-set updatetime=500
-if !exists('s:savebuf_regex')
-  let s:savebuf_regex = '.\+'
-endif
-
-" move the current window into specified tab. Thanks kana. {{{2
+" move the current window into specified tab by kana {{{2
 command! -bar -nargs=0 MoveWinTab call
 \ s:move_window_into_tabpage(s:ask_tabpage_number())
 function! s:move_window_into_tabpage(target_tabpagenr)
@@ -787,7 +724,76 @@ function! s:ask_tabpage_number()
   endif
 endfunction
 
-" Git branch name "{{{2
+" move to previous working tabpage "{{{2
+command! -bar -nargs=0 TabPreWork call s:tabprework()
+function! s:tabprework()
+  " Wrapper for my own built-in command :tabprework.
+  if exists(':tabprework') == 2
+    execute 'tabprework'
+  else
+    execute 'tabnext ' . g:pre_tabnr
+  endif
+endfunction
+
+" memorize previous tabpage number
+" Enter the new tabpage, action is defined follow:
+"     WinLeave
+"     TabLeave
+"     TabEnter
+"     WinEnter
+"     BufLeave
+"     BufEnter
+" when switching to another tab page, the action order is:
+"     BufLeave
+"     WinLeave
+"     TabLeave
+"     TabEnter
+"     WinEnter
+"     BufEnter
+" If you want to get more infomation, see ':help tabpage'
+if !exists('g:pre_tabnr')
+  let g:pre_tabnr = tabpagenr()
+endif
+if !exists('g:cur_tabnr')
+  let g:cur_tabnr = tabpagenr()
+endif
+
+autocmd MyAutoCmd TabLeave *
+\ let g:pre_tabnr = g:cur_tabnr
+autocmd MyAutoCmd TabEnter *
+\ let g:cur_tabnr = tabpagenr()
+
+
+" remove the last spaces of lines "{{{2
+command! -bar DeleteLastSpacesEachLine %s/\s\+$//e
+function! s:DeleteLastSpacesEachLine()
+  let save_cursor = getpos('.')
+  DeleteLastSpacesEachLine
+  call setpos('.', save_cursor)
+endfunction
+
+
+" check highlighing {{{2
+command! -nargs=0 GetHighlightingGroup
+\ echo 'hi<' . synIDattr(synID(line('.'),col('.'),1),'name') . '> trans<' . synIDattr(synID(line('.'),col('.'),0),'name') . '> lo<' . synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name') . '>'
+
+
+" update buffer automatically {{{2
+function! s:AutoUpdate()
+  if expand('%') =~ s:savebuf_regex && !&readonly && &buftype == ''
+    silent update
+  endif
+endfunction
+
+autocmd MyAutoCmd CursorHold * nested call s:AutoUpdate()
+autocmd MyAutoCmd BufWritePre * call s:DeleteLastSpacesEachLine()
+set updatetime=500
+if !exists('s:savebuf_regex')
+  let s:savebuf_regex = '.\+'
+endif
+
+
+" get git branch name "{{{2
 let s:_git_branch_name_cache = {} " dir_path = [branch_name, key_file_mtime]
 
 function! s:git_branch_name(dir)
