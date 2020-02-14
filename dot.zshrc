@@ -55,6 +55,10 @@ if [ -d $HOME/.cabal/bin ]; then
   export PATH=$HOME/.cabal/bin:$PATH
 fi
 
+if [ -d $HOME/.nodenv ]; then
+  export PATH=$HOME/.nodenv/shims:$PATH
+fi
+
 if [ -d $HOME/.rbenv ]; then
   export PATH=$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH
   eval "$(rbenv init -)"
@@ -65,9 +69,9 @@ if [ -d $HOME/.pyenv ]; then
   eval "$(pyenv init -)"
 fi
 
-if [ -d $HOME/local/go/1.13.5 ]; then
+if [ -d $HOME/local/go/1.13.8 ]; then
   export GOPATH=$HOME
-  export GOROOT=$HOME/local/go/1.13.5
+  export GOROOT=$HOME/local/go/1.13.8
 fi
 
 if [ -d $HOME/local/bin ]; then
