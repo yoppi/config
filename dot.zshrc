@@ -12,7 +12,7 @@ bindkey '' backward-delete-char
 bindkey '[3~' backward-delete-char
 
 # completion
-autoload -U compinit && compinit
+autoload -U compinit && compinit -u
 
 # zsh editor
 autoload -U zed
@@ -159,6 +159,7 @@ alias r="rails"
 alias t="tmux"
 alias ta="tmux -2 attach -dt"
 alias tn="tmux -2 new -s"
+compdef t=tmux
 
 # for git
 alias g="git"
@@ -169,6 +170,7 @@ alias f="git fetch"
 alias gg="git grep -n"
 alias l="git log --pretty=oneline2"
 alias s="git status -sb"
+compdef g=git
 
 # for secure!
 alias cp="cp -i"
