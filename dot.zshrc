@@ -69,9 +69,9 @@ if [ -d $HOME/.pyenv ]; then
   eval "$(pyenv init -)"
 fi
 
-if [ -d $HOME/local/go/1.13.8 ]; then
+if [ -d $HOME/local/go/1.14.4 ]; then
   export GOPATH=$HOME
-  export GOROOT=$HOME/local/go/1.13.8
+  export GOROOT=$HOME/local/go/1.14.4
 fi
 
 if [ -d $HOME/local/bin ]; then
