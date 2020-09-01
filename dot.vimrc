@@ -399,6 +399,7 @@ let g:lsp_async_completion = 1
 let g:lsp_log_file = expand('~/tmp/vim-lsp.log')
 let g:lsp_log_verbose = 1
 let g:lsp_diagnostics_enabled = 0
+let g:asyncomplete_log_file = expand('~/tmp/asyncomplete.log')
 
 " Python
 if executable('pyls')
