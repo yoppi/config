@@ -24,7 +24,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/linediff.vim'
 Plug 'LeafCage/yankround.vim'
 Plug 'cakebaker/scss-syntax.vim'
-Plug 'fatih/vim-go'
 Plug 'fatih/vim-hclfmt'
 Plug 'fisadev/vim-isort'
 Plug 'flowtype/vim-flow'
@@ -414,6 +413,15 @@ if executable('gopls')
     \ 'name': 'gopls',
     \ 'cmd': { server_info -> ['gopls', '-mode', 'stdio'] },
     \ 'whitelist': ['go'],
+    \ 'workspace_config': {'gopls': {
+    \     'staticcheck': v:true,
+    \     'completeUnimported': v:true,
+    \     'caseSensitiveCompletion': v:true,
+    \     'usePlaceholders': v:true,
+    \     'completionDocumentation': v:true,
+    \     'watchFileChanges': v:true,
+    \     'hoverKind': 'SingleLine',
+    \   }},
     \ })
   autocmd FileType go setlocal omnifunc=lsp#complete
 endif
@@ -449,15 +457,6 @@ nnoremap <C-]> :<C-u>call <SID>lsp_def_with_stack()<Return>
 nnoremap <C-[> :<C-u>pop<Return>
 
 
-" vim-go "{{{2
-let g:go_def_mapping_enabled = 0
-let g:go_def_mode = 'gopls'
-let g:go_fmt_command = 'goimports'
-let g:go_gocode_autobuild = 0
-let g:go_info_mode = 'gopls'
-let g:go_jump_to_error = 1
-let g:go_list_type = 'quickfix'
-let g:go_updatetime = 800
 
 
 " nerdtree "{{{2
