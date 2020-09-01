@@ -6,7 +6,7 @@ antigen bundle autojump
 antigen bundle docker
 antigen bundle git
 antigen bundle git-flow
-antigen bundle go
+antigen bundle golang
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
 
