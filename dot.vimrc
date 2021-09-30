@@ -10,10 +10,14 @@ let $PATH =
   \ $HOME.'/.nodenv/shims:' .
   \ $PATH
 
+"let $PYTHONPATH =
+"  \ $HOME . 'src/github.com/<repos>:' .
+"  \ $PYTHONPATH
+
 " use Python3
 " loading as firster
-set pythonthreehome=$HOME/.pyenv/versions/3.7.7
-set pythonthreedll=$HOME/.pyenv/versions/3.7.7/lib/libpython3.7m.dylib
+set pythonthreehome=$HOME/.pyenv/versions/3.8.6
+set pythonthreedll=$HOME/.pyenv/versions/3.8.6/lib/libpython3.8.a
 if has('python3')
   " nop
 endif
@@ -24,6 +28,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/linediff.vim'
 Plug 'LeafCage/yankround.vim'
 Plug 'cakebaker/scss-syntax.vim'
+Plug 'chr4/nginx.vim'
 Plug 'fatih/vim-hclfmt'
 Plug 'fisadev/vim-isort'
 Plug 'flowtype/vim-flow'
@@ -32,6 +37,7 @@ Plug 'gregsexton/gitv'
 Plug 'hashivim/vim-terraform'
 Plug 'hukl/Smyck-Color-Scheme'
 Plug 'itchyny/lightline.vim'
+Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-smartchr'
@@ -41,9 +47,11 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'kien/ctrlp.vim'
 Plug 'lepture/vim-velocity'
 Plug 'mattn/vim-goimports'
+Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-startify'
 Plug 'natebosch/vim-lsc'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'noahfrederick/vim-hemisu'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
@@ -133,8 +141,8 @@ set formatoptions=tcroqMm
 if exists('+fuoptions')
   set fuoptions=maxvert,maxhorz
 endif
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
+if executable('rg')
+  set grepprg=rg
 endif
 if exists('+guicursor')
   set guicursor=a:blinkwait5000-blinkon2500-blinkwait1250
@@ -395,7 +403,23 @@ doautocmd MyAutoCmd ColorScheme * _
 
 
 " Plugin Settings "{{{1
+" coc.nvim "{{{2
+" Use `[g` and `]g` to navigate diagnostics
+
+" Remap keys for gotos
+nmap <silent> <C-]> <Plug>(coc-definition)
+nmap <silent> <C-[> <C-o>
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
+
+
+
 " vim-lsp "{{{2
+let g:asyncomplete_enable_for_all = 0
+let g:lsp_auto_enable = 0
 let g:lsp_async_completion = 1
 let g:lsp_log_file = expand('~/tmp/vim-lsp.log')
 let g:lsp_log_verbose = 1
@@ -403,11 +427,17 @@ let g:lsp_diagnostics_enabled = 0
 let g:asyncomplete_log_file = expand('~/tmp/asyncomplete.log')
 
 " Python
-if executable('pyls')
+if executable('pylsp')
   autocmd User lsp_setup call lsp#register_server({
-    \ 'name': 'pyls',
-    \ 'cmd': { server_info -> ['pyls'] },
+    \ 'name': 'pylsp',
+    \ 'cmd': { server_info -> ['pylsp'] },
     \ 'whitelist': ['python'],
+    \ 'workspace_config': {'pylsp': {
+    \   'jedi_definition': {
+    \     'follow_imports': v:true,
+    \     'follow_builtin_imports': v:true,
+    \     },
+    \   }},
     \ })
   autocmd FileType python setlocal omnifunc=lsp#complete
 endif
@@ -421,10 +451,9 @@ if executable('gopls')
     \ 'workspace_config': {'gopls': {
     \     'staticcheck': v:true,
     \     'completeUnimported': v:true,
-    \     'caseSensitiveCompletion': v:true,
+    \     'matcher': v:true,
     \     'usePlaceholders': v:true,
     \     'completionDocumentation': v:true,
-    \     'watchFileChanges': v:true,
     \     'hoverKind': 'SingleLine',
     \   }},
     \ })
@@ -458,8 +487,8 @@ function! s:lsp_def_with_stack() abort
 endfunction
 
 command! LspDefinitionWithStack call s:lsp_def_with_stack()
-nnoremap <C-]> :<C-u>call <SID>lsp_def_with_stack()<Return>
-nnoremap <C-[> :<C-u>pop<Return>
+"nnoremap <C-]> :<C-u>call <SID>lsp_def_with_stack()<Return>
+"nnoremap <C-[> :<C-u>pop<Return>
 
 
 
@@ -518,9 +547,10 @@ nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
 
 " ctrlp.vim "{{{2
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:100,results:15'
-let g:ctrlp_max_files = 100000
-let g:ctrlp_mruf_max = 10000
+let g:ctrlp_max_files = 1000000
+let g:ctrlp_mruf_max = 100000
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_prompt_mappings = {
   \ 'PrtBS()': ['<c-h>', '<bs>'],
@@ -791,7 +821,7 @@ endfunction
 
 autocmd MyAutoCmd CursorHold * nested call s:AutoUpdate()
 autocmd MyAutoCmd BufWritePre * call s:DeleteLastSpacesEachLine()
-set updatetime=500
+set updatetime=300
 if !exists('s:savebuf_regex')
   let s:savebuf_regex = '.\+'
 endif
