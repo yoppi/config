@@ -69,9 +69,12 @@ if [ -d $HOME/.pyenv ]; then
   eval "$(pyenv init -)"
 fi
 
-if [ -d $HOME/local/go/1.14.6 ]; then
+if [ -d $HOME/.goenv ]; then
+  export GOENV_ROOT=$HOME/.goenv
+  export PATH=$GOENV_ROOT/bin:$PATH
+  export GOENV_DISABLE_GOPATH=1
   export GOPATH=$HOME
-  export GOROOT=$HOME/local/go/1.14.6
+  eval "$(goenv init -)"
 fi
 
 if [ -d $HOME/local/bin ]; then

@@ -8,6 +8,7 @@ let $PATH =
   \ $HOME.'/.rbenv/shims:' .
   \ $HOME.'/.pyenv/shims:' .
   \ $HOME.'/.nodenv/shims:' .
+  \ $HOME.'/.goenv/shims:' .
   \ $PATH
 
 "let $PYTHONPATH =

@@ -1,2 +1,2 @@
-let $GOROOT = $HOME."/local/go/1.14.6"
+let $GOROOT = $HOME.".goenv/versions/1.17.7"
 let $GOPATH = $HOME
