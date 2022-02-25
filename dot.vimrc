@@ -39,6 +39,8 @@ Plug 'hashivim/vim-terraform'
 Plug 'hukl/Smyck-Color-Scheme'
 Plug 'itchyny/lightline.vim'
 Plug 'jremmen/vim-ripgrep'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-smartchr'
