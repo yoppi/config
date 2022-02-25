@@ -407,6 +407,29 @@ doautocmd MyAutoCmd ColorScheme * _
 
 
 " Plugin Settings "{{{1
+" fzf.vim "{{{2
+nnoremap <silent> <Leader>gg :<C-u>silent call <SID>find_with_gg()<CR>
+function! s:find_with_gg() abort
+  call fzf#vim#grep(
+    \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+    \   1,
+    \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'),
+    \   0,
+    \ )
+endfunction
+
+nnoremap <silent> <Leader>rg :<C-u>silent call <SID>find_with_rg()<CR>
+function! s:find_with_rg() abort
+  call fzf#vim#grep(
+    \   'rg --ignore-file ~/.ignore --column --line-number --no-heading --hidden --smart-case .+',
+    \   1,
+    \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'),
+    \   0,
+    \ )
+endfunction
+
+
+
 " coc.nvim "{{{2
 " Use `[g` and `]g` to navigate diagnostics
 
