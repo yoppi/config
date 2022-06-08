@@ -29,6 +29,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/linediff.vim'
 Plug 'LeafCage/yankround.vim'
 Plug 'cakebaker/scss-syntax.vim'
+Plug 'cespare/vim-toml'
 Plug 'chr4/nginx.vim'
 Plug 'fatih/vim-hclfmt'
 Plug 'fisadev/vim-isort'
