@@ -40,6 +40,7 @@ case $OSTYPE in
   darwin*)
     export __CF_USER_TEXT_ENCODING=0x1F5:0x08000100:0
     export HOMEBREW_NO_AUTO_UPDATE=1
+    export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
   ;;
 esac
 
