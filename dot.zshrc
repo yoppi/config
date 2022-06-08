@@ -203,6 +203,10 @@ function gu() {
   cd $cdup
 }
 
+function cb() {
+  echo $(git branch --show-current)
+}
+
 # move to home in mercurial repository
 function hu() {
   local cdup=`hg root`

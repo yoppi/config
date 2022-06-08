@@ -575,7 +575,7 @@ nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
 
 
 " ctrlp.vim "{{{2
-let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$' }
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)|node_modules$' }
 let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:100,results:15'
 let g:ctrlp_max_files = 1000000
