@@ -236,6 +236,7 @@ autocmd FileType sh setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
 autocmd FileType sql setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType terraform setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType tex setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType typescript setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType vim setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType xml setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType yaml setlocal expandtab softtabstop=2 shiftwidth=2
