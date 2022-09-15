@@ -1,0 +1,6 @@
+{
+  "go.goplsEnv": {
+    "GOENV_DISABLE_GOPATH": 1,
+    "GOPATH": "/Users/yoppi"
+  }
+}
