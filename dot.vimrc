@@ -390,7 +390,6 @@ unlet ostype
 
 " Color Syntax "{{{1
 syntax enable
-colorscheme hemisu
 
 set background=dark
 colorscheme hemisu
@@ -400,6 +399,9 @@ autocmd MyAutoCmd ColorScheme *
 \ | hi Pmenu ctermbg=8 guibg=#606060
 \ | hi PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
 \ | hi PmenuSbar ctermbg=0 guibg=#d6d6d6
+\ | hi CocFloating ctermbg=8 guibg=#606060
+\ | hi CocMenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+\ | hi CocFloatSbar ctermbg=0 guibg=#d6d6d6
 \ | hi Visual ctermfg=lightgray
 \ | hi TabLine ctermbg=gray ctermfg=black guibg=gray guifg=black
 \ | hi TabLineSel ctermbg=black ctermfg=white
@@ -441,6 +443,7 @@ nmap <silent> <C-[> <C-o>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+inoremap <silent><expr> <C-m> coc#pum#visible() ? coc#_select_confirm() : "\<C-m>"
 
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
 
