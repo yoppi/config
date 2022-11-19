@@ -173,7 +173,7 @@ alias b="git branch"
 alias d="git diff"
 alias f="git fetch"
 alias gg="git grep -n"
-alias l="git log --pretty=oneline2 --graph develop..HEAD"
+alias l="git log --pretty=oneline2"
 alias s="git status -sb"
 compdef g=git
 
