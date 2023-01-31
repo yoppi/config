@@ -87,6 +87,10 @@ if [ -d $HOME/bin ]; then
   export PATH=$HOME/bin:$PATH
 fi
 
+if [ -d $HOME/go/bin ]; then
+  export PATH=$HOME/go/bin:$PATH
+fi
+
 if [ -d /usr/local/lib ]; then
   export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 fi
