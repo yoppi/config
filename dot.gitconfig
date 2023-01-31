@@ -32,5 +32,7 @@
   date = local
 [pretty]
   oneline2 = %C(yellow)%h%C(cyan)%d%Creset %ci %C(green)%an%Creset - %s
+[rerere]
+  enabled = true
 
 # __END__
