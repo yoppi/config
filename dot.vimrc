@@ -443,6 +443,7 @@ nmap <silent> <C-[> <C-o>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gn <Plug>(coc-rename)
 inoremap <silent><expr> <C-m> coc#pum#visible() ? coc#_select_confirm() : "\<C-m>"
 
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
