@@ -2,5 +2,18 @@
   "go.goplsEnv": {
     "GOENV_DISABLE_GOPATH": 1,
     "GOPATH": "/Users/yoppi"
+  },
+  "jedi": {
+    "enable": true,
+    "startupMessage": false,
+    "executable.command": "~/.pyenv/shims/jedi-language-server"
+  },
+  "languageserver": {
+    "bufls": {
+         "command": "bufls",
+         "rootPatterns": ["buf.yaml"],
+         "args": ["serve"],
+         "filetypes": ["proto"]
+    }
   }
 }
