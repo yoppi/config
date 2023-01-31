@@ -636,6 +636,10 @@ noremap ,e e
 noremap ,ge ge
 
 
+" vim-startify "{{{2
+let g:startify_disable_at_vimenter = 1
+
+
 " Others "{{{1
 " set tabline by kana {{{2
 function! s:set_tabline()
