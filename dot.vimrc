@@ -5,6 +5,7 @@ set nocompatible
 let $PATH =
   \ $HOME.'/local/bin:' .
   \ $HOME.'/bin:' .
+  \ $HOME.'/go/bin:' .
   \ $HOME.'/.rbenv/shims:' .
   \ $HOME.'/.pyenv/shims:' .
   \ $HOME.'/.nodenv/shims:' .
@@ -17,8 +18,8 @@ let $PATH =
 
 " use Python3
 " loading as firster
-set pythonthreehome=$HOME/.pyenv/versions/3.8.6
-set pythonthreedll=$HOME/.pyenv/versions/3.8.6/lib/libpython3.8.a
+set pythonthreehome=$HOME/.pyenv/versions/3.10.6
+set pythonthreedll=$HOME/.pyenv/versions/3.10.6/lib/libpython3.10.a
 if has('python3')
   " nop
 endif
@@ -32,7 +33,6 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'cespare/vim-toml'
 Plug 'chr4/nginx.vim'
 Plug 'fatih/vim-hclfmt'
-"Plug 'fisadev/vim-isort'
 Plug 'flowtype/vim-flow'
 Plug 'fuenor/qfixhowm'
 Plug 'gregsexton/gitv'

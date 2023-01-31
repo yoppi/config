@@ -1,2 +1,2 @@
-let $GOROOT = $HOME.".goenv/versions/1.18.3"
+let $GOROOT = "/opt/homebrew/Cellar/go/1.19.3/libexec/"
 let $GOPATH = $HOME
