@@ -265,5 +265,19 @@ case "${OSTYPE}" in
   fi
 esac
 
+# tmux window name #{{{1
+function _tmux_update_window_name() {
+  if [ -n "$TMUX" ]; then
+    local repo_name=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -n "$repo_name" ]; then
+      tmux rename-window "$(basename $repo_name)"
+    else
+      tmux rename-window "$(basename $PWD)"
+    fi
+  fi
+}
+chpwd_functions+=(_tmux_update_window_name)
+_tmux_update_window_name
+
 # __END__ #{{{1
 # vim: filetype=zsh foldmethod=marker textwidth=78
