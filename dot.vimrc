@@ -18,8 +18,8 @@ let $PATH =
 
 " use Python3
 " loading as firster
-set pythonthreehome=$HOME/.pyenv/versions/3.10.6
-set pythonthreedll=$HOME/.pyenv/versions/3.10.6/lib/libpython3.10.a
+set pythonthreehome=$HOME/.pyenv/versions/3.14.0
+set pythonthreedll=$HOME/.pyenv/versions/3.14.0/lib/libpython3.14.dylib
 if has('python3')
   " nop
 endif
@@ -106,23 +106,16 @@ if has('iconv')
   " Make fileencodings
   let &fileencodings = 'ucs-bom'
   if &encoding !=# 'utf-8'
-    let &fileencodings = &fileencodings . ',' . 'ucs-2le'
-    let &fileencodings = &fileencodings . ',' . 'ucs-2'
+    let &fileencodings .= ',ucs-2le,ucs-2'
   endif
 
   if &encoding ==# 'utf-8'
-    let &fileencodings = &fileencodings . ',' . 'utf-8'
-    let &fileencodings = &fileencodings . ',' . s:enc_euc
-    let &fileencodings = &fileencodings . ',' . 'cp932'
+    let &fileencodings .= ',utf-8,' . s:enc_euc . ',cp932'
   elseif &encoding =~# '^euc-\%(jp\|jisx0213\)$'
     let &encoding = s:enc_euc
-    let &fileencodings = &fileencodings . ',' . s:enc_euc
-    let &fileencodings = &fileencodings . ',' . 'utf-8'
-    let &fileencodings = &fileencodings . ',' . 'cp932'
+    let &fileencodings .= ',' . s:enc_euc . ',utf-8,cp932'
   else
-    let &fileencodings = &fileencodings . ',' . 'utf-8'
-    let &fileencodings = &fileencodings . ',' . s:enc_euc
-    let &fileencodings = &fileencodings . ',' . s:enc_jis
+    let &fileencodings .= ',utf-8,' . s:enc_euc . ',' . s:enc_jis
   endif
 
   unlet s:enc_euc
@@ -130,7 +123,6 @@ if has('iconv')
 endif
 
 " Options {{{1
-"set number
 set ambiwidth=double
 set autoindent
 set backspace=indent,eol,start
@@ -147,7 +139,7 @@ if exists('+fuoptions')
   set fuoptions=maxvert,maxhorz
 endif
 if executable('rg')
-  set grepprg=rg
+  set grepprg=rg\ --vimgrep
 endif
 if exists('+guicursor')
   set guicursor=a:blinkwait5000-blinkon2500-blinkwait1250
@@ -189,6 +181,7 @@ set modeline
 set modelines=5
 set mouse=
 set noshowmode
+set number
 set ruler
 set showcmd
 set showtabline=2
@@ -204,7 +197,8 @@ if exists('+transparency')
 endif
 set t_Co=256
 set undodir=~/tmp,/tmp
-set vb t_vb=
+set visualbell
+set t_vb=
 set virtualedit+=block
 set wildmenu
 set wrap
@@ -238,6 +232,7 @@ autocmd FileType terraform setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType tex setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType typescript setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType vim setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd FileType vue setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType xml setlocal expandtab softtabstop=2 shiftwidth=2
 autocmd FileType yaml setlocal expandtab softtabstop=2 shiftwidth=2
 
@@ -309,8 +304,6 @@ nnoremap <Tab> <C-w>p
 vnoremap * y/<C-R>"<Return>
 vnoremap <C-l> <ESC>
 vnoremap <C-S-c> "+y
-nnoremap K <Nop>
-nnoremap K :silent! grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 
 " terminal
@@ -381,11 +374,9 @@ onoremap gc  :<C-u>normal gc<Enter>
 
 " My working Debian cannot recognize <C-h> as BackSpace in insert mode on
 " screen.
-let ostype = system("echo $OSTYPE")
-if ostype =~ "linux"
+if has('unix') && !has('mac')
   imap <C-h> <BS>
 endif
-unlet ostype
 
 
 " Color Syntax "{{{1
@@ -412,25 +403,23 @@ doautocmd MyAutoCmd ColorScheme * _
 
 " Plugin Settings "{{{1
 " fzf.vim "{{{2
-nnoremap <silent> <Leader>gg :<C-u>silent call <SID>find_with_gg()<CR>
-function! s:find_with_gg() abort
-  call fzf#vim#grep(
-    \   'git grep --line-number -- '.shellescape(<q-args>), 0,
-    \   1,
-    \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'),
-    \   0,
-    \ )
-endfunction
-
-nnoremap <silent> <Leader>rg :<C-u>silent call <SID>find_with_rg()<CR>
-function! s:find_with_rg() abort
-  call fzf#vim#grep(
-    \   'rg --ignore-file ~/.ignore --column --line-number --no-heading --hidden --smart-case .+',
-    \   1,
-    \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'),
-    \   0,
-    \ )
-endfunction
+let g:fzf_layout = {'down': '40%'}
+let g:fzf_preview_window = ['right:60%', '?']
+nnoremap [fzf] <Nop>
+nmap [Space]f [fzf]
+nnoremap <silent> [fzf]f :<C-u>GFiles<Return>
+nnoremap <silent> [fzf]a :<C-u>Files<Return>
+nnoremap <silent> [fzf]b :<C-u>Buffers<Return>
+nnoremap <silent> [fzf]m :<C-u>History<Return>
+nnoremap <silent> [fzf]l :<C-u>BLines<Return>
+nnoremap <silent> [fzf]c :<C-u>BCommits<Return>
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.fzf#shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%', '?'),
+  \   <bang>0)
+nnoremap <silent> [fzf]g :<C-u>GGrep<Return>
+nnoremap <silent> [fzf]r :<C-u>RG<Return>
 
 
 
@@ -444,6 +433,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gn <Plug>(coc-rename)
+nnoremap <silent> K :call CocActionAsync('doHover')<CR>
 inoremap <silent><expr> <C-m> coc#pum#visible() ? coc#_select_confirm() : "\<C-m>"
 
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
@@ -618,11 +608,11 @@ nnoremap [rails]s :<C-u>Rschema<Return>
 " vim-fugitive "{{{2
 nnoremap [git] <Nop>
 nmap [Space]g [git]
-nnoremap [git]c :<C-u>Gcommit<Return>
-nnoremap [git]d :<C-u>Gdiff<Return>
+nnoremap [git]c :<C-u>Git commit<Return>
+nnoremap [git]d :<C-u>Gdiffsplit<Return>
 nnoremap [git]s :<C-u>Gvsplit :<Return>
 nnoremap [git]e :<C-u>Gedit :<Return>
-nnoremap [git]b :<C-u>Gblame<Return>
+nnoremap [git]b :<C-u>Git blame<Return>
 
 
 " vim-smartword "{{{2

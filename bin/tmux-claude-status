@@ -1,0 +1,94 @@
+#!/bin/bash
+# tmux status bar script for Claude Code session info
+# Breathing animation: all text same color, cycles dark→bright over time
+
+# Green shades mid→bright→mid (10 steps, ~5 sec cycle at 0.5s resolution)
+# colour34 → colour40 → colour46 → colour82 → colour118 → colour154(bright) → 折り返し
+BREATHE=(34 40 46 82 118 154 118 82 46 40)
+
+# Use half-second resolution for smoother breathing
+# macOS date doesn't support %N, so use python for millisecond precision
+half_secs=$(python3 -c "import time; print(int(time.time() * 2))" 2>/dev/null || echo $(( $(date +%s) * 2 )))
+phase=$(( half_secs % ${#BREATHE[@]} ))
+current_color="colour${BREATHE[$phase]}"
+
+# Apply single color to entire string
+colorize() {
+  echo -n "#[fg=${current_color}]$1"
+}
+
+# Get claude PIDs with CPU usage
+proc_info=$(ps -o pid=,tty=,%cpu= -p $(pgrep -x claude 2>/dev/null | tr '\n' ',') 2>/dev/null)
+
+if [ -z "$proc_info" ]; then
+  echo "$(colorize 'CC:0')"
+  exit 0
+fi
+
+session_count=$(echo "$proc_info" | wc -l | tr -d ' ')
+
+# Find active (CPU > 1%) sessions and map to window names
+active_windows=""
+while IFS= read -r line; do
+  tty="/dev/$(echo "$line" | awk '{print $2}')"
+  cpu=$(echo "$line" | awk '{print $3}')
+
+  is_active=$(echo "$cpu > 1.0" | bc 2>/dev/null)
+  if [ "$is_active" = "1" ]; then
+    win_name=$(tmux list-panes -a -F '#{pane_tty} #{window_name}' 2>/dev/null | awk -v t="$tty" '$1 == t {print $2; exit}')
+    if [ -n "$win_name" ]; then
+      active_windows="${active_windows:+$active_windows,}${win_name}"
+    fi
+  fi
+done <<< "$proc_info"
+
+# Build label
+if [ -n "$active_windows" ]; then
+  label="CC:${session_count}[${active_windows}]"
+else
+  label="CC:${session_count}"
+fi
+
+# Find the most recent session JSONL file across all projects
+latest_session=$(ls -t ~/.claude/projects/*/[0-9a-f]*.jsonl 2>/dev/null | head -1)
+
+if [ -z "$latest_session" ]; then
+  echo "$(colorize "$label")"
+  exit 0
+fi
+
+# Sum up token usage from the session file
+tokens=$(python3 -c "
+import json, sys
+
+input_tokens = 0
+output_tokens = 0
+
+with open('$latest_session') as f:
+    for line in f:
+        try:
+            d = json.loads(line.strip())
+            if 'message' in d and 'usage' in d.get('message', {}):
+                u = d['message']['usage']
+                input_tokens += u.get('input_tokens', 0)
+                input_tokens += u.get('cache_creation_input_tokens', 0)
+                input_tokens += u.get('cache_read_input_tokens', 0)
+                output_tokens += u.get('output_tokens', 0)
+        except:
+            pass
+
+def fmt(n):
+    if n >= 1000000:
+        return f'{n/1000000:.1f}M'
+    elif n >= 1000:
+        return f'{n/1000:.1f}K'
+    return str(n)
+
+print(f'in:{fmt(input_tokens)} out:{fmt(output_tokens)}')
+" 2>/dev/null)
+
+if [ -n "$tokens" ]; then
+  echo "$(colorize "$label") #[fg=colour244]$tokens"
+else
+  echo "$(colorize "$label")"
+fi
