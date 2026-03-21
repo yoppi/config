@@ -581,7 +581,7 @@ let g:ctrlp_prompt_mappings = {
   \ }
 
 if executable('rg')
-  let g:ctrlp_user_command = 'rg %s --files --color=never --hidden --glob "!.git"'
+  let g:ctrlp_user_command = 'rg %s --files --hidden --glob "!.git"'
   let g:ctrlp_use_caching = 0
 endif
 
