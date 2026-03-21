@@ -580,8 +580,8 @@ let g:ctrlp_prompt_mappings = {
   \ 'PrtCurLeft()': ['<left>', '<c-^>'],
   \ }
 
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+if executable('rg')
+  let g:ctrlp_user_command = 'rg %s --files --color=never --hidden --glob "!.git"'
   let g:ctrlp_use_caching = 0
 endif
 
